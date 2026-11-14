@@ -23,6 +23,9 @@ Use repository root `/`, build command `pnpm cf:prepare`, and deploy command
 | `VITE_APP_NAME`         | `southparkmaker`                              |
 | `DATABASE_PROVIDER`     | `d1`                                          |
 
+Keep `VITE_APP_DESCRIPTION`, `VITE_APP_LOGO`, and `VITE_DEFAULT_LOCALE` consistent
+with the production branding settings when configuring build variables.
+
 `cf:prepare` creates the ignored `wrangler.jsonc` from those public settings.
 `cf:deploy` builds the application using Nitro's `cloudflare_module` preset and
 deploys the generated Worker. It supports a clean GitHub checkout without local
