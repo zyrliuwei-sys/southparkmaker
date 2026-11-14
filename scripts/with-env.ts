@@ -67,6 +67,29 @@ if (args.length === 0) {
   process.exit(1);
 }
 
+// D1 has no local connection URL. Never let a database command silently
+// fall back to data/local.db after the application has switched to D1.
+if (process.env.DATABASE_PROVIDER === 'd1' && args[0] === 'drizzle-kit') {
+  if (args[1] === 'migrate') {
+    args.splice(
+      0,
+      args.length,
+      'wrangler',
+      'd1',
+      'migrations',
+      'apply',
+      'DB',
+      '--remote',
+      '--config=wrangler.jsonc'
+    );
+  } else if (args[1] !== 'generate') {
+    console.error(
+      'D1 uses wrangler.jsonc. Run pnpm db:generate, review the SQL, then pnpm db:migrate.'
+    );
+    process.exit(1);
+  }
+}
+
 const command = args.join(' ');
 console.log(`▶️  ${command}\n`);
 

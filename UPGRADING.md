@@ -46,6 +46,22 @@ exports, permission codes, and behavior that changes for end users.
 
 ---
 
+## 2026-11-14: SeeAPI admin settings
+
+Admin → Settings → AI now includes SeeAPI Base URL and API Key fields plus a
+read-only Test action (`GET https://api.seeapi.com/v1/credits`). Leave Base URL
+blank for the official endpoint. Credentials use the existing config table,
+secret masking and optional `CONFIG_ENCRYPTION_KEY` encryption; changing the
+endpoint requires re-entering the key. No schema, permission or dependency
+changes are needed. SeeAPI credentials are admin-panel-only.
+
+Port the `seeapi` definitions in `settings.ts` and `settings-test-specs.ts`,
+the dispatch/import in `settings-test.ts`, `seeapi-test.ts`, the
+`seeapi_base_url` entry in `service.ts` and the six `admin.settings.*seeapi*`
+English messages together. Rebuild to regenerate Paraglide. Configure each
+project's key through its own admin panel. This adds credential settings and
+testing; product generation flows must explicitly read and use these settings.
+
 ## 2026-11-13: Remove upstream product branding and demo articles
 
 Public/default copy now uses neutral account/workspace wording and the

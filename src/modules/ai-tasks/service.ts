@@ -25,6 +25,7 @@ export async function createTask(params: {
   prompt: string;
   costCredits?: number;
   options?: any;
+  scene?: string;
 }): Promise<any> {
   const { userId, mediaType, provider, model, prompt, costCredits, options } =
     params;
@@ -39,6 +40,8 @@ export async function createTask(params: {
       prompt,
       status: AITaskStatus.PENDING,
       costCredits: costCredits || 0,
+      options: options ? JSON.stringify(options) : null,
+      scene: params.scene,
     };
 
     // Plan the credit charge first, then write the task and the charge in one

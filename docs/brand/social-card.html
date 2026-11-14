@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>southparkmaker social card</title>
+    <style>
+      @import '../../tokens.css';
+      @font-face {
+        font-family: Brand;
+        src: url('../../node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-wght-normal.woff2')
+          format('woff2');
+        font-weight: 200 800;
+      }
+      @font-face {
+        font-family: Body;
+        src: url('../../node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2')
+          format('woff2');
+        font-weight: 200 800;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        width: 1200px;
+        height: 630px;
+        margin: 0;
+        background: var(--mk-paper);
+        color: var(--mk-ink);
+        overflow: hidden;
+        font-family: Body, sans-serif;
+      }
+      .card {
+        width: 1200px;
+        height: 630px;
+        display: grid;
+        grid-template-columns: 650px 550px;
+      }
+      .left {
+        padding: 42px 40px 38px 52px;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--mk-accent);
+        font:
+          750 30px Brand,
+          sans-serif;
+        letter-spacing: -1px;
+      }
+      .brand img {
+        width: 43px;
+        height: 43px;
+      }
+      h1 {
+        font:
+          650 72px/1.02 Brand,
+          sans-serif;
+        letter-spacing: -3px;
+        margin: 66px 0 24px;
+        max-width: 560px;
+      }
+      p {
+        font:
+          450 18px/1.8 Body,
+          sans-serif;
+        max-width: 510px;
+        margin: 0;
+        color: var(--mk-muted);
+      }
+      .bottom {
+        margin-top: auto;
+        display: flex;
+        gap: 24px;
+        align-items: center;
+        font-size: 13px;
+        font-weight: 650;
+        color: var(--mk-accent);
+      }
+      .bottom strong {
+        padding: 10px 14px;
+        border: 1px solid var(--mk-hair);
+        border-radius: 9px;
+        font-weight: 650;
+      }
+      .right {
+        padding: 32px 32px 32px 0;
+      }
+      .right img {
+        width: 518px;
+        height: 566px;
+        object-fit: cover;
+        border-radius: 30px;
+        border: 1px solid var(--mk-hair);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="left">
+        <div class="brand">
+          <img src="../../public/logo.svg" alt="" />southparkmaker
+        </div>
+        <h1>South Park<br />character maker.</h1>
+        <p>
+          Create your own paper-cut alter ego. Pick a look, change the details,
+          and download a character that feels like you.
+        </p>
+        <div class="bottom">
+          <strong>Free browser-based builder</strong
+          ><span>southparkmaker.com</span>
+        </div>
+      </div>
+      <div class="right">
+        <img
+          src="../../public/imgs/generated/southparkmaker-hero.jpg"
+          alt="southparkmaker brand card with original paper-cut characters in a snowy mountain scene"
+        />
+      </div>
+    </div>
+  </body>
+</html>

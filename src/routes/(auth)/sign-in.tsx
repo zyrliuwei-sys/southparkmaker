@@ -10,6 +10,7 @@ import { resolveAfterAuthUrl, safeInternalPath } from '@/lib/redirect';
 import { m } from '@/paraglide/messages.js';
 import { localizeHref } from '@/paraglide/runtime.js';
 import { usePublicConfig } from '@/hooks/use-public-config';
+import { AuthBrandPanel } from '@/blocks/auth-brand';
 import { TextField } from '@/components/form-field';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -132,15 +133,16 @@ function SignInPage() {
   }
 
   return (
-    <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
-      <div className="flex w-full max-w-sm flex-col gap-6">
-        <Link href="/" className="self-center font-serif text-lg italic">
+    <div className="maker-auth">
+      <AuthBrandPanel />
+      <div className="maker-auth-form">
+        <Link href="/" className="maker-brand">
           {configs.app_name || envConfigs.app_name}
         </Link>
         <Card>
           <CardHeader className="text-center">
             <CardTitle className="text-xl">
-              {m['common.sign.sign_in_title']()}
+              <h1>{m['common.sign.sign_in_title']()}</h1>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -314,5 +316,11 @@ function SignInPage() {
 }
 
 export const Route = createFileRoute('/(auth)/sign-in')({
+  head: () => ({
+    meta: [
+      { title: `${m['common.sign.sign_in_title']()} | ${envConfigs.app_name}` },
+      { name: 'robots', content: 'noindex, follow' },
+    ],
+  }),
   component: SignInPage,
 });

@@ -26,8 +26,23 @@ function ensureCloudflareEnv(): Promise<void> {
         (globalThis as any).__CF_ENV__ = mod.env;
         ensureDefaultUserAgent();
       })
-      .catch(() => {
-        // Not running on Cloudflare Workers — nothing to stash.
+      .catch(async () => {
+        if (import.meta.env.DEV && envConfigs.database_provider === 'd1') {
+          // Nitro runs SSR in its own worker. Create the binding here, in
+          // that worker, rather than in Vite's separate config process.
+          // `remote: true` in wrangler.jsonc points dev at the real D1.
+          const WRANGLER_MODULE = 'wrangler';
+          const { getPlatformProxy } = await import(
+            /* @vite-ignore */ WRANGLER_MODULE
+          );
+          const platform = await getPlatformProxy({
+            configPath: './wrangler.jsonc',
+            envFiles: [],
+            remoteBindings: true,
+          });
+          (globalThis as any).__CF_ENV__ = platform.env;
+          import.meta.hot?.dispose(() => platform.dispose());
+        }
       });
   }
   return cfEnvPromise;

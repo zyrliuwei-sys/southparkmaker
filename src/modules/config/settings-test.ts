@@ -24,6 +24,7 @@ import { R2Provider } from '@/core/storage/r2';
 import { envConfigs } from '@/config';
 import { getUniSeq } from '@/lib/hash';
 
+import { testSeeAPI } from './seeapi-test';
 import type { TestResult } from './settings-test-specs';
 
 export { getTestSpec, getTestableGroups } from './settings-test-specs';
@@ -54,6 +55,8 @@ export async function runTest(
         return await testOpenAI(inputs, configs);
       case 'anthropic':
         return await testAnthropic(inputs, configs);
+      case 'seeapi':
+        return await testSeeAPI(configs);
       case 'replicate':
         return await testReplicate(inputs, configs);
       case 'fal':

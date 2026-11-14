@@ -201,6 +201,12 @@ export function getSettingGroups(): SettingGroup[] {
       tab: 'ai',
     },
     {
+      name: 'seeapi',
+      title: 'SeeAPI',
+      description: 'SeeAPI unified AI API',
+      tab: 'ai',
+    },
+    {
       name: 'replicate',
       title: 'Replicate',
       description: 'Replicate AI API',
@@ -1006,6 +1012,24 @@ export function getSettings(): Setting[] {
       type: 'password',
       placeholder: 'sk-ant-xxx',
       group: 'anthropic',
+      tab: 'ai',
+    },
+
+    // ─── AI / SeeAPI ─────────────────────────────────────────────────
+    {
+      name: 'seeapi_base_url',
+      title: 'Base URL',
+      type: 'text',
+      placeholder: 'https://api.seeapi.com',
+      group: 'seeapi',
+      tab: 'ai',
+    },
+    {
+      name: 'seeapi_api_key',
+      title: 'API Key',
+      type: 'password',
+      placeholder: 'YOUR_API_KEY',
+      group: 'seeapi',
       tab: 'ai',
     },
 

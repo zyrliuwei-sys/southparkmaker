@@ -1,0 +1,1222 @@
+{
+  "title": "Free AI Coloring Page Generator | ColoringStore",
+  "fonts": [
+    "https://coloringstore.com/assets/index-VdKFXZdC.css",
+    "https://coloringstore.com/assets/routes-DEjGe0KV.css",
+    "https://accounts.google.com/gsi/style"
+  ],
+  "body": {
+    "font": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+    "background": "rgb(255, 252, 250)",
+    "color": "rgb(47, 39, 34)"
+  },
+  "elements": [
+    {
+      "tag": "HEADER",
+      "cls": "sticky top-0 z-40 transition-[background-color,border-color,box-shadow] duration-300 border-b border-transparent bg-transparent",
+      "text": "ColoringStoreFree PagesExplore Use CasesGalleryPricingEnglishLoginStart for Free",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "sticky",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 1640,
+        "h": 73
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "cls": "inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-[var(--ink)] transition hover:bg-[var(--paper-2)] lg:hidden",
+      "text": "",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "1.67772e+07px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "tag": "NAV",
+      "cls": "ml-8 hidden items-center gap-1 lg:flex",
+      "text": "Free PagesExplore Use CasesGallery",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "4px",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 426.09375,
+        "y": 18,
+        "w": 339.265625,
+        "h": 36
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "cls": "inline-flex items-center transition-colors outline-none gap-2 rounded-full border h-9 text-sm border-[var(--hair)] bg-transparent px-3 font-medium text-[var(--ink-2)] hover:bg-[var(--paper-2)]",
+      "text": "English",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "500",
+        "lineHeight": "20px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(59, 52, 44)",
+        "padding": "0px 12px",
+        "gap": "8px",
+        "border": "1px solid rgba(22, 19, 15, 0.12)",
+        "borderRadius": "1.67772e+07px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 1091.578125,
+        "y": 18,
+        "w": 122.5546875,
+        "h": 36
+      }
+    },
+    {
+      "tag": "SECTION",
+      "cls": "relative overflow-hidden",
+      "text": "ColoringStoreFree AI Coloring Page GeneratorTurn a short text prompt into clean printable black-and-white line art. Preview your A",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "relative",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 0,
+        "y": 73,
+        "w": 1640,
+        "h": 928.453125
+      }
+    },
+    {
+      "tag": "H1",
+      "cls": "hx-display mt-5 text-[clamp(2.6rem,5.2vw,4.75rem)] text-[var(--ink)]",
+      "text": "Free AI Coloring Page Generator",
+      "css": {
+        "fontFamily": "\"Libre Baskerville\", serif, ui-serif, Georgia, Cambria, \"Times New Roman\", \"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", SimSun, Times, serif",
+        "fontSize": "76px",
+        "fontWeight": "400",
+        "lineHeight": "74.48px",
+        "letterSpacing": "-2.66px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 192,
+        "y": 157,
+        "w": 712.6640625,
+        "h": 148.953125
+      }
+    },
+    {
+      "tag": "FORM",
+      "cls": "grid min-w-0 overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-[0_24px_70px_-48px_rgba(120,72,82,0.5)] sm:grid-cols-[64px_minmax(0,1fr)]",
+      "text": "ColoringMake something printableDifficultyEasyMediumDetailedCreate free coloring pageStart with a sampleA cute dinosaur reading a ",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "1px solid oklch(0.923 0.003 48.717)",
+        "borderRadius": "16px",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(120, 72, 82, 0.5) 0px 24px 70px -48px",
+        "position": "static",
+        "gridTemplateColumns": "64px 646.664px"
+      },
+      "rect": {
+        "x": 192,
+        "y": 493.953125,
+        "w": 712.6640625,
+        "h": 359.5
+      }
+    },
+    {
+      "tag": "NAV",
+      "cls": "flex min-w-0 gap-1 overflow-x-auto border-b border-stone-200 bg-stone-50/80 p-2 sm:flex-col sm:overflow-visible sm:border-b-0 sm:border-r",
+      "text": "",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "oklab(0.985 -0.000282726 0.000959201 / 0.8)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "8px",
+        "gap": "4px",
+        "border": "",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 193,
+        "y": 494.953125,
+        "w": 64,
+        "h": 357.5
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "cls": "inline-flex size-10 shrink-0 items-center justify-center rounded-xl border transition sm:size-11 border-primary/25 bg-primary/10 text-primary shadow-sm",
+      "text": "",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "oklab(0.655773 0.148966 0.12469 / 0.1)",
+        "color": "rgb(238, 90, 27)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "1px solid oklab(0.655773 0.148966 0.12469 / 0.25)",
+        "borderRadius": "14px",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 201,
+        "y": 502.953125,
+        "w": 44,
+        "h": 44
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "cls": "inline-flex size-10 shrink-0 items-center justify-center rounded-xl border text-stone-500 transition sm:size-11 border-transparent hover:border-stone-200 hover:bg-white hover:text-stone-900",
+      "text": "",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "oklch(0.553 0.013 58.071)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "1px solid rgba(0, 0, 0, 0)",
+        "borderRadius": "14px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 201,
+        "y": 550.953125,
+        "w": 44,
+        "h": 44
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "cls": "inline-flex size-10 shrink-0 items-center justify-center rounded-xl border text-stone-500 transition sm:size-11 border-transparent hover:border-stone-200 hover:bg-white hover:text-stone-900",
+      "text": "",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "oklch(0.553 0.013 58.071)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "1px solid rgba(0, 0, 0, 0)",
+        "borderRadius": "14px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 201,
+        "y": 598.953125,
+        "w": 44,
+        "h": 44
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "cls": "inline-flex size-10 shrink-0 items-center justify-center rounded-xl border text-stone-500 transition sm:size-11 border-transparent hover:border-stone-200 hover:bg-white hover:text-stone-900",
+      "text": "",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "oklch(0.553 0.013 58.071)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "1px solid rgba(0, 0, 0, 0)",
+        "borderRadius": "14px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 201,
+        "y": 646.953125,
+        "w": 44,
+        "h": 44
+      }
+    },
+    {
+      "tag": "SECTION",
+      "cls": "min-w-0 rounded-[14px] border border-stone-200 bg-stone-50/55 p-3 transition focus-within:border-primary/30 focus-within:bg-white focus-within:ring-4 focus-within:ring-primary/[0.06]",
+      "text": "DifficultyEasyMediumDetailedCreate free coloring page",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "oklab(0.985 -0.000282726 0.000959201 / 0.55)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "12px",
+        "gap": "normal",
+        "border": "1px solid oklch(0.923 0.003 48.717)",
+        "borderRadius": "14px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 273,
+        "y": 535.453125,
+        "w": 614.6640625,
+        "h": 233
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "cls": "flex h-full w-full items-center justify-center overflow-hidden rounded-lg border border-dashed border-stone-300 bg-white text-stone-400 transition hover:border-primary/45 hover:text-primary",
+      "text": "",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "color": "oklch(0.709 0.01 56.259)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "1px dashed oklch(0.869 0.005 56.366)",
+        "borderRadius": "10px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 286,
+        "y": 548.453125,
+        "w": 48,
+        "h": 64
+      }
+    },
+    {
+      "tag": "TEXTAREA",
+      "cls": "min-h-32 min-w-0 flex-1 resize-none border-0 bg-transparent px-0.5 py-0.5 text-sm leading-6 text-stone-950 outline-none placeholder:text-stone-400 sm:min-h-36 sm:text-[15px]",
+      "text": "",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "15px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "oklch(0.147 0.004 49.25)",
+        "padding": "2px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 346,
+        "y": 548.453125,
+        "w": 528.6640625,
+        "h": 144
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "cls": "inline-flex h-10 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-4 text-sm font-semibold text-white shadow-md shadow-primary/15 transition hover:bg-primary/90 md:w-auto",
+      "text": "Create free coloring page",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "600",
+        "lineHeight": "20px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgb(238, 90, 27)",
+        "color": "rgb(255, 255, 255)",
+        "padding": "0px 16px",
+        "gap": "8px",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "1.67772e+07px",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, oklab(0.655773 0.148966 0.12469 / 0.15) 0px 4px 6px -1px, oklab(0.655773 0.148966 0.12469 / 0.15) 0px 2px 4px -2px",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 626.2734375,
+        "y": 715.453125,
+        "w": 248.390625,
+        "h": 40
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "cls": "min-w-0 max-w-full break-words rounded-full px-2 py-1 text-left text-xs font-medium text-stone-500 transition hover:bg-primary/[0.06] hover:text-primary",
+      "text": "A cute dinosaur reading a book",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "500",
+        "lineHeight": "16px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "oklch(0.553 0.013 58.071)",
+        "padding": "4px 8px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "1.67772e+07px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 386.75,
+        "y": 780.453125,
+        "w": 194.625,
+        "h": 24
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "cls": "min-w-0 max-w-full break-words rounded-full px-2 py-1 text-left text-xs font-medium text-stone-500 transition hover:bg-primary/[0.06] hover:text-primary",
+      "text": "A robot watering a flower garden",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "500",
+        "lineHeight": "16px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "oklch(0.553 0.013 58.071)",
+        "padding": "4px 8px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "1.67772e+07px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 585.375,
+        "y": 780.453125,
+        "w": 204.296875,
+        "h": 24
+      }
+    },
+    {
+      "tag": "BUTTON",
+      "cls": "min-w-0 max-w-full break-words rounded-full px-2 py-1 text-left text-xs font-medium text-stone-500 transition hover:bg-primary/[0.06] hover:text-primary",
+      "text": "A castle above the clouds",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "12px",
+        "fontWeight": "500",
+        "lineHeight": "16px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "oklch(0.553 0.013 58.071)",
+        "padding": "4px 8px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "1.67772e+07px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 277,
+        "y": 808.453125,
+        "w": 163.4140625,
+        "h": 24
+      }
+    },
+    {
+      "tag": "SECTION",
+      "cls": "border-y border-[var(--hair)]",
+      "text": "PNG/PDF downloadsSave pages that are ready to print at home or in class.Private by defaultUploads and generations stay private unl",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 0,
+        "y": 1001.453125,
+        "w": 1640,
+        "h": 122
+      }
+    },
+    {
+      "tag": "SECTION",
+      "cls": "bg-[var(--paper-2)]",
+      "text": "",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgb(243, 234, 219)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 0,
+        "y": 1123.453125,
+        "w": 1640,
+        "h": 254
+      }
+    },
+    {
+      "tag": "SECTION",
+      "cls": "mx-auto max-w-[1320px] px-5 py-20 md:px-8 md:py-28",
+      "text": "Quick Start GuideExplore focused toolsUse a dedicated page when you need a different printable workflow. AIText to Coloring Page G",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "112px 32px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 160,
+        "y": 1377.453125,
+        "w": 1320,
+        "h": 1315.875
+      }
+    },
+    {
+      "tag": "H2",
+      "cls": "hx-display mt-4 text-[clamp(2.1rem,4.4vw,3.6rem)]",
+      "text": "Explore focused tools",
+      "css": {
+        "fontFamily": "\"Libre Baskerville\", serif, ui-serif, Georgia, Cambria, \"Times New Roman\", \"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", SimSun, Times, serif",
+        "fontSize": "57.6px",
+        "fontWeight": "400",
+        "lineHeight": "56.448px",
+        "letterSpacing": "-2.016px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 192,
+        "y": 1551.453125,
+        "w": 768,
+        "h": 56.4453125
+      }
+    },
+    {
+      "tag": "SECTION",
+      "cls": "border-t border-[var(--hair)] bg-[var(--paper-2)]",
+      "text": "What you can createExplore useful examples and find inspiration for your next printable coloring page.Cute animal pages“A smiling ",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgb(243, 234, 219)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 0,
+        "y": 2693.328125,
+        "w": 1640,
+        "h": 1399.4453125
+      }
+    },
+    {
+      "tag": "H2",
+      "cls": "hx-display mt-4 text-[clamp(2.1rem,4.4vw,3.6rem)]",
+      "text": "What you can create",
+      "css": {
+        "fontFamily": "\"Libre Baskerville\", serif, ui-serif, Georgia, Cambria, \"Times New Roman\", \"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", SimSun, Times, serif",
+        "fontSize": "57.6px",
+        "fontWeight": "400",
+        "lineHeight": "56.448px",
+        "letterSpacing": "-2.016px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 192,
+        "y": 2844.328125,
+        "w": 768,
+        "h": 56.4453125
+      }
+    },
+    {
+      "tag": "SECTION",
+      "cls": "mx-auto max-w-[1320px] px-5 py-20 md:px-8 md:py-28",
+      "text": "How the AI coloring page generator worksThe workflow stays simple: describe or upload, generate a clean outline, then download and",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "112px 32px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 160,
+        "y": 4092.7734375,
+        "w": 1320,
+        "h": 728.890625
+      }
+    },
+    {
+      "tag": "H2",
+      "cls": "hx-display mt-4 text-[clamp(2.1rem,4.4vw,3.6rem)]",
+      "text": "How the AI coloring page generator works",
+      "css": {
+        "fontFamily": "\"Libre Baskerville\", serif, ui-serif, Georgia, Cambria, \"Times New Roman\", \"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", SimSun, Times, serif",
+        "fontSize": "57.6px",
+        "fontWeight": "400",
+        "lineHeight": "56.448px",
+        "letterSpacing": "-2.016px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 192,
+        "y": 4242.7734375,
+        "w": 768,
+        "h": 112.890625
+      }
+    },
+    {
+      "tag": "SECTION",
+      "cls": "border-y border-[var(--hair)] bg-white",
+      "text": "Built for families, teachers, and creatorsWhy use ColoringStore?Make clean, printable coloring pages for home, class, or creative ",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 0,
+        "y": 4821.6640625,
+        "w": 1640,
+        "h": 693
+      }
+    },
+    {
+      "tag": "H2",
+      "cls": "hx-display mt-4 text-[clamp(2.1rem,4.4vw,3.6rem)]",
+      "text": "Why use ColoringStore?",
+      "css": {
+        "fontFamily": "\"Libre Baskerville\", serif, ui-serif, Georgia, Cambria, \"Times New Roman\", \"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", SimSun, Times, serif",
+        "fontSize": "57.6px",
+        "fontWeight": "400",
+        "lineHeight": "56.448px",
+        "letterSpacing": "-2.016px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 192,
+        "y": 4996.6640625,
+        "w": 490.6640625,
+        "h": 112.890625
+      }
+    },
+    {
+      "tag": "SECTION",
+      "cls": "mx-auto max-w-[1320px] px-5 py-16 md:px-8 md:py-20",
+      "text": "Popular Free Coloring PagesBrowse free printable pages by favorite characters and themes.Disney Coloring PagesStitch Coloring Page",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "80px 32px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 160,
+        "y": 5514.6640625,
+        "w": 1320,
+        "h": 315.796875
+      }
+    },
+    {
+      "tag": "H2",
+      "cls": "hx-display text-[clamp(1.9rem,3.4vw,2.8rem)]",
+      "text": "Popular Free Coloring Pages",
+      "css": {
+        "fontFamily": "\"Libre Baskerville\", serif, ui-serif, Georgia, Cambria, \"Times New Roman\", \"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", SimSun, Times, serif",
+        "fontSize": "44.8px",
+        "fontWeight": "400",
+        "lineHeight": "43.904px",
+        "letterSpacing": "-1.568px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 192,
+        "y": 5616.6640625,
+        "w": 446.2265625,
+        "h": 87.796875
+      }
+    },
+    {
+      "tag": "NAV",
+      "cls": "",
+      "text": "Disney Coloring PagesStitch Coloring PagesKitten Coloring PagesGodzilla Coloring PagesBrowse all free pages",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 670.2265625,
+        "y": 5676.4609375,
+        "w": 777.7734375,
+        "h": 96
+      }
+    },
+    {
+      "tag": "SECTION",
+      "cls": "border-t border-[var(--hair)]",
+      "text": "AI Coloring Page Generator FAQsAnswers to the most common questions about using the ColoringStore AI coloring page generator to cr",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 0,
+        "y": 5830.4609375,
+        "w": 1640,
+        "h": 792
+      }
+    },
+    {
+      "tag": "H2",
+      "cls": "hx-display text-[clamp(2.1rem,4vw,3.2rem)]",
+      "text": "AI Coloring Page Generator FAQs",
+      "css": {
+        "fontFamily": "\"Libre Baskerville\", serif, ui-serif, Georgia, Cambria, \"Times New Roman\", \"Noto Serif SC\", \"Source Han Serif SC\", \"Songti SC\", SimSun, Times, serif",
+        "fontSize": "51.2px",
+        "fontWeight": "400",
+        "lineHeight": "50.176px",
+        "letterSpacing": "-1.792px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "color": "rgb(22, 19, 15)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "static",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 192,
+        "y": 5965.4609375,
+        "w": 386.6640625,
+        "h": 150.515625
+      }
+    },
+    {
+      "tag": "SECTION",
+      "cls": "relative overflow-hidden bg-[var(--ink)] text-[var(--paper)]",
+      "text": "Simply describe what you want to createCreate from textConvert an image",
+      "css": {
+        "fontFamily": "\"Inter Variable\", Inter, sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", Helvetica, Arial, sans-serif",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "normal",
+        "backgroundColor": "rgb(22, 19, 15)",
+        "color": "rgb(251, 246, 238)",
+        "padding": "0px",
+        "gap": "normal",
+        "border": "0px solid rgb(230, 220, 209)",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "position": "relative",
+        "gridTemplateColumns": "none"
+      },
+      "rect": {
+        "x": 0,
+        "y": 6622.4609375,
+        "w": 1640,
+        "h": 660
+      }
+    }
+  ],
+  "images": [
+    {
+      "src": "https://coloringstore.com/imgs/home/pet-print.webp",
+      "alt": "",
+      "w": 300,
+      "h": 300
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/pet-photo.webp",
+      "alt": "Original Photo",
+      "w": 419,
+      "h": 419
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/pet-line.webp",
+      "alt": "Photo converted into a clean printable coloring page",
+      "w": 420,
+      "h": 420
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/pet-line-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/6-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/puppy-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/family-line-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/3-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/anime-girl-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/object-line-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/1-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/text-preview-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/sketch_input-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/pet-line-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/6-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/puppy-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/family-line-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/3-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/anime-girl-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/object-line-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/1-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/text-preview-400.webp",
+      "alt": "",
+      "w": 400,
+      "h": 400
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/sketch_input-400.webp",
+      "alt": "",
+      "w": 0,
+      "h": 0
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/text-to-coloring-page-generator-preview.webp",
+      "alt": "Text prompt turned into a printable dinosaur coloring page",
+      "w": 640,
+      "h": 640
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/family-line.webp",
+      "alt": "Photo converted into a clean printable coloring page",
+      "w": 440,
+      "h": 440
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/family-photo.webp",
+      "alt": "",
+      "w": 440,
+      "h": 440
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/free-printable-coloring-pages-icon.svg",
+      "alt": "Free printable coloring pages icon",
+      "w": 96,
+      "h": 96
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/online-coloring-tool-icon.svg",
+      "alt": "Online coloring tool icon",
+      "w": 96,
+      "h": 96
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/name-coloring-pages-icon.svg",
+      "alt": "Name coloring pages icon",
+      "w": 96,
+      "h": 96
+    },
+    {
+      "src": "https://coloringstore.com/imgs/showcases/1.webp",
+      "alt": "Printable coloring page of a cute cat sitting on a bench with flowers",
+      "w": 1024,
+      "h": 1024
+    },
+    {
+      "src": "https://coloringstore.com/imgs/showcases/6.webp",
+      "alt": "Printable ocean classroom coloring sheet with a turtle and fish",
+      "w": 280,
+      "h": 280
+    },
+    {
+      "src": "https://coloringstore.com/imgs/showcases/3.webp",
+      "alt": "Printable dinosaur storybook coloring page with jungle plants and a volcano",
+      "w": 280,
+      "h": 280
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/anime-girl-400.webp",
+      "alt": "Printable fantasy character coloring page with flowers and stars",
+      "w": 0,
+      "h": 0
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/sketch_input-400.webp",
+      "alt": "Printable line art converted from an uploaded image",
+      "w": 0,
+      "h": 0
+    },
+    {
+      "src": "https://coloringstore.com/imgs/home/thumbs/pet-photo-400.webp",
+      "alt": "",
+      "w": 0,
+      "h": 0
+    }
+  ],
+  "links": [
+    {
+      "text": "ColoringStore",
+      "href": "https://coloringstore.com/"
+    },
+    {
+      "text": "Free Pages",
+      "href": "https://coloringstore.com/free-coloring-pages"
+    },
+    {
+      "text": "Explore Use Cases",
+      "href": "https://coloringstore.com/use-cases"
+    },
+    {
+      "text": "Gallery",
+      "href": "https://coloringstore.com/gallery"
+    },
+    {
+      "text": "Pricing",
+      "href": "https://coloringstore.com/pricing"
+    },
+    {
+      "text": "Login",
+      "href": "https://coloringstore.com/sign-in?callbackUrl=%2F"
+    },
+    {
+      "text": "Start for Free",
+      "href": "https://coloringstore.com/create?tool=text"
+    },
+    {
+      "text": "AI\nText to Coloring Page Generator\n\nTurn a prompt into printable black-and-white line art.\n\n›A gentle fantasy charact\nOpen text generator",
+      "href": "https://coloringstore.com/text-to-coloring"
+    },
+    {
+      "text": "AI\nImage to Coloring Page Converter\n\nConvert a photo into printable line art.\n\nOpen image converter",
+      "href": "https://coloringstore.com/image-to-coloring"
+    },
+    {
+      "text": "FREE\nFree Printable Coloring Pages\n\nBrowse free pages and download single-page PDFs.\n\nBrowse free pages",
+      "href": "https://coloringstore.com/free-coloring-pages"
+    },
+    {
+      "text": "FREE\nOnline Coloring Tool\n\nColor a page in your browser and save the result.\n\nColor online",
+      "href": "https://coloringstore.com/online-coloring"
+    },
+    {
+      "text": "AI\nName Coloring Pages Generator\n\nCreate a printable coloring page personalized with a name.\n\nCreate a name page",
+      "href": "https://coloringstore.com/name-coloring"
+    }
+  ]
+}

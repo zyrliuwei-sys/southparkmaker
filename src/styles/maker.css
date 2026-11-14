@@ -1,0 +1,2000 @@
+/* Alpine Studio: precise type, forest ink, and the character itself as the signature. */
+.maker-page {
+  min-height: 100vh;
+  color: var(--mk-ink);
+  background: var(--mk-paper);
+}
+.maker-container {
+  width: min(1240px, calc(100% - 96px));
+  margin-inline: auto;
+}
+.maker-page section[id] {
+  scroll-margin-top: 112px;
+}
+.maker-page :is(a, button, input, textarea, select, summary):focus-visible,
+.maker-auth :is(a, button, input):focus-visible {
+  outline: 2px solid var(--mk-accent);
+  outline-offset: 4px;
+}
+.maker-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid var(--mk-hair);
+  background: color-mix(in oklch, var(--mk-paper) 95%, transparent);
+  backdrop-filter: blur(16px);
+}
+.maker-header-inner {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.maker-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-weight: 750;
+  font-size: 25px;
+  letter-spacing: -1px;
+  color: var(--mk-accent);
+}
+.maker-brand img {
+  flex-shrink: 0;
+}
+.maker-desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-left: 24px;
+  font-size: 12px;
+  font-weight: 650;
+}
+.maker-desktop-nav a,
+.maker-login {
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.maker-desktop-nav a:hover,
+.maker-login:hover {
+  color: var(--mk-accent);
+}
+.maker-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 650;
+}
+.maker-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 12px 21px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.35;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+.maker-button:hover {
+  transform: translateY(-2px);
+}
+.maker-button:active {
+  transform: translateY(0);
+}
+.maker-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+.maker-button-ink,
+.maker-button-primary {
+  background: var(--mk-accent);
+  color: var(--mk-on-accent);
+}
+.maker-button-outline {
+  border-color: var(--mk-hair);
+  color: var(--mk-ink);
+  background: var(--mk-white);
+}
+.maker-menu-button {
+  display: none;
+  padding: 8px;
+}
+.maker-mobile-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 24px 24px;
+  border-top: 1px solid var(--mk-hair);
+  gap: 4px;
+}
+.maker-mobile-nav a {
+  padding: 11px 8px;
+  font-weight: 650;
+}
+.maker-hero {
+  padding: 58px 0 70px;
+}
+.maker-hero-grid {
+  display: grid;
+  grid-template-columns: 1.08fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+.maker-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--mk-accent);
+  margin-bottom: 18px;
+  display: inline-flex;
+  padding: 7px 12px;
+  border: 1px solid var(--mk-hair);
+  border-radius: 8px;
+  background: var(--mk-white);
+}
+.maker-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(52px, 5vw, 74px);
+  font-weight: 650;
+  line-height: 1.015;
+  letter-spacing: -3.2px;
+  max-width: 620px;
+  text-wrap: balance;
+}
+.maker-hero-description {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--mk-muted);
+  margin-top: 22px;
+  max-width: 510px;
+}
+.maker-prompt-box {
+  margin-top: 28px;
+  background: var(--mk-white);
+  border: 1px solid var(--mk-hair);
+  border-radius: 18px;
+  box-shadow: 0 12px 36px -24px var(--mk-shadow);
+  overflow: hidden;
+}
+.maker-prompt-modes {
+  display: flex;
+  gap: 4px;
+  padding: 7px;
+  background: var(--mk-paper-deep);
+  border-bottom: 1px solid var(--mk-hair);
+}
+.maker-prompt-modes button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex: 1;
+  padding: 9px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--mk-muted);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.maker-prompt-modes button.is-active {
+  color: var(--mk-accent);
+  border-color: var(--mk-hair);
+  background: var(--mk-white);
+  box-shadow: 0 2px 4px var(--mk-shadow);
+}
+.maker-prompt-modes button:hover {
+  color: var(--mk-ink);
+}
+.maker-prompt-body {
+  padding: 16px;
+}
+.maker-prompt-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 10px;
+  margin-bottom: 13px;
+}
+.maker-prompt-heading strong {
+  font-weight: 750;
+}
+.maker-prompt-heading span {
+  color: var(--mk-muted);
+}
+.maker-builder-presets {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.maker-builder-presets button {
+  border: 1px solid var(--mk-hair);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--mk-paper);
+  padding: 5px;
+}
+.maker-builder-presets button[aria-pressed='true'] {
+  border-color: var(--mk-accent);
+  outline: 1px solid var(--mk-accent);
+  background: var(--mk-accent-soft);
+}
+.maker-builder-presets .character-art {
+  aspect-ratio: auto;
+  height: 87px;
+  border-radius: 6px;
+}
+.maker-builder-presets button > span {
+  display: block;
+  padding: 7px 1px 3px;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+.maker-prompt-input {
+  display: block;
+}
+.maker-prompt-input textarea {
+  display: block;
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  padding: 13px;
+  border: 1px solid var(--mk-hair);
+  border-radius: 10px;
+  background: var(--mk-paper);
+  color: var(--mk-ink);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.maker-prompt-input textarea::placeholder {
+  color: var(--mk-muted);
+}
+.maker-prompt-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 14px;
+}
+.maker-mode-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--mk-muted);
+}
+.maker-prompt-bottom .maker-button {
+  min-height: 39px;
+  padding: 10px 13px;
+  font-size: 11px;
+}
+.maker-samples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin-top: 14px;
+  font-size: 9px;
+  line-height: 1.6;
+  color: var(--mk-muted);
+}
+.maker-samples button {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.maker-samples button:hover {
+  color: var(--mk-accent);
+}
+.maker-photo-entry {
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 16px;
+  border: 1px dashed var(--mk-hair);
+  border-radius: 10px;
+  text-align: center;
+}
+.maker-photo-entry p {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--mk-muted);
+}
+.maker-hero-benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 19px;
+  color: var(--mk-muted);
+  font-size: 10px;
+}
+.maker-hero-benefits > span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.maker-hero-benefits svg {
+  color: var(--mk-accent);
+}
+.maker-hero-art {
+  min-width: 0;
+  border: 1px solid var(--mk-hair);
+  background: var(--mk-white);
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 20px 56px -36px var(--mk-shadow);
+}
+.maker-art-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 23px;
+  color: var(--mk-muted);
+  font-size: 10px;
+  font-weight: 700;
+}
+.maker-art-topline > span:first-child {
+  color: var(--mk-accent);
+}
+.maker-art-stage {
+  margin-inline: 12px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--mk-sky);
+  aspect-ratio: 1.11;
+}
+.maker-art-stage .character-art {
+  height: 100%;
+}
+.maker-hero-art figcaption {
+  padding: 22px 25px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.maker-hero-art figcaption strong {
+  font-family: var(--font-display);
+  font-weight: 650;
+  font-size: 23px;
+  letter-spacing: -0.5px;
+}
+.maker-hero-art figcaption p {
+  font-size: 10px;
+  line-height: 1.6;
+  color: var(--mk-muted);
+  margin-top: 6px;
+  max-width: 330px;
+}
+.maker-hero-art figcaption > svg {
+  flex-shrink: 0;
+  color: var(--mk-accent);
+}
+.maker-section {
+  padding-block: var(--space-section);
+}
+.maker-section-heading {
+  margin-bottom: 38px;
+}
+.maker-section-heading h2,
+.maker-faq-heading h2,
+.maker-guide-intro h2,
+.maker-export-grid h2 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3vw, 43px);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -1.5px;
+  max-width: 780px;
+  text-wrap: balance;
+}
+.maker-section-heading p,
+.maker-faq-heading p {
+  margin-top: 16px;
+  max-width: 660px;
+  color: var(--mk-muted);
+  font-size: 14px;
+  line-height: 1.85;
+}
+.maker-two-paths {
+  display: grid;
+  grid-template-columns: 1.13fr 1fr;
+  gap: 24px;
+}
+.maker-path {
+  padding: 32px;
+  border: 1px solid var(--mk-hair);
+  border-radius: var(--radius-panel);
+  background: var(--mk-white);
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 24px;
+  align-items: center;
+}
+.maker-path:nth-child(2) {
+  background: var(--mk-paper-deep);
+}
+.maker-path-icon {
+  display: flex;
+  color: var(--mk-accent);
+  margin-bottom: 20px;
+}
+.maker-path h3 {
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: -0.7px;
+  line-height: 1.2;
+}
+.maker-path p {
+  color: var(--mk-muted);
+  font-size: 14px;
+  line-height: 1.9;
+  margin: 15px 0 22px;
+}
+.maker-path a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--mk-accent);
+}
+.maker-path-preview {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--mk-accent-soft);
+  overflow: hidden;
+}
+.maker-path-preview .character-art {
+  width: 100%;
+  height: 100%;
+}
+.maker-prompt-paper {
+  padding: 20px 15px;
+  border: 1px solid var(--mk-hair);
+  background: var(--mk-white);
+  border-radius: 12px;
+}
+.maker-prompt-paper p {
+  font-size: 12px;
+  margin: 12px 0 0;
+}
+.maker-prompt-paper svg {
+  color: var(--mk-accent);
+}
+.maker-gallery-section {
+  padding-top: 0;
+}
+.maker-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.maker-gallery-card {
+  display: block;
+  min-width: 0;
+  border: 1px solid var(--mk-hair);
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--mk-white);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.maker-gallery-card:hover {
+  transform: translateY(-5px);
+}
+.maker-gallery-picture {
+  aspect-ratio: 1.18;
+  padding: 12px 12px 0;
+  overflow: hidden;
+}
+.maker-gallery-picture .character-art {
+  height: 100%;
+  border-radius: 12px 12px 0 0;
+}
+.maker-gallery-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px;
+}
+.maker-gallery-meta h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: -0.4px;
+}
+.maker-gallery-meta p {
+  color: var(--mk-muted);
+  font-size: 10px;
+  line-height: 1.7;
+  margin-top: 5px;
+}
+.maker-gallery-meta > span {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--mk-hair);
+  border-radius: 10px;
+  color: var(--mk-accent);
+  flex-shrink: 0;
+}
+.maker-steps-section {
+  border-block: 1px solid var(--mk-hair);
+  background: var(--mk-paper-deep);
+}
+.maker-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 38px;
+  list-style: none;
+}
+.maker-step-visual {
+  height: 170px;
+  border-radius: 16px;
+  background: var(--mk-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.maker-step-visual > svg {
+  width: 38px;
+  height: 38px;
+  stroke-width: 1.4;
+  color: var(--mk-accent);
+}
+.maker-step-number {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  font-size: 10px;
+  font-weight: 750;
+  color: var(--mk-muted);
+}
+.maker-step-visual .character-art {
+  width: 170px;
+  height: 170px;
+}
+.maker-steps h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  line-height: 1.25;
+}
+.maker-steps p {
+  margin-top: 13px;
+  font-size: 14px;
+  line-height: 1.95;
+  color: var(--mk-muted);
+}
+.maker-guide-intro {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 100px;
+  align-items: center;
+  margin-bottom: 56px;
+}
+.maker-guide-intro > div > p {
+  margin-top: 24px;
+  color: var(--mk-muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+.maker-guide-intro figure {
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--mk-hair);
+  background: var(--mk-white);
+}
+.maker-guide-intro img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.maker-guide-intro figcaption {
+  padding: 15px 20px;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 550;
+}
+.maker-guide-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 64px;
+}
+.maker-guide-details article {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 18px;
+}
+.maker-guide-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--mk-hair);
+  border-radius: 12px;
+  color: var(--mk-accent);
+  background: var(--mk-white);
+}
+.maker-guide-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.6;
+}
+.maker-guide-details h3,
+.maker-use-grid h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.3;
+  letter-spacing: -0.45px;
+}
+.maker-guide-details p,
+.maker-use-grid p {
+  margin-top: 13px;
+  color: var(--mk-muted);
+  font-size: 13px;
+  line-height: 1.95;
+}
+.maker-use-section {
+  padding-top: 0;
+}
+.maker-use-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--mk-hair);
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--mk-white);
+}
+.maker-use-grid article {
+  padding: 28px 24px;
+}
+.maker-use-grid article + article {
+  border-left: 1px solid var(--mk-hair);
+}
+.maker-use-grid h3 {
+  font-size: 18px;
+}
+.maker-use-grid p {
+  font-size: 12px;
+}
+.maker-export-section {
+  background: var(--mk-paper-deep);
+  border-block: 1px solid var(--mk-hair);
+}
+.maker-export-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 90px;
+  align-items: center;
+}
+.maker-export-art {
+  padding: 28px;
+  background: var(--mk-white);
+  border: 1px solid var(--mk-hair);
+  border-radius: 24px;
+}
+.maker-export-sample {
+  border-radius: 16px;
+  background-color: var(--mk-paper-deep);
+  background-image: conic-gradient(
+    var(--mk-white) 25%,
+    transparent 0 50%,
+    var(--mk-white) 0 75%,
+    transparent 0
+  );
+  background-size: 24px 24px;
+  overflow: hidden;
+}
+.maker-format-tabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 20px;
+}
+.maker-format-tabs > span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid var(--mk-hair);
+  border-radius: 9px;
+  padding: 9px 13px;
+  font-weight: 750;
+  font-size: 12px;
+  color: var(--mk-accent);
+}
+.maker-format-tabs > svg {
+  margin-left: auto;
+  color: var(--mk-accent);
+}
+.maker-export-lede {
+  font-size: 14px;
+  line-height: 1.9;
+  margin-top: 20px;
+  color: var(--mk-muted);
+}
+.maker-export-formats {
+  margin: 26px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.maker-export-formats h3 {
+  font-size: 13px;
+  font-weight: 800;
+}
+.maker-export-formats p {
+  font-size: 13px;
+  line-height: 1.95;
+  margin-top: 10px;
+  color: var(--mk-muted);
+}
+.maker-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--mk-accent);
+  font-weight: 800;
+  font-size: 13px;
+}
+.maker-export-note {
+  font-size: 10px;
+  color: var(--mk-muted);
+  margin-top: 16px;
+  line-height: 1.8;
+}
+.maker-faq-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 90px;
+  align-items: start;
+}
+.maker-faq-heading {
+  position: sticky;
+  top: 120px;
+}
+.maker-faq details {
+  padding: 21px 0;
+  border-bottom: 1px solid var(--mk-hair);
+}
+.maker-faq details:first-child {
+  padding-top: 0;
+}
+.maker-faq summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  gap: 24px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.8;
+}
+.maker-faq summary::-webkit-details-marker {
+  display: none;
+}
+.maker-faq summary svg {
+  width: 15px;
+  flex-shrink: 0;
+}
+.maker-faq details[open] summary svg {
+  transform: rotate(45deg);
+}
+.maker-faq details p {
+  color: var(--mk-muted);
+  font-size: 13px;
+  line-height: 1.95;
+  padding: 13px 24px 0 0;
+}
+.maker-cta {
+  padding-block: 52px;
+  border-top: 1px solid var(--mk-hair);
+}
+.maker-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+}
+.maker-cta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(29px, 2.7vw, 39px);
+  font-weight: 600;
+  letter-spacing: -1.2px;
+  line-height: 1.12;
+}
+.maker-cta p {
+  color: var(--mk-muted);
+  font-size: 13px;
+  margin-top: 12px;
+  max-width: 620px;
+  line-height: 1.8;
+}
+.maker-footer {
+  background: var(--mk-paper-deep);
+  color: var(--mk-ink);
+  border-top: 1px solid var(--mk-hair);
+}
+.maker-color-rule {
+  display: none;
+}
+.maker-footer-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr;
+  gap: 80px;
+  padding-block: 60px 45px;
+}
+.maker-footer-brand p {
+  margin-top: 19px;
+  max-width: 330px;
+  font-size: 12px;
+  color: var(--mk-muted);
+  line-height: 1.9;
+}
+.maker-footer-column h3 {
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 19px;
+}
+.maker-footer-column a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  font-size: 12px;
+  color: var(--mk-muted);
+  margin-top: 12px;
+}
+.maker-footer-column a svg {
+  opacity: 0;
+}
+.maker-footer-column a:hover {
+  color: var(--mk-accent);
+}
+.maker-footer-column a:hover svg {
+  opacity: 1;
+}
+.maker-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 40px;
+  padding-block: 23px;
+  border-top: 1px solid var(--mk-hair);
+  font-size: 10px;
+  line-height: 1.9;
+  color: var(--mk-muted);
+}
+.maker-footer-bottom p:last-child {
+  max-width: 440px;
+  text-align: right;
+}
+.maker-create-top {
+  padding-top: 34px;
+}
+.maker-breadcrumb {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 11px;
+  color: var(--mk-muted);
+  margin-bottom: 24px;
+}
+.maker-create-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+.maker-create-heading h1 {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -1.5px;
+}
+.maker-create-heading p {
+  margin-top: 14px;
+  color: var(--mk-muted);
+  font-size: 13px;
+  line-height: 1.8;
+  max-width: 660px;
+}
+.maker-create-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 5px;
+  background: var(--mk-paper-deep);
+  border: 1px solid var(--mk-hair);
+  border-radius: 14px;
+  flex-shrink: 0;
+}
+.maker-create-tabs a {
+  padding: 10px 16px;
+  font-size: 11px;
+  font-weight: 750;
+  border-radius: 9px;
+}
+.maker-create-tabs a[aria-current='page'] {
+  color: var(--mk-on-accent);
+  background: var(--mk-accent);
+}
+.maker-create-help {
+  display: inline-block;
+  margin-bottom: 30px;
+  color: var(--mk-accent);
+  font-size: 12px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.maker-ai-wrap {
+  padding: 34px 0 70px;
+}
+.maker-ai-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+.maker-ai-form {
+  padding: 28px;
+  border: 1px solid var(--mk-hair);
+  border-radius: 24px;
+  background: var(--mk-white);
+}
+.maker-ai-form label {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.maker-ai-form textarea {
+  width: 100%;
+  min-height: 160px;
+  resize: vertical;
+  border: 1px solid var(--mk-hair);
+  border-radius: 12px;
+  padding: 14px;
+  background: var(--mk-paper);
+  font-size: 13px;
+  line-height: 1.9;
+}
+.maker-ai-form select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--mk-hair);
+  border-radius: 10px;
+  background: var(--mk-paper);
+  font-size: 13px;
+}
+.maker-ai-field {
+  margin-bottom: 22px;
+}
+.maker-ai-upload {
+  display: grid;
+  place-items: center;
+  padding: 25px;
+  border: 1px dashed var(--mk-hair);
+  border-radius: 12px;
+  text-align: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.maker-ai-upload input {
+  max-width: 100%;
+  font-size: 11px;
+}
+.maker-ai-upload p {
+  font-size: 11px;
+  color: var(--mk-muted);
+  line-height: 1.8;
+}
+.maker-ai-upload img {
+  max-width: 130px;
+  max-height: 130px;
+  object-fit: cover;
+  border-radius: 9px;
+}
+.maker-ai-message {
+  margin: 0 0 22px;
+  padding: 20px;
+  border: 1px solid var(--mk-hair);
+  border-radius: 14px;
+  background: var(--mk-accent-soft);
+  font-size: 12px;
+  line-height: 1.9;
+}
+.maker-ai-message h2 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 650;
+  margin-bottom: 7px;
+}
+.maker-ai-message a {
+  display: inline-block;
+  margin-top: 8px;
+  font-weight: 750;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: var(--mk-accent);
+}
+.maker-ai-note {
+  color: var(--mk-muted);
+  font-size: 11px;
+  line-height: 1.9;
+  margin-top: 15px;
+}
+.maker-ai-result {
+  padding: 18px;
+  border: 1px solid var(--mk-hair);
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--mk-paper-deep);
+}
+.maker-ai-result > img {
+  width: 100%;
+  border-radius: 12px;
+}
+.maker-ai-result figcaption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  font-size: 12px;
+}
+.maker-ai-empty {
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 36px;
+}
+.maker-ai-empty img {
+  width: 190px;
+  height: 190px;
+  border-radius: 30px;
+  object-fit: cover;
+  margin-bottom: 28px;
+}
+.maker-ai-empty h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.8px;
+}
+.maker-ai-empty p {
+  color: var(--mk-muted);
+  font-size: 12px;
+  line-height: 1.9;
+  margin-top: 14px;
+  max-width: 320px;
+}
+.maker-page .character-preview-column,
+.maker-page .character-editor-column {
+  border-radius: 24px;
+  box-shadow: 0 12px 36px -28px var(--mk-shadow);
+}
+.maker-page .character-preview-column {
+  background: var(--mk-paper-deep);
+}
+.maker-page .character-main-preview {
+  border-radius: 16px;
+}
+.maker-page .character-editor-intro h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -1px;
+}
+.maker-page .character-tabs {
+  padding: 7px;
+  background: var(--mk-paper-deep);
+  gap: 5px;
+  border-radius: 0;
+}
+.maker-page .character-tabs button {
+  border: 0;
+  border-radius: 9px;
+  font-size: 12px;
+}
+.maker-page .character-tabs button[aria-selected='true'] {
+  background: var(--mk-white);
+  color: var(--mk-accent);
+  box-shadow: 0 2px 6px var(--mk-shadow);
+}
+.maker-page .character-choice {
+  border-radius: 12px;
+}
+.maker-page .character-choice[aria-pressed='true'] {
+  background: var(--mk-accent-soft);
+}
+.maker-page .character-download {
+  border-radius: 12px;
+}
+.maker-auth {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--mk-paper);
+  color: var(--mk-ink);
+  padding: 24px;
+  gap: 24px;
+}
+.maker-auth-art {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 42px;
+  background: var(--mk-paper-deep);
+  border: 1px solid var(--mk-hair);
+  border-radius: 28px;
+  min-width: 0;
+}
+.maker-auth-art h2 {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 3.5vw, 56px);
+  letter-spacing: -2px;
+  line-height: 1.08;
+  font-weight: 600;
+  max-width: 510px;
+  margin: 36px 0 20px;
+}
+.maker-auth-art > div > p {
+  color: var(--mk-muted);
+  font-size: 14px;
+  line-height: 1.9;
+  max-width: 420px;
+}
+.maker-auth-art figure {
+  width: min(380px, 90%);
+  align-self: center;
+  margin: 36px auto;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.maker-auth-art figcaption {
+  padding: 14px 18px;
+  background: var(--mk-white);
+  font-size: 12px;
+  font-weight: 650;
+}
+.maker-auth-form {
+  width: 100%;
+  max-width: 390px;
+  align-self: center;
+  justify-self: center;
+  padding-block: 32px;
+}
+.maker-auth-form > .maker-brand {
+  display: none;
+}
+.maker-auth-form [data-slot='card'] {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+.maker-auth-form [data-slot='card-header'] {
+  padding: 0 0 28px;
+  text-align: left;
+}
+.maker-auth-form [data-slot='card-title'] {
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -1px;
+}
+.maker-auth-form [data-slot='card-content'] {
+  padding: 0;
+}
+.maker-auth-form input {
+  background: var(--mk-white);
+  min-height: 46px;
+  border-radius: 10px;
+}
+.maker-auth-form button[type='submit'] {
+  min-height: 46px;
+  border-radius: 12px;
+}
+.maker-legal-layout {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 760px);
+  justify-content: space-between;
+  gap: 80px;
+  padding-block: 60px 100px;
+}
+.maker-legal-nav {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+}
+.maker-legal-nav h2 {
+  font-family: var(--font-display);
+  font-size: 27px;
+  font-weight: 600;
+  letter-spacing: -0.8px;
+}
+.maker-legal-nav p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--mk-muted);
+  margin-top: 15px;
+}
+.maker-legal-nav nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 25px;
+  font-size: 12px;
+  font-weight: 650;
+}
+.maker-legal-nav nav a:hover {
+  color: var(--mk-accent);
+}
+.maker-legal-content article > header {
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+.maker-legal-content article > header h1 {
+  font-family: var(--font-display);
+  font-size: 48px;
+  letter-spacing: -1.8px;
+  line-height: 1.1;
+  font-weight: 600;
+}
+.maker-legal-content article h2 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+.maker-legal-content article p,
+.maker-legal-content article li {
+  font-size: 14px;
+  line-height: 1.95;
+}
+
+.maker-page .character-tabs button[aria-selected='true']::after {
+  display: none;
+}
+@media (min-width: 1600px) {
+  .maker-container {
+    width: min(1280px, calc(100% - 120px));
+  }
+}
+@media (max-width: 1120px) {
+  .maker-container {
+    width: calc(100% - 64px);
+  }
+  .maker-desktop-nav {
+    margin-left: 0;
+    gap: 15px;
+    font-size: 11px;
+  }
+  .maker-header-inner {
+    gap: 22px;
+  }
+  .maker-header-actions {
+    gap: 14px;
+  }
+  .maker-hero-grid {
+    gap: 38px;
+  }
+  .maker-hero h1 {
+    font-size: 61px;
+  }
+  .maker-prompt-heading span {
+    display: none;
+  }
+  .maker-mode-note {
+    font-size: 9px;
+  }
+  .maker-path {
+    grid-template-columns: 1fr 110px;
+    gap: 18px;
+    padding: 26px;
+  }
+  .maker-guide-intro {
+    gap: 60px;
+  }
+  .maker-faq-grid {
+    gap: 60px;
+  }
+  .maker-export-grid {
+    gap: 55px;
+  }
+  .maker-use-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .maker-use-grid article:nth-child(3) {
+    border-left: 0;
+    border-top: 1px solid var(--mk-hair);
+  }
+  .maker-use-grid article:nth-child(4) {
+    border-top: 1px solid var(--mk-hair);
+  }
+}
+@media (max-width: 900px) {
+  .maker-desktop-nav {
+    display: none;
+  }
+  .maker-menu-button {
+    display: block;
+  }
+  .maker-hero-grid {
+    grid-template-columns: 1fr;
+    max-width: 660px;
+    gap: 35px;
+  }
+  .maker-hero {
+    padding-top: 38px;
+  }
+  .maker-hero h1 {
+    max-width: 600px;
+    font-size: 68px;
+  }
+  .maker-hero-description {
+    max-width: 520px;
+  }
+  .maker-hero-art {
+    max-width: 530px;
+    width: 100%;
+    margin-inline: auto;
+  }
+  .maker-two-paths {
+    grid-template-columns: 1fr;
+  }
+  .maker-path {
+    grid-template-columns: 1fr 160px;
+    padding: 32px;
+  }
+  .maker-guide-intro {
+    gap: 40px;
+  }
+  .maker-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .maker-steps {
+    gap: 25px;
+  }
+  .maker-guide-details {
+    gap: 34px;
+  }
+  .maker-faq-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .maker-faq-heading {
+    position: static;
+  }
+  .maker-footer-grid {
+    gap: 40px;
+  }
+  .maker-export-grid {
+    grid-template-columns: 1fr 1.1fr;
+    gap: 35px;
+  }
+  .maker-export-formats {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .maker-create-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .maker-ai-layout {
+    grid-template-columns: 1fr;
+  }
+  .maker-auth-art {
+    padding: 30px;
+  }
+  .maker-auth {
+    padding: 16px;
+    gap: 25px;
+  }
+  .maker-auth-form {
+    max-width: 340px;
+    padding-inline: 10px;
+  }
+  .maker-auth-art h2 {
+    font-size: 39px;
+  }
+  .maker-legal-layout {
+    grid-template-columns: 190px 1fr;
+    gap: 40px;
+  }
+}
+@media (max-width: 640px) {
+  :root {
+    --space-section: 68px;
+  }
+  .maker-container {
+    width: calc(100% - 40px);
+  }
+  .maker-header-inner {
+    height: 70px;
+    gap: 12px;
+  }
+  .maker-brand {
+    font-size: 22px;
+    gap: 8px;
+  }
+  .maker-brand img {
+    width: 32px;
+    height: 32px;
+  }
+  .maker-header-actions {
+    gap: 6px;
+  }
+  .maker-header-actions > .maker-button,
+  .maker-login {
+    display: none;
+  }
+  .maker-hero {
+    padding: 32px 0 55px;
+  }
+  .maker-hero h1 {
+    font-size: clamp(37px, 11vw, 44px);
+    letter-spacing: -2px;
+    max-width: 390px;
+  }
+  .maker-eyebrow {
+    font-size: 10px;
+    margin-bottom: 17px;
+  }
+  .maker-hero-description {
+    font-size: 14px;
+    margin-top: 20px;
+  }
+  .maker-prompt-box {
+    margin-top: 23px;
+  }
+  .maker-prompt-modes {
+    padding: 6px;
+  }
+  .maker-prompt-modes button {
+    font-size: 10px;
+    gap: 5px;
+    padding: 8px 5px;
+  }
+  .maker-prompt-modes button svg {
+    width: 14px;
+    height: 14px;
+  }
+  .maker-prompt-body {
+    padding: 12px;
+  }
+  .maker-builder-presets {
+    gap: 8px;
+  }
+  .maker-builder-presets .character-art {
+    height: 82px;
+  }
+  .maker-builder-presets button > span {
+    font-size: 8px;
+    min-height: 34px;
+  }
+  .maker-mode-note {
+    max-width: 135px;
+    line-height: 1.7;
+  }
+  .maker-prompt-bottom .maker-button {
+    padding: 10px 11px;
+    font-size: 10px;
+  }
+  .maker-hero-benefits {
+    gap: 8px 13px;
+    font-size: 9px;
+  }
+  .maker-art-topline {
+    padding: 15px 19px;
+  }
+  .maker-hero-art {
+    border-radius: 23px;
+  }
+  .maker-art-stage {
+    border-radius: 15px;
+  }
+  .maker-hero-art figcaption {
+    padding: 19px;
+    gap: 15px;
+  }
+  .maker-hero-art figcaption strong {
+    font-size: 21px;
+  }
+  .maker-hero-art figcaption p {
+    font-size: 9px;
+  }
+  .maker-section-heading {
+    margin-bottom: 27px;
+  }
+  .maker-section-heading h2,
+  .maker-faq-heading h2,
+  .maker-guide-intro h2,
+  .maker-export-grid h2 {
+    font-size: 31px;
+    letter-spacing: -1px;
+  }
+  .maker-section-heading p,
+  .maker-faq-heading p {
+    font-size: 13px;
+  }
+  .maker-path {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 24px 20px;
+  }
+  .maker-path h3 {
+    font-size: 23px;
+  }
+  .maker-path p {
+    font-size: 14px;
+  }
+  .maker-path a {
+    font-size: 11px;
+  }
+  .maker-prompt-paper {
+    padding: 15px 11px;
+    display: none;
+  }
+  .maker-path-preview {
+    display: none;
+  }
+  .maker-prompt-paper p {
+    font-size: 10px;
+    line-height: 1.8;
+  }
+  .maker-gallery {
+    gap: 14px;
+  }
+  .maker-gallery-card {
+    border-radius: 15px;
+  }
+  .maker-gallery-picture {
+    aspect-ratio: 1;
+    padding: 6px 6px 0;
+  }
+  .maker-gallery-meta {
+    padding: 14px 12px;
+  }
+  .maker-gallery-meta h3 {
+    font-size: 16px;
+  }
+  .maker-gallery-meta p {
+    font-size: 9px;
+  }
+  .maker-gallery-meta > span {
+    display: none;
+  }
+  .maker-steps {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .maker-steps li {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    align-items: start;
+    gap: 14px;
+  }
+  .maker-steps li > div:last-child {
+    display: contents;
+  }
+  .maker-step-visual {
+    height: 64px;
+    margin: 0;
+  }
+  .maker-step-visual > svg {
+    width: 28px;
+  }
+  .maker-step-visual .character-art {
+    width: 100px;
+    height: 100px;
+  }
+  .maker-step-number {
+    top: 6px;
+    left: 8px;
+    font-size: 8px;
+  }
+  .maker-steps h3 {
+    font-size: 22px;
+    align-self: center;
+  }
+  .maker-steps p {
+    grid-column: 1 / -1;
+    font-size: 14px;
+    line-height: 1.85;
+  }
+  .maker-guide-intro {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-bottom: 35px;
+  }
+  .maker-guide-intro > div > p {
+    font-size: 14px;
+    margin-top: 19px;
+  }
+  .maker-guide-details {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .maker-guide-details article {
+    grid-template-columns: 35px 1fr;
+    gap: 14px;
+  }
+  .maker-guide-icon {
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+  }
+  .maker-guide-details h3 {
+    font-size: 20px;
+  }
+  .maker-guide-details p {
+    font-size: 14px;
+  }
+  .maker-use-grid {
+    grid-template-columns: 1fr;
+  }
+  .maker-use-grid article {
+    padding: 24px;
+  }
+  .maker-use-grid article + article {
+    border-left: 0;
+    border-top: 1px solid var(--mk-hair);
+  }
+  .maker-use-grid h3 {
+    font-size: 21px;
+  }
+  .maker-export-grid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .maker-export-art {
+    padding: 20px;
+  }
+  .maker-export-lede {
+    font-size: 13px;
+  }
+  .maker-export-formats {
+    grid-template-columns: 1fr;
+  }
+  .maker-faq summary {
+    font-size: 13px;
+  }
+  .maker-faq details p {
+    font-size: 13px;
+  }
+  .maker-cta-inner {
+    flex-direction: column;
+    align-items: start;
+    gap: 25px;
+  }
+  .maker-cta h2 {
+    font-size: 31px;
+  }
+  .maker-footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    padding-block: 40px;
+  }
+  .maker-footer-brand {
+    grid-column: 1/-1;
+  }
+  .maker-footer-bottom {
+    display: block;
+  }
+  .maker-footer-bottom p:last-child {
+    text-align: left;
+    margin-top: 13px;
+  }
+  .maker-create-heading h1 {
+    font-size: 33px;
+    letter-spacing: -1.1px;
+  }
+  .maker-create-heading p {
+    font-size: 12px;
+  }
+  .maker-create-tabs {
+    width: 100%;
+  }
+  .maker-create-tabs a {
+    flex: 1;
+    text-align: center;
+    font-size: 11px;
+  }
+  .maker-ai-form {
+    padding: 20px;
+  }
+  .maker-ai-empty {
+    min-height: 370px;
+    padding: 30px 24px;
+  }
+  .maker-auth {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    min-height: 100svh;
+  }
+  .maker-auth-art {
+    border: 0;
+    padding: 10px 0;
+    background: transparent;
+  }
+  .maker-auth-art h2,
+  .maker-auth-art > div > p,
+  .maker-auth-art figure {
+    display: none;
+  }
+  .maker-auth-form {
+    max-width: 390px;
+    padding: 25px 0;
+  }
+  .maker-legal-layout {
+    display: block;
+    padding-block: 32px 70px;
+  }
+  .maker-legal-nav {
+    position: static;
+    margin-bottom: 35px;
+  }
+  .maker-legal-nav h2,
+  .maker-legal-nav > p {
+    display: none;
+  }
+  .maker-legal-nav nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    margin-top: 0;
+  }
+  .maker-legal-content article > header h1 {
+    font-size: 37px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .maker-page *,
+  .maker-page *::before,
+  .maker-page *::after,
+  .maker-auth * {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* A purchase is a clear credit allowance, never a fictional unlimited tier. */
+.maker-pricing-section {
+  border-top: 1px solid var(--mk-hair);
+}
+.maker-pricing-intro {
+  max-width: 730px;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+.maker-pricing-intro :is(h1, h2) {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(36px, 4vw, 54px);
+  line-height: 1.08;
+  letter-spacing: -1.8px;
+}
+.maker-pricing-intro p {
+  color: var(--mk-muted);
+  line-height: 1.9;
+  margin-top: 20px;
+  font-size: 15px;
+}
+.maker-price-switch {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto;
+  border: 1px solid var(--mk-hair);
+  padding: 5px;
+  border-radius: 14px;
+  background: var(--mk-paper-deep);
+  gap: 4px;
+}
+.maker-price-switch button {
+  border-radius: 10px;
+  padding: 10px 22px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--mk-muted);
+}
+.maker-price-switch [aria-selected='true'] {
+  background: var(--mk-white);
+  color: var(--mk-accent);
+  box-shadow: 0 2px 6px var(--mk-shadow);
+}
+.maker-price-group-note {
+  min-height: 42px;
+  margin: 18px auto 26px;
+  max-width: 700px;
+  text-align: center;
+  color: var(--mk-muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+.maker-price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+.maker-price-card {
+  border: 1px solid var(--mk-hair);
+  border-radius: 24px;
+  background: var(--mk-white);
+  padding: 30px;
+}
+.maker-price-card.is-featured {
+  border-color: var(--mk-accent);
+  box-shadow: inset 0 0 0 1px var(--mk-accent);
+  background: color-mix(in oklch, var(--mk-accent-soft) 30%, var(--mk-white));
+}
+.maker-price-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.maker-price-card h3 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+}
+.maker-price-card-top span {
+  background: var(--mk-accent-soft);
+  color: var(--mk-accent);
+  padding: 5px 8px;
+  border-radius: 7px;
+  font-size: 10px;
+  font-weight: 700;
+}
+.maker-price-description {
+  color: var(--mk-muted);
+  font-size: 12px;
+  line-height: 1.9;
+  margin: 12px 0 28px;
+  min-height: 46px;
+}
+.maker-price-amount {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.maker-price-amount strong {
+  font-family: var(--font-display);
+  font-size: 52px;
+  line-height: 1;
+  letter-spacing: -2px;
+  font-weight: 600;
+}
+.maker-price-amount span {
+  color: var(--mk-muted);
+  font-size: 12px;
+}
+.maker-price-credits {
+  margin-top: 24px;
+  font-size: 17px;
+  font-weight: 750;
+}
+.maker-price-generations {
+  color: var(--mk-muted);
+  font-size: 12px;
+  margin: 8px 0 24px;
+}
+.maker-price-card > .maker-button {
+  width: 100%;
+}
+.maker-price-card ul {
+  display: grid;
+  gap: 13px;
+  padding: 24px 0;
+  margin-top: 24px;
+  border-top: 1px solid var(--mk-hair);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.maker-price-card li {
+  display: flex;
+  align-items: start;
+  gap: 10px;
+}
+.maker-price-card li svg {
+  color: var(--mk-accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.maker-price-expiry {
+  color: var(--mk-muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+.maker-price-footnote {
+  margin: 28px auto 0;
+  max-width: 750px;
+  text-align: center;
+  color: var(--mk-muted);
+  font-size: 12px;
+  line-height: 1.9;
+}
+.maker-price-footnote p + p {
+  margin-top: 8px;
+}
+.maker-ai-credit-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin: 18px 0;
+  color: var(--mk-muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+.maker-ai-credit-line a {
+  color: var(--mk-accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  white-space: nowrap;
+}
+@media (max-width: 1000px) {
+  .maker-price-card {
+    padding: 24px;
+  }
+  .maker-price-card-top {
+    align-items: start;
+    flex-direction: column;
+  }
+}
+@media (max-width: 700px) {
+  .maker-price-grid {
+    grid-template-columns: 1fr;
+  }
+  .maker-price-card-top {
+    align-items: center;
+    flex-direction: row;
+  }
+  .maker-price-card {
+    padding: 26px;
+  }
+  .maker-price-description {
+    min-height: 0;
+    margin-bottom: 24px;
+  }
+  .maker-price-switch button {
+    padding: 10px 18px;
+  }
+}

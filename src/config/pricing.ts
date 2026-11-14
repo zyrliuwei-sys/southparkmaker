@@ -43,120 +43,49 @@ export type PricingProduct = {
   maxLinks?: number;
 };
 
-/**
- * Default demo catalog. Replace with your real products when launching.
- * Keys MUST match what the pricing UI sends as product_id.
- */
-export const pricingCatalog: Record<string, PricingProduct> = {
-  starter_monthly: {
-    productId: 'starter_monthly',
-    productName: 'Starter',
-    planName: 'Starter',
-    description: 'Starter Monthly',
-    type: PaymentType.SUBSCRIPTION,
-    priceInCents: 900,
+/** Product IDs are stable checkout keys. Each app credit costs one US cent. */
+export const characterProducts: PricingProduct[] = [
+  ...[
+    ['explorer', 'Explorer', 500],
+    ['creator', 'Creator', 1500],
+    ['studio', 'Studio', 4000],
+  ].map(([key, name, cents]) => ({
+    productId: `character_${key}_pack`,
+    productName: String(name),
+    planName: String(name),
+    description: `${name} one-time character credits`,
+    type: PaymentType.ONE_TIME,
+    priceInCents: Number(cents),
     currency: 'usd',
-    credits: 5000,
+    credits: Number(cents),
+    creditsValidDays: 0,
+  })),
+  ...[
+    ['explorer', 'Explorer', 900],
+    ['creator', 'Creator', 2500],
+    ['studio', 'Studio', 4900],
+  ].map(([key, name, cents]) => ({
+    productId: `character_${key}_monthly`,
+    productName: String(name),
+    planName: String(name),
+    description: `${name} monthly character credits`,
+    type: PaymentType.SUBSCRIPTION,
+    priceInCents: Number(cents),
+    currency: 'usd',
+    credits: Number(cents),
+    creditsValidDays: 31,
     plan: {
-      name: 'Starter',
+      name: String(name),
       interval: PaymentInterval.MONTH,
       intervalCount: 1,
     },
-  },
-  pro_monthly: {
-    productId: 'pro_monthly',
-    productName: 'Pro',
-    planName: 'Pro',
-    description: 'Pro Monthly',
-    type: PaymentType.SUBSCRIPTION,
-    priceInCents: 2900,
-    currency: 'usd',
-    credits: 50000,
-    plan: { name: 'Pro', interval: PaymentInterval.MONTH, intervalCount: 1 },
-  },
-  enterprise_monthly: {
-    productId: 'enterprise_monthly',
-    productName: 'Enterprise',
-    planName: 'Enterprise',
-    description: 'Enterprise Monthly',
-    type: PaymentType.SUBSCRIPTION,
-    priceInCents: 9900,
-    currency: 'usd',
-    credits: 500000,
-    plan: {
-      name: 'Enterprise',
-      interval: PaymentInterval.MONTH,
-      intervalCount: 1,
-    },
-  },
-  starter_yearly: {
-    productId: 'starter_yearly',
-    productName: 'Starter',
-    planName: 'Starter',
-    description: 'Starter Yearly',
-    type: PaymentType.SUBSCRIPTION,
-    priceInCents: 8600,
-    currency: 'usd',
-    credits: 60000,
-    plan: { name: 'Starter', interval: PaymentInterval.YEAR, intervalCount: 1 },
-  },
-  pro_yearly: {
-    productId: 'pro_yearly',
-    productName: 'Pro',
-    planName: 'Pro',
-    description: 'Pro Yearly',
-    type: PaymentType.SUBSCRIPTION,
-    priceInCents: 27800,
-    currency: 'usd',
-    credits: 600000,
-    plan: { name: 'Pro', interval: PaymentInterval.YEAR, intervalCount: 1 },
-  },
-  enterprise_yearly: {
-    productId: 'enterprise_yearly',
-    productName: 'Enterprise',
-    planName: 'Enterprise',
-    description: 'Enterprise Yearly',
-    type: PaymentType.SUBSCRIPTION,
-    priceInCents: 95000,
-    currency: 'usd',
-    credits: 6000000,
-    plan: {
-      name: 'Enterprise',
-      interval: PaymentInterval.YEAR,
-      intervalCount: 1,
-    },
-  },
-  starter_lifetime: {
-    productId: 'starter_lifetime',
-    productName: 'Starter',
-    planName: 'Starter Lifetime',
-    description: 'Starter Lifetime',
-    type: PaymentType.ONE_TIME,
-    priceInCents: 14900,
-    currency: 'usd',
-    credits: 100000,
-  },
-  pro_lifetime: {
-    productId: 'pro_lifetime',
-    productName: 'Pro',
-    planName: 'Pro Lifetime',
-    description: 'Pro Lifetime',
-    type: PaymentType.ONE_TIME,
-    priceInCents: 49900,
-    currency: 'usd',
-    credits: 1000000,
-  },
-  enterprise_lifetime: {
-    productId: 'enterprise_lifetime',
-    productName: 'Enterprise',
-    planName: 'Enterprise Lifetime',
-    description: 'Enterprise Lifetime',
-    type: PaymentType.ONE_TIME,
-    priceInCents: 199900,
-    currency: 'usd',
-    credits: 10000000,
-  },
+  })),
+];
 
+export const pricingCatalog: Record<string, PricingProduct> = {
+  ...Object.fromEntries(
+    characterProducts.map((product) => [product.productId, product])
+  ),
   // Guest posts (see src/modules/guest-posts). Published permanently, every
   // external link rendered rel="sponsored nofollow".
   guest_post_standard: {

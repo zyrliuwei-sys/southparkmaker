@@ -1,0 +1,386 @@
+diff --git a/src/modules/config/settings.ts b/src/modules/config/settings.ts
+--- a/src/modules/config/settings.ts
++++ b/src/modules/config/settings.ts
+@@ -201,6 +201,12 @@
+       tab: 'ai',
+     },
+     {
++      name: 'seeapi',
++      title: 'SeeAPI',
++      description: 'SeeAPI unified AI API',
++      tab: 'ai',
++    },
++    {
+       name: 'replicate',
+       title: 'Replicate',
+       description: 'Replicate AI API',
+@@ -1009,6 +1015,24 @@
+       tab: 'ai',
+     },
+ 
++    // ─── AI / SeeAPI ─────────────────────────────────────────────────
++    {
++      name: 'seeapi_base_url',
++      title: 'Base URL',
++      type: 'text',
++      placeholder: 'https://api.seeapi.com',
++      group: 'seeapi',
++      tab: 'ai',
++    },
++    {
++      name: 'seeapi_api_key',
++      title: 'API Key',
++      type: 'password',
++      placeholder: 'YOUR_API_KEY',
++      group: 'seeapi',
++      tab: 'ai',
++    },
++
+     // ─── AI / Replicate ──────────────────────────────────────────────
+     {
+       name: 'replicate_api_token',
+diff --git a/src/modules/config/service.ts b/src/modules/config/service.ts
+--- a/src/modules/config/service.ts
++++ b/src/modules/config/service.ts
+@@ -141,6 +141,7 @@
+ const ENDPOINT_SECRETS: Record<string, string[]> = {
+   openai_base_url: ['openai_api_key'],
+   anthropic_base_url: ['anthropic_api_key'],
++  seeapi_base_url: ['seeapi_api_key'],
+   r2_endpoint: ['r2_secret_key'],
+   telegram_api_base: ['telegram_bot_token'],
+   notify_webhook_url: ['notify_webhook_token'],
+diff --git a/src/modules/config/settings-test-specs.ts b/src/modules/config/settings-test-specs.ts
+--- a/src/modules/config/settings-test-specs.ts
++++ b/src/modules/config/settings-test-specs.ts
+@@ -191,6 +191,8 @@
+       },
+     ],
+   },
++  // Read-only credential check: GET /v1/credits creates no generation task.
++  seeapi: { group: 'seeapi', fields: [] },
+   replicate: {
+     group: 'replicate',
+     fields: [
+diff --git a/src/modules/config/settings-test.ts b/src/modules/config/settings-test.ts
+--- a/src/modules/config/settings-test.ts
++++ b/src/modules/config/settings-test.ts
+@@ -24,6 +24,7 @@
+ import { envConfigs } from '@/config';
+ import { getUniSeq } from '@/lib/hash';
+ 
++import { testSeeAPI } from './seeapi-test';
+ import type { TestResult } from './settings-test-specs';
+ 
+ export { getTestSpec, getTestableGroups } from './settings-test-specs';
+@@ -54,6 +55,8 @@
+         return await testOpenAI(inputs, configs);
+       case 'anthropic':
+         return await testAnthropic(inputs, configs);
++      case 'seeapi':
++        return await testSeeAPI(configs);
+       case 'replicate':
+         return await testReplicate(inputs, configs);
+       case 'fal':
+diff --git a/messages/en.json b/messages/en.json
+--- a/messages/en.json
++++ b/messages/en.json
+@@ -845,6 +845,8 @@
+   "admin.settings.groups.openai.description": "OpenAI (or compatible) API",
+   "admin.settings.groups.anthropic.title": "Anthropic",
+   "admin.settings.groups.anthropic.description": "Anthropic Claude API",
++  "admin.settings.groups.seeapi.title": "SeeAPI",
++  "admin.settings.groups.seeapi.description": "SeeAPI unified AI API",
+   "admin.settings.groups.replicate.title": "Replicate",
+   "admin.settings.groups.replicate.description": "Replicate AI API",
+   "admin.settings.groups.fal.title": "Fal",
+@@ -933,6 +935,10 @@
+   "admin.settings.fields.openai_api_key": "API Key",
+   "admin.settings.fields.anthropic_base_url": "Base URL",
+   "admin.settings.fields.anthropic_api_key": "API Key",
++  "admin.settings.fields.seeapi_base_url": "Base URL",
++  "admin.settings.fields.seeapi_api_key": "API Key",
++  "admin.settings.tips.seeapi_base_url": "Leave blank to use https://api.seeapi.com. Enter the API root without /v1. Changing this address requires re-entering the API key.",
++  "admin.settings.tips.seeapi_api_key": "Create a key at seeapi.com/keys/?tab=api-keys. Test checks authentication with a read-only credit balance request; it does not create a generation task.",
+   "admin.settings.fields.replicate_api_token": "API Token",
+   "admin.settings.fields.fal_api_key": "API Key",
+   "admin.settings.fields.google_analytics_id": "Measurement ID",
+diff --git a/src/modules/config/seeapi-test.ts b/src/modules/config/seeapi-test.ts
+new file mode 100644
+--- /dev/null
++++ b/src/modules/config/seeapi-test.ts
+@@ -0,0 +1,94 @@
++import type { TestResult } from './settings-test-specs';
++
++/** Read-only credential check documented at https://www.seeapi.com/docs/authentication/. */
++export async function testSeeAPI(
++  configs: Record<string, string>
++): Promise<TestResult> {
++  const apiKey = (configs.seeapi_api_key || '').trim();
++  if (!apiKey || apiKey.startsWith('••••••••')) {
++    return { success: false, message: 'Missing config: seeapi_api_key' };
++  }
++  if (/\s/.test(apiKey)) {
++    return {
++      success: false,
++      message:
++        'Enter the complete SeeAPI API key without spaces or line breaks.',
++    };
++  }
++
++  let endpoint: URL;
++  try {
++    const base =
++      (configs.seeapi_base_url || '').trim() || 'https://api.seeapi.com';
++    endpoint = new URL(base);
++    if (
++      endpoint.protocol !== 'https:' ||
++      endpoint.username ||
++      endpoint.password ||
++      endpoint.search ||
++      endpoint.hash
++    ) {
++      throw new Error('Invalid URL');
++    }
++    endpoint.pathname = `${endpoint.pathname.replace(/\/+$/, '')}/v1/credits`;
++  } catch {
++    return {
++      success: false,
++      message:
++        'SeeAPI Base URL must be an HTTPS API root without credentials, a query string or a fragment.',
++    };
++  }
++
++  try {
++    const response = await fetch(endpoint, {
++      method: 'GET',
++      headers: {
++        Authorization: `Bearer ${apiKey}`,
++        Accept: 'application/json',
++      },
++      // Never forward a credential through an endpoint redirect.
++      redirect: 'error',
++      signal: AbortSignal.timeout(15_000),
++    });
++    if (!response.ok) {
++      const messages: Record<number, string> = {
++        401: 'SeeAPI rejected the API key. Check that the complete key is active.',
++        403: 'SeeAPI denied access. Check the API key permissions.',
++        429: 'SeeAPI rate limit reached. Try again later.',
++      };
++      return {
++        success: false,
++        message:
++          messages[response.status] ||
++          `SeeAPI request failed (HTTP ${response.status}).`,
++      };
++    }
++
++    const data: unknown = await response.json().catch(() => null);
++    if (
++      !data ||
++      typeof data !== 'object' ||
++      Array.isArray(data) ||
++      ('error' in data && data.error) ||
++      ('success' in data && data.success === false)
++    ) {
++      return {
++        success: false,
++        message:
++          'SeeAPI returned an unexpected response. Check the API root and key.',
++      };
++    }
++    return {
++      success: true,
++      message:
++        'SeeAPI authenticated successfully. Credit balance checked; no generation task was created.',
++    };
++  } catch {
++    // Provider bodies and network errors may echo credentials; never return them.
++    return {
++      success: false,
++      message:
++        'Could not connect to SeeAPI. Check the API root, network connection and request timeout.',
++    };
++  }
++}
+diff --git a/tests/seeapi-settings.test.ts b/tests/seeapi-settings.test.ts
+new file mode 100644
+--- /dev/null
++++ b/tests/seeapi-settings.test.ts
+@@ -0,0 +1,175 @@
++import assert from 'node:assert/strict';
++import { execFileSync } from 'node:child_process';
++import { mkdtemp, rm } from 'node:fs/promises';
++import { tmpdir } from 'node:os';
++import { join } from 'node:path';
++import { after, test } from 'node:test';
++import { eq } from 'drizzle-orm';
++
++const directory = await mkdtemp(join(tmpdir(), 'seeapi-settings-test-'));
++Object.assign(process.env, {
++  DATABASE_PROVIDER: 'sqlite',
++  DATABASE_URL: `file:${directory}/test.db`,
++  CONFIG_ENCRYPTION_KEY: 'isolated-seeapi-encryption-test-key',
++  NODE_ENV: 'test',
++});
++execFileSync(
++  process.execPath,
++  [
++    'node_modules/drizzle-kit/bin.cjs',
++    'push',
++    '--dialect=sqlite',
++    '--schema=./src/config/db/schema.sqlite.ts',
++    `--url=${process.env.DATABASE_URL}`,
++    '--force',
++  ],
++  { stdio: 'pipe', env: process.env }
++);
++
++const { db } = await import('../src/core/db');
++const { config } = await import('../src/config/db/schema');
++const { getAdminConfigs, getAllConfigs, saveConfigs, filterPublicConfigs } =
++  await import('../src/modules/config/service');
++const { isEncryptedSecret } = await import('../src/lib/crypto');
++const { testSeeAPI } = await import('../src/modules/config/seeapi-test');
++const { runTest, getTestSpec } =
++  await import('../src/modules/config/settings-test');
++const { POST: testHandler } =
++  await import('../src/server/admin/handlers/settings-test');
++
++const apiKey = 'seeapi-isolated-test-value';
++after(async () => {
++  await rm(directory, { recursive: true, force: true });
++});
++
++test('SeeAPI keys persist encrypted, return masked and cannot become public config', async () => {
++  await saveConfigs({ seeapi_api_key: apiKey, seeapi_base_url: '' });
++  const [stored] = await db()
++    .select()
++    .from(config)
++    .where(eq(config.name, 'seeapi_api_key'));
++  assert.ok(isEncryptedSecret(stored.value));
++  assert.ok(!stored.value.includes(apiKey));
++  assert.equal((await getAllConfigs()).seeapi_api_key, apiKey);
++  const masked = (await getAdminConfigs()).seeapi_api_key;
++  assert.ok(masked.startsWith('••••••••'));
++  assert.ok(!masked.includes(apiKey));
++  await saveConfigs({ seeapi_api_key: masked });
++  assert.equal((await getAllConfigs()).seeapi_api_key, apiKey);
++  assert.deepEqual(
++    filterPublicConfigs(await getAllConfigs(), ['seeapi_api_key']),
++    {}
++  );
++});
++
++test('saved and unsaved endpoint changes cannot forward an existing SeeAPI key', async () => {
++  for (const key of [undefined, (await getAdminConfigs()).seeapi_api_key]) {
++    const changes: Record<string, string> = {
++      seeapi_base_url: 'https://other.example',
++    };
++    if (key) changes.seeapi_api_key = key;
++    await assert.rejects(saveConfigs(changes), /re-entering seeapi_api_key/);
++    const response = await testHandler({
++      request: new Request('http://localhost/api/admin/settings/test', {
++        method: 'POST',
++        body: JSON.stringify({ group: 'seeapi', configs: changes }),
++      }),
++      actor: { userId: 'test-admin', permissions: ['*'] },
++      params: {},
++    });
++    assert.match((await response.json()).message, /re-entering seeapi_api_key/);
++  }
++  assert.equal((await getAllConfigs()).seeapi_base_url, '');
++});
++
++test('SeeAPI Test dispatch uses a read-only authenticated request to the official API', async (t) => {
++  t.mock.method(globalThis, 'fetch', async (url: URL, init: RequestInit) => {
++    assert.equal(url.href, 'https://api.seeapi.com/v1/credits');
++    assert.equal(init.method, 'GET');
++    assert.equal(init.body, undefined);
++    assert.equal(
++      new Headers(init.headers).get('Authorization'),
++      `Bearer ${apiKey}`
++    );
++    assert.equal(init.redirect, 'error');
++    assert.ok(init.signal instanceof AbortSignal);
++    return Response.json({ credits: 100 });
++  });
++  assert.ok(getTestSpec('seeapi'));
++  const result = await runTest('seeapi', {}, await getAllConfigs());
++  assert.equal(result.success, true);
++  assert.ok(!JSON.stringify(result).includes(apiKey));
++});
++
++test('freshly re-entered credentials allow a custom endpoint and masked round trips', async (t) => {
++  await saveConfigs({
++    seeapi_base_url: 'https://gateway.example/',
++    seeapi_api_key: apiKey,
++  });
++  await saveConfigs({
++    seeapi_base_url: 'https://gateway.example',
++    seeapi_api_key: (await getAdminConfigs()).seeapi_api_key,
++  });
++  t.mock.method(globalThis, 'fetch', async (url: URL) => {
++    assert.equal(url.href, 'https://gateway.example/v1/credits');
++    return Response.json({ credits: 0 });
++  });
++  assert.equal((await testSeeAPI(await getAllConfigs())).success, true);
++});
++
++test('missing keys and unsafe endpoint formats fail before any network request', async (t) => {
++  const fetchMock = t.mock.method(globalThis, 'fetch', async () => {
++    throw new Error('unexpected request');
++  });
++  for (const key of ['', '••••••••alue', 'key\nvalue']) {
++    assert.equal((await testSeeAPI({ seeapi_api_key: key })).success, false);
++  }
++  for (const base of [
++    'http://api.seeapi.com',
++    'https://user:pass@api.seeapi.com',
++    'https://api.seeapi.com?key=bad',
++    'https://api.seeapi.com#fragment',
++    'invalid',
++  ]) {
++    assert.equal(
++      (await testSeeAPI({ seeapi_api_key: apiKey, seeapi_base_url: base }))
++        .success,
++      false
++    );
++  }
++  assert.equal(fetchMock.mock.callCount(), 0);
++});
++
++test('provider failures and network errors never echo the API key', async (t) => {
++  let status = 401;
++  const fetchMock = t.mock.method(globalThis, 'fetch', async () =>
++    Response.json({ error: { message: apiKey } }, { status })
++  );
++  for (status of [401, 403, 429, 500]) {
++    const result = await testSeeAPI({ seeapi_api_key: apiKey });
++    assert.equal(result.success, false);
++    assert.ok(!JSON.stringify(result).includes(apiKey));
++  }
++  fetchMock.mock.mockImplementation(async () => {
++    throw new Error(apiKey);
++  });
++  const result = await testSeeAPI({ seeapi_api_key: apiKey });
++  assert.equal(result.success, false);
++  assert.ok(!JSON.stringify(result).includes(apiKey));
++});
++
++test('successful HTTP status with an invalid or error body is not a successful test', async (t) => {
++  let body = 'not JSON';
++  t.mock.method(globalThis, 'fetch', async () => new Response(body));
++  for (body of [
++    'not JSON',
++    'null',
++    '[]',
++    JSON.stringify({ error: apiKey }),
++    JSON.stringify({ success: false }),
++  ]) {
++    const result = await testSeeAPI({ seeapi_api_key: apiKey });
++    assert.equal(result.success, false);
++    assert.ok(!JSON.stringify(result).includes(apiKey));
++  }
++});

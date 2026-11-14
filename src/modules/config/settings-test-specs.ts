@@ -191,6 +191,8 @@ export const testSpecs: Record<string, TestSpec> = {
       },
     ],
   },
+  // Read-only credential check: GET /v1/credits creates no generation task.
+  seeapi: { group: 'seeapi', fields: [] },
   replicate: {
     group: 'replicate',
     fields: [

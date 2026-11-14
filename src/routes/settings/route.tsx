@@ -6,6 +6,7 @@ import {
   Key,
   LayoutDashboard,
   LifeBuoy,
+  Palette,
   PenLine,
   Receipt,
   User,
@@ -29,6 +30,11 @@ function SettingsLayout() {
   // Optional pages an admin switches in Settings → Users → User Features.
   const features = useUserFeatures();
   const navItems: (NavItem & { show?: boolean })[] = [
+    {
+      href: '/create',
+      label: m['maker.nav.builder'](),
+      icon: Palette,
+    },
     {
       href: '/settings',
       label: m['settings.nav.overview'](),
