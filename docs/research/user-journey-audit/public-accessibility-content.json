@@ -1,0 +1,27 @@
+[
+  {
+    "path": "/blog",
+    "violations": [],
+    "incomplete": []
+  },
+  {
+    "path": "/guest-post",
+    "violations": [],
+    "incomplete": []
+  },
+  {
+    "path": "/privacy-policy",
+    "violations": [],
+    "incomplete": []
+  },
+  {
+    "path": "/terms-of-service",
+    "violations": [],
+    "incomplete": []
+  },
+  {
+    "path": "/blog/a-note-that-does-not-exist",
+    "violations": [],
+    "incomplete": []
+  }
+]

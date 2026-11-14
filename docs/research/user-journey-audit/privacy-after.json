@@ -1,0 +1,201 @@
+{
+  "url": "/privacy-policy",
+  "title": "Privacy Policy | southparkmaker",
+  "h1": ["Privacy Policy"],
+  "text": "About your designs and data.\n\nHow southparkmaker handles your information, character designs, and use of the creation tools.\n\nBack to home\nPrivacy Policy\nTerms of Service\nPrivacy Policy\n\nHow southparkmaker handles your account, character designs, AI prompts, reference photos, and support requests.\n\nLast updated: 2026-11-14\n\nIntroduction\n\nsouthparkmaker is an online interactive tool for creating personalized cartoon characters and avatars inspired by the South Park paper-cut aesthetic. This Privacy Policy explains how we handle information when you visit our website, customize a character, use optional AI generation, or contact us.\n\nFor privacy questions and requests, email support@southparkmaker.com.\n\nYour Character Designs and Photos\n\nThe free manual character builder runs in your browser and does not require an account. Your choices, such as hairstyle, skin tone, clothing, expression, and background, update the character preview on your device.\n\nWhen you select “Save on this device,” the editable design is stored in that browser's local storage. These saves do not automatically synchronize across devices or browsers. Clearing browser storage can remove them. PNG and SVG exports are downloaded to the location you choose on your device.\n\nUsing the manual builder does not submit your character to an AI generation provider. Visiting the website may still involve the technical information and cookies described below.\n\nAI Prompts and Reference Photos\n\nAI generation is an optional, account-based feature. When you submit a request, your character description and any supported reference photo are sent through our server to the image generation provider used for that request. A reference photo is provided only when you choose to upload one and that feature is available.\n\nYour account's generation record stores information such as the prompt, task status, credit use, and result URL. The reference photo is not stored in that generation record. This does not mean that the generation provider immediately deletes it: the provider's processing, storage, and retention practices also apply. Contact us if you need information about the provider used for your request.\n\nUpload only photos you have permission to use, and avoid including sensitive personal information in prompts or images. Generated images may be hosted by a third party; download a copy if you want to keep a result.\n\nInformation We Collect\n\nDepending on the features you use, we process:\n\nAccount information — The name, email address, authentication information, and profile details you provide when signing up or signing in.\nGeneration and credit records — Your AI requests, task status, image URLs, and the credits granted, used, or returned to your account.\nTechnical and usage information — Information such as IP address, browser, device, pages visited, and service events used to operate the website, understand usage, and prevent abuse.\nPayment records — If you purchase a paid feature, our payment providers process the payment details. We keep related order, payment status, and credit or subscription records. We do not store full payment card numbers on our servers.\nSupport communications — Your email address, message, and any files or account details you choose to include when emailing us or submitting a support ticket.\nCookies and Browser Storage\n\nWe use cookies and browser storage for functions such as signing in, remembering preferences, and saving manual character designs on your device. If optional analytics, advertising, or support integrations are enabled, those services may also process usage information under their own policies.\n\nWhere cookie preference controls are available, you can use them to manage optional cookies. You can also manage cookies and local storage through your browser. Blocking essential cookies may prevent sign-in; clearing local storage may remove saved character designs.\n\nHow We Use Your Information\n\nWe use the data we collect to:\n\nOperate the character builder and process the AI generation requests you submit.\nManage accounts, payments, subscriptions where offered, and credit balances.\nRespond to support requests and communicate about your account or purchases.\nDiagnose errors and improve the character creation experience.\nDetect misuse, secure the service, and meet applicable legal obligations.\nData Sharing\n\nWe do not sell your personal information. We may share data only in these limited cases:\n\nWith providers that help operate the website, authenticate accounts, process payments, generate or host images, or handle support, as needed for those services.\nWhen required to comply with applicable law or a valid legal request.\nWhen necessary to investigate abuse or protect the rights and safety of our users and the service.\n\nWe do not publish your reference photos as part of a public character gallery merely because you submit an AI request. Do not assume that a third-party image URL is private or permanent.\n\nRetention and Security\n\nBrowser-saved designs remain on your device until you or your browser remove them. Account, generation, payment, and support records are retained as needed to provide the service, resolve disputes, prevent abuse, and meet applicable record-keeping obligations. Third-party providers may retain information under their own policies.\n\nWe use access controls and other safeguards intended to protect information handled by the service. No online service or transmission method can guarantee complete security.\n\nYour Choices and Requests\n\nYou can edit available profile details in your account, remove browser-saved designs by clearing the relevant local storage, and manage downloaded images on your device.\n\nTo request access, correction, export, deletion, or account closure, email support@southparkmaker.com. The rights available to you depend on applicable law. We may need to verify your identity and retain records that we are required or permitted to keep.\n\nChanges to This Policy\n\nWe may update this Privacy Policy from time to time. We will notify you of any material changes by updating the date at the top of this page and, where appropriate, sending a notice through the service.\n\nContact Us\n\nFor questions about privacy, character data, or this policy, contact the southparkmaker support team at support@southparkmaker.com.",
+  "links": [
+    {
+      "index": 0,
+      "text": "Skip to content",
+      "label": null,
+      "href": "#main-content",
+      "target": ""
+    },
+    {
+      "index": 1,
+      "text": "southparkmaker",
+      "label": "southparkmaker",
+      "href": "/",
+      "target": ""
+    },
+    {
+      "index": 2,
+      "text": "Character ideas",
+      "label": null,
+      "href": "/#gallery",
+      "target": ""
+    },
+    {
+      "index": 3,
+      "text": "Character guide",
+      "label": null,
+      "href": "/#character-guide",
+      "target": ""
+    },
+    {
+      "index": 4,
+      "text": "Pricing",
+      "label": null,
+      "href": "/pricing",
+      "target": ""
+    },
+    {
+      "index": 5,
+      "text": "Sign in",
+      "label": null,
+      "href": "/sign-in",
+      "target": ""
+    },
+    {
+      "index": 6,
+      "text": "Open studio",
+      "label": null,
+      "href": "/create",
+      "target": ""
+    },
+    {
+      "index": 7,
+      "text": "Back to home",
+      "label": null,
+      "href": "/",
+      "target": ""
+    },
+    {
+      "index": 8,
+      "text": "Privacy Policy",
+      "label": null,
+      "href": "/privacy-policy",
+      "target": ""
+    },
+    {
+      "index": 9,
+      "text": "Terms of Service",
+      "label": null,
+      "href": "/terms-of-service",
+      "target": ""
+    },
+    {
+      "index": 10,
+      "text": "support@southparkmaker.com",
+      "label": null,
+      "href": "mailto:support@southparkmaker.com",
+      "target": ""
+    },
+    {
+      "index": 11,
+      "text": "support@southparkmaker.com",
+      "label": null,
+      "href": "mailto:support@southparkmaker.com",
+      "target": ""
+    },
+    {
+      "index": 12,
+      "text": "support@southparkmaker.com",
+      "label": null,
+      "href": "mailto:support@southparkmaker.com",
+      "target": ""
+    },
+    {
+      "index": 13,
+      "text": "southparkmaker",
+      "label": "southparkmaker",
+      "href": "/",
+      "target": ""
+    },
+    {
+      "index": 14,
+      "text": "southparkmaker",
+      "label": null,
+      "href": "/",
+      "target": ""
+    },
+    {
+      "index": 15,
+      "text": "Character builder",
+      "label": null,
+      "href": "/create",
+      "target": ""
+    },
+    {
+      "index": 16,
+      "text": "AI generator",
+      "label": null,
+      "href": "/create?mode=ai",
+      "target": ""
+    },
+    {
+      "index": 17,
+      "text": "Pricing",
+      "label": null,
+      "href": "/pricing",
+      "target": ""
+    },
+    {
+      "index": 18,
+      "text": "Character ideas",
+      "label": null,
+      "href": "/#gallery",
+      "target": ""
+    },
+    {
+      "index": 19,
+      "text": "How to create",
+      "label": null,
+      "href": "/#how-it-works",
+      "target": ""
+    },
+    {
+      "index": 20,
+      "text": "Contact support",
+      "label": null,
+      "href": "mailto:support@southparkmaker.com",
+      "target": ""
+    },
+    {
+      "index": 21,
+      "text": "FAQs",
+      "label": null,
+      "href": "/#faq",
+      "target": ""
+    },
+    {
+      "index": 22,
+      "text": "Character guide",
+      "label": null,
+      "href": "/#character-guide",
+      "target": ""
+    },
+    {
+      "index": 23,
+      "text": "My account",
+      "label": null,
+      "href": "/settings",
+      "target": ""
+    },
+    {
+      "index": 24,
+      "text": "Privacy Policy",
+      "label": null,
+      "href": "/privacy-policy",
+      "target": ""
+    },
+    {
+      "index": 25,
+      "text": "Terms of Service",
+      "label": null,
+      "href": "/terms-of-service",
+      "target": ""
+    }
+  ],
+  "buttons": [
+    {
+      "index": 0,
+      "text": "",
+      "label": "Open navigation",
+      "disabled": false,
+      "role": null
+    }
+  ],
+  "forms": [],
+  "overflow": false
+}

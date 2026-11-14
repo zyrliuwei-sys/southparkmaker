@@ -36,7 +36,7 @@ export function MakerFooter({
         </div>
         {columns.map((column) => (
           <div key={column.title} className="maker-footer-column">
-            <h3>{column.title}</h3>
+            <h2>{column.title}</h2>
             {column.links.map((link) => (
               <Link key={link.href} href={link.href}>
                 {link.label}

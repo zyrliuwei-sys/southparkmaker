@@ -95,6 +95,7 @@ export function SupportWidget() {
               </p>
               <Link
                 href={`/sign-in?callbackUrl=${encodeURIComponent(currentPathWithQuery('/'))}`}
+                onClick={() => setOpen(false)}
                 className={cn(buttonVariants())}
               >
                 {m['common.support.sign_in']()}
@@ -153,6 +154,7 @@ export function SupportWidget() {
                   {m['common.support.track_hint_prefix']()}{' '}
                   <Link
                     href="/settings/tickets"
+                    onClick={() => setOpen(false)}
                     className="hover:text-foreground underline"
                   >
                     {m['common.support.track_hint_link']()}

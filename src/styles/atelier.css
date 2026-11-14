@@ -865,7 +865,7 @@ body {
   max-width: 38ch;
   line-height: 1.9;
 }
-.maker-footer-column h3 {
+.maker-footer-column h2 {
   font-size: 11px;
 }
 .maker-footer-column a {
@@ -2251,4 +2251,31 @@ html {
 .maker-page :is(button, input, textarea, select, summary) {
   scroll-margin-top: 12px;
   scroll-margin-bottom: 24px;
+}
+.maker-auth-links {
+  width: min(100%, 380px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 24px auto 0;
+  font-size: 12px;
+  color: var(--mk-muted);
+}
+.maker-auth-links > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.maker-auth-links a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  text-underline-offset: 4px;
+}
+.maker-auth-links a:hover {
+  color: var(--mk-accent);
+  text-decoration: underline;
 }

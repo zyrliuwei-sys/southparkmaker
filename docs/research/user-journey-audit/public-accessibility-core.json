@@ -1,0 +1,22 @@
+[
+  {
+    "path": "/",
+    "violations": [],
+    "incomplete": ["color-contrast"]
+  },
+  {
+    "path": "/create",
+    "violations": [],
+    "incomplete": []
+  },
+  {
+    "path": "/create?mode=ai",
+    "violations": [],
+    "incomplete": []
+  },
+  {
+    "path": "/pricing",
+    "violations": [],
+    "incomplete": []
+  }
+]

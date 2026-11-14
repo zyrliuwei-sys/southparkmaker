@@ -19,6 +19,11 @@ export function Header() {
       startLabel={tDynamic('maker.nav.start')}
       openLabel={tDynamic('maker.nav.menu_open')}
       closeLabel={tDynamic('maker.nav.menu_close')}
+      accountLink={
+        session?.user
+          ? { href: '/settings', label: tDynamic('maker.nav.account') }
+          : undefined
+      }
       account={
         session?.user ? (
           <SiteUserMenu

@@ -204,7 +204,12 @@ function RootComponent() {
           <CookieConsent initial={analytics?.cookieConsent ?? null} />
         ) : null}
       </ThemeProvider>
-      {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
+      {import.meta.env.DEV && (
+        <ReactQueryDevtools
+          initialIsOpen={false}
+          buttonPosition="bottom-left"
+        />
+      )}
     </QueryClientProvider>
   );
 }

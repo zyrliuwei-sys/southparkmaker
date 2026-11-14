@@ -9,7 +9,12 @@ import { MakerCreate } from '@/blocks/maker-create';
 
 export const Route = createFileRoute('/create')({
   validateSearch: (search: Record<string, unknown>) => ({
-    mode: search.mode === 'ai' ? ('ai' as const) : ('builder' as const),
+    mode:
+      search.mode === 'ai'
+        ? ('ai' as const)
+        : search.mode === 'builder'
+          ? ('builder' as const)
+          : undefined,
     prompt:
       typeof search.prompt === 'string'
         ? search.prompt.slice(0, 1500)
@@ -47,7 +52,7 @@ function CreatePage() {
     <div className="maker-page">
       <Header />
       <MakerCreate
-        mode={mode}
+        mode={mode ?? 'builder'}
         prompt={prompt}
         photo={photo === 1}
         resolution={resolution}

@@ -1,8 +1,8 @@
 {
   "url": "/create?mode=ai",
-  "title": "Create Your South Park Character | southparkmaker",
+  "title": "South Park Character Creator - Customize & Download",
   "h1": ["A new idea, in character."],
-  "text": "Back to the workshop\nA new idea, in character.\n\nDescribe your character, choose a resolution, and generate an original cartoon portrait. The credit cost is shown before you start.\n\nCharacter builder\nAI generator\nGive your idea a character.\nDescribe your character\n0 / 1500\n\nA few details about their look, outfit, and personality are a good start.\n\nMountain explorer\nBook lover\nWeekend skater\nImage shape\nSquare (1:1)\nPortrait (3:4)\nImage resolution\n1K · 15 credits per image\n1.5K · 15 credits per image\n2K · 26 credits per image\n26 credits per image\nGet credits\nGenerate my character\n\nAI generation uses credits from your account. Failed generations return the credits deducted for that request.\n\nYour imagination goes here.\n\nThis image was made in the AI studio. Your own generated character will appear here after your request completes.\n\nRead the character guide",
+  "text": "Back to the workshop\nA new idea, in character.\n\nDescribe your character, choose a resolution, and generate an original cartoon portrait. The credit cost is shown before you start.\n\nCharacter builder\nAI generator\nGive your idea a character.\n\n Checking AI availability…\n\nDescribe your character\n0 / 1500\n\nA few details about their look, outfit, and personality are a good start.\n\nMountain explorer\nBook lover\nWeekend skater\nImage shape\nSquare (1:1)\nPortrait (3:4)\nGet credits\nGenerate my character\n\nAI generation uses credits from your account. Failed generations return the credits deducted for that request.\n\nYour imagination goes here.\n\nThis image was made in the AI studio. Your own generated character will appear here after your request completes.\n\nRead the character guide",
   "links": [
     {
       "index": 0,
@@ -41,132 +41,139 @@
     },
     {
       "index": 5,
+      "text": "Sign in",
+      "label": null,
+      "href": "/sign-in",
+      "target": ""
+    },
+    {
+      "index": 6,
       "text": "Open studio",
       "label": null,
       "href": "/create",
       "target": ""
     },
     {
-      "index": 6,
+      "index": 7,
       "text": "Back to the workshop",
       "label": null,
       "href": "/",
       "target": ""
     },
     {
-      "index": 7,
+      "index": 8,
       "text": "Character builder",
       "label": null,
       "href": "/create",
       "target": ""
     },
     {
-      "index": 8,
+      "index": 9,
       "text": "AI generator",
       "label": null,
       "href": "/create?mode=ai",
       "target": ""
     },
     {
-      "index": 9,
+      "index": 10,
       "text": "Get credits",
       "label": null,
       "href": "/pricing",
       "target": ""
     },
     {
-      "index": 10,
+      "index": 11,
       "text": "Read the character guide",
       "label": null,
       "href": "/#character-guide",
       "target": ""
     },
     {
-      "index": 11,
+      "index": 12,
       "text": "southparkmaker",
       "label": "southparkmaker",
       "href": "/",
       "target": ""
     },
     {
-      "index": 12,
+      "index": 13,
       "text": "southparkmaker",
       "label": null,
       "href": "/",
       "target": ""
     },
     {
-      "index": 13,
+      "index": 14,
       "text": "Character builder",
       "label": null,
       "href": "/create",
       "target": ""
     },
     {
-      "index": 14,
+      "index": 15,
       "text": "AI generator",
       "label": null,
       "href": "/create?mode=ai",
       "target": ""
     },
     {
-      "index": 15,
+      "index": 16,
       "text": "Pricing",
       "label": null,
       "href": "/pricing",
       "target": ""
     },
     {
-      "index": 16,
+      "index": 17,
       "text": "Character ideas",
       "label": null,
       "href": "/#gallery",
       "target": ""
     },
     {
-      "index": 17,
+      "index": 18,
       "text": "How to create",
       "label": null,
       "href": "/#how-it-works",
       "target": ""
     },
     {
-      "index": 18,
+      "index": 19,
       "text": "Contact support",
       "label": null,
       "href": "mailto:support@southparkmaker.com",
       "target": ""
     },
     {
-      "index": 19,
+      "index": 20,
       "text": "FAQs",
       "label": null,
       "href": "/#faq",
       "target": ""
     },
     {
-      "index": 20,
+      "index": 21,
       "text": "Character guide",
       "label": null,
       "href": "/#character-guide",
       "target": ""
     },
     {
-      "index": 21,
+      "index": 22,
       "text": "My account",
       "label": null,
       "href": "/settings",
       "target": ""
     },
     {
-      "index": 22,
+      "index": 23,
       "text": "Privacy Policy",
       "label": null,
       "href": "/privacy-policy",
       "target": ""
     },
     {
-      "index": 23,
+      "index": 24,
       "text": "Terms of Service",
       "label": null,
       "href": "/terms-of-service",
@@ -176,50 +183,253 @@
   "buttons": [
     {
       "index": 0,
-      "text": "A",
-      "label": "My account",
-      "disabled": false,
-      "role": null
-    },
-    {
-      "index": 1,
       "text": "",
       "label": "Open navigation",
       "disabled": false,
       "role": null
     },
     {
-      "index": 2,
+      "index": 1,
       "text": "Mountain explorer",
       "label": null,
       "disabled": false,
       "role": null
     },
     {
-      "index": 3,
+      "index": 2,
       "text": "Book lover",
       "label": null,
       "disabled": false,
       "role": null
     },
     {
-      "index": 4,
+      "index": 3,
       "text": "Weekend skater",
       "label": null,
       "disabled": false,
       "role": null
     },
     {
-      "index": 5,
+      "index": 4,
       "text": "Generate my character",
       "label": null,
       "disabled": true,
       "role": null
     },
     {
+      "index": 5,
+      "text": "Surprise me",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
       "index": 6,
+      "text": "Undo",
+      "label": null,
+      "disabled": true,
+      "role": null
+    },
+    {
+      "index": 7,
+      "text": "Reset",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 8,
+      "text": "Download PNG",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 9,
+      "text": "SVG",
+      "label": "Download SVG",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 10,
       "text": "",
-      "label": "Open Tanstack query devtools",
+      "label": "Save on this device",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 11,
+      "text": "Hair & hats",
+      "label": null,
+      "disabled": false,
+      "role": "tab"
+    },
+    {
+      "index": 12,
+      "text": "Outfit",
+      "label": null,
+      "disabled": false,
+      "role": "tab"
+    },
+    {
+      "index": 13,
+      "text": "Face",
+      "label": null,
+      "disabled": false,
+      "role": "tab"
+    },
+    {
+      "index": 14,
+      "text": "Scene",
+      "label": null,
+      "disabled": false,
+      "role": "tab"
+    },
+    {
+      "index": 15,
+      "text": "Short",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 16,
+      "text": "Curly",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 17,
+      "text": "Long",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 18,
+      "text": "Spiky",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 19,
+      "text": "Bob",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 20,
+      "text": "None",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 21,
+      "text": "",
+      "label": "Hair color: Dark brown",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 22,
+      "text": "",
+      "label": "Hair color: Chestnut",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 23,
+      "text": "",
+      "label": "Hair color: Copper",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 24,
+      "text": "",
+      "label": "Hair color: Blonde",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 25,
+      "text": "",
+      "label": "Hair color: Auburn",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 26,
+      "text": "",
+      "label": "Hair color: Silver violet",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 27,
+      "text": "None",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 28,
+      "text": "Beanie",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 29,
+      "text": "Cap",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 30,
+      "text": "",
+      "label": "The mountain kid",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 31,
+      "text": "",
+      "label": "The daydreamer",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 32,
+      "text": "",
+      "label": "The weekend skater",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 33,
+      "text": "",
+      "label": "The book lover",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 34,
+      "text": "",
+      "label": "The little explorer",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 35,
+      "text": "",
+      "label": "The neighborhood rebel",
       "disabled": false,
       "role": null
     }
@@ -237,15 +447,6 @@
     {
       "name": "",
       "id": "character-ratio",
-      "type": "select-one",
-      "required": false,
-      "disabled": false,
-      "placeholder": null,
-      "label": null
-    },
-    {
-      "name": "",
-      "id": "character-resolution",
       "type": "select-one",
       "required": false,
       "disabled": false,

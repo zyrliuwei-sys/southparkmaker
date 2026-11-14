@@ -1,0 +1,32 @@
+[
+  {
+    "question": "What is a South Park character maker?",
+    "open": true,
+    "answer": "southparkmaker is an online interactive tool for creating personalized cartoon characters inspired by the South Park paper-cut aesthetic. Customize your hairstyle, skin tone, outfit, expression, and background in the free manual editor, or try optional AI generation when available."
+  },
+  {
+    "question": "Can I create a South Park avatar for free?",
+    "open": true,
+    "answer": "Yes. The manual character builder and its PNG and SVG downloads are free and do not require an account. AI generation is separate: it requires a signed-in account and uses credits when enabled."
+  },
+  {
+    "question": "How does the photo-to-character option work?",
+    "open": true,
+    "answer": "The current AI studio creates images from text. Photo upload is not available yet. Describe your hairstyle, outfit, and expression in a prompt, or choose those details in the free character builder."
+  },
+  {
+    "question": "Can I download a transparent character image?",
+    "open": true,
+    "answer": "Yes. Open Scene in the free builder and select Transparent before exporting. Your PNG or SVG will have no background. This is useful for placing the avatar into another design without a square scene around it. Keep a downloaded copy of your finished version."
+  },
+  {
+    "question": "Are my saved characters available on other devices?",
+    "open": true,
+    "answer": "The free builder saves editable designs in this browser on this device. They do not automatically appear on another phone, computer, or browser. Clearing browser storage can remove those saves. Download your image to keep a separate copy you can move wherever you need it."
+  },
+  {
+    "question": "Is this the official South Park avatar creator?",
+    "open": true,
+    "answer": "southparkmaker is an independent creative tool inspired by the paper-cut cartoon aesthetic. It is not affiliated with or endorsed by South Park or its rights holders. Create original characters and use only photos, likenesses, or other materials you have permission to use."
+  }
+]

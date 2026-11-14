@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useForm } from '@tanstack/react-form';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { z } from 'zod';
 
 import { requestPasswordReset } from '@/core/auth/client';
 import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
 import { privatePageHead } from '@/lib/private-page-head';
+import { authReturnQuery } from '@/lib/redirect';
 import { m } from '@/paraglide/messages.js';
 import { localizeHref } from '@/paraglide/runtime.js';
 import { usePublicConfig } from '@/hooks/use-public-config';
@@ -26,6 +27,10 @@ const forgotSchema = z.object({
 });
 
 function ForgotPasswordPage() {
+  const returnQuery = useLocation({
+    select: (location) =>
+      authReturnQuery(location.search as Record<string, unknown>),
+  });
   const [error, setError] = useState('');
   const [sent, setSent] = useState(false);
   const [sentEmail, setSentEmail] = useState('');
@@ -43,7 +48,7 @@ function ForgotPasswordPage() {
       setError('');
       try {
         const origin = window.location.origin;
-        const redirectTo = `${origin}${localizeHref('/reset-password')}`;
+        const redirectTo = `${origin}${localizeHref(`/reset-password${returnQuery}`)}`;
         const result = await requestPasswordReset({
           email: value.email,
           redirectTo,
@@ -75,7 +80,7 @@ function ForgotPasswordPage() {
                   : m['common.sign.forgot_password_title']()}
               </h1>
             </CardTitle>
-            {!sent && (
+            {!sent && passwordResetEnabled && (
               <CardDescription>
                 {m['common.sign.forgot_password_description']()}
               </CardDescription>
@@ -91,10 +96,16 @@ function ForgotPasswordPage() {
                   <p className="text-muted-foreground mt-1 text-sm">
                     {m['common.sign.password_reset_unavailable_description']()}
                   </p>
+                  <a
+                    href={`mailto:${m['common.support.email']()}`}
+                    className="mt-3 inline-flex min-h-11 items-center text-sm underline underline-offset-4"
+                  >
+                    {m['common.support.open_label']()}
+                  </a>
                 </div>
                 <Field>
                   <Link
-                    href="/sign-in"
+                    href={`/sign-in${returnQuery}`}
                     className="text-center text-sm underline underline-offset-4"
                   >
                     {m['common.sign.back_to_sign_in']()}
@@ -110,7 +121,7 @@ function ForgotPasswordPage() {
                 </p>
                 <Field>
                   <Link
-                    href="/sign-in"
+                    href={`/sign-in${returnQuery}`}
                     className="text-center text-sm underline underline-offset-4"
                   >
                     {m['common.sign.back_to_sign_in']()}
@@ -153,7 +164,7 @@ function ForgotPasswordPage() {
                     </form.Subscribe>
                     <FieldDescription className="text-center">
                       <Link
-                        href="/sign-in"
+                        href={`/sign-in${returnQuery}`}
                         className="underline underline-offset-4"
                       >
                         {m['common.sign.back_to_sign_in']()}

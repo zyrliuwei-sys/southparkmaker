@@ -1,0 +1,11 @@
+{
+  "failure": {
+    "path": "/settings/profile",
+    "message": "We could not check your sign-in status. Your page is still here. Please try again."
+  },
+  "recovery": {
+    "path": "/settings/profile",
+    "heading": "Profile",
+    "retained": true
+  }
+}

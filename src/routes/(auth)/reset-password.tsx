@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useForm } from '@tanstack/react-form';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useLocation } from '@tanstack/react-router';
 import { z } from 'zod';
 
 import { resetPassword } from '@/core/auth/client';
 import { Link, useRouter } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
 import { privatePageHead } from '@/lib/private-page-head';
+import { authReturnQuery } from '@/lib/redirect';
 import { m } from '@/paraglide/messages.js';
 import { TextField } from '@/components/form-field';
 import { Button } from '@/components/ui/button';
@@ -30,6 +31,10 @@ const resetSchema = z
   });
 
 function ResetPasswordPage() {
+  const returnQuery = useLocation({
+    select: (location) =>
+      authReturnQuery(location.search as Record<string, unknown>),
+  });
   const router = useRouter();
   const [token, setToken] = useState<string | null>(null);
   const [tokenChecked, setTokenChecked] = useState(false);
@@ -62,7 +67,7 @@ function ResetPasswordPage() {
           setError(result.error.message || 'Reset failed');
         } else {
           setSuccess(true);
-          setTimeout(() => router.push('/sign-in'), 1500);
+          setTimeout(() => router.push(`/sign-in${returnQuery}`), 1500);
         }
       } catch (err: any) {
         setError(err.message || 'Reset failed');
@@ -95,7 +100,7 @@ function ResetPasswordPage() {
                 </div>
                 <Field>
                   <Link
-                    href="/forgot-password"
+                    href={`/forgot-password${returnQuery}`}
                     className="text-center text-sm underline underline-offset-4"
                   >
                     {m['common.sign.forgot_password_title']()}
@@ -109,7 +114,7 @@ function ResetPasswordPage() {
                 </p>
                 <Field>
                   <Link
-                    href="/sign-in"
+                    href={`/sign-in${returnQuery}`}
                     className="text-center text-sm underline underline-offset-4"
                   >
                     {m['common.sign.back_to_sign_in']()}
@@ -167,7 +172,7 @@ function ResetPasswordPage() {
                     </form.Subscribe>
                     <FieldDescription className="text-center">
                       <Link
-                        href="/sign-in"
+                        href={`/sign-in${returnQuery}`}
                         className="underline underline-offset-4"
                       >
                         {m['common.sign.back_to_sign_in']()}

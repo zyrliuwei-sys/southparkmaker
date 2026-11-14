@@ -13,6 +13,7 @@ import {
   generationCreditShortfall,
   type CharacterResolution,
 } from '@/lib/character-pricing';
+import { invalidateCharacterCreditQueries } from '@/lib/character-query-cache';
 import { m } from '@/paraglide/messages.js';
 import { useCharacterCapabilities } from '@/hooks/use-character-capabilities';
 
@@ -62,7 +63,7 @@ export function AICharacterGenerator({
       }),
     onSuccess: (result) => {
       setTaskId(result.taskId);
-      queryClient.invalidateQueries({ queryKey: ['character-balance'] });
+      void invalidateCharacterCreditQueries(queryClient);
     },
   });
   const task = useQuery({
@@ -112,7 +113,7 @@ export function AICharacterGenerator({
     try {
       if (['success', 'failed', 'canceled'].includes(result?.status ?? '')) {
         localStorage.removeItem(storageKey);
-        queryClient.invalidateQueries({ queryKey: ['character-balance'] });
+        void invalidateCharacterCreditQueries(queryClient);
       } else localStorage.setItem(storageKey, taskId);
     } catch {}
   }, [storageKey, taskId, result?.status, queryClient]);

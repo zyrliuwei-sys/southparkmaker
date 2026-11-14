@@ -248,8 +248,15 @@ function PaymentsPage() {
                 value={status}
                 onValueChange={(value) => setStatus(value || 'all')}
               >
-                <SelectTrigger className="h-9 w-[140px]">
-                  <SelectValue />
+                <SelectTrigger
+                  className="h-9 w-[140px]"
+                  aria-label={`${m['settings.payments.status_filter']()}: ${status === 'all' ? m['settings.payments.status_all']() : statusLabel(status)}`}
+                >
+                  <SelectValue>
+                    {status === 'all'
+                      ? m['settings.payments.status_all']()
+                      : statusLabel(status)}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">

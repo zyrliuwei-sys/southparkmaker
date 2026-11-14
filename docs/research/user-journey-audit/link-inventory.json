@@ -1,0 +1,225 @@
+{
+  "linkOccurrences": 322,
+  "distinctLocalTargets": 31,
+  "broken": [],
+  "copyFindings": [],
+  "results": [
+    {
+      "url": "/",
+      "status": 200,
+      "final": "/",
+      "bytes": 86924,
+      "sources": 99
+    },
+    {
+      "url": "/blog",
+      "status": 200,
+      "final": "/blog",
+      "bytes": 11091,
+      "sources": 1
+    },
+    {
+      "url": "/create",
+      "status": 200,
+      "final": "/create",
+      "bytes": 76251,
+      "sources": 38
+    },
+    {
+      "url": "/create?mode=ai",
+      "status": 200,
+      "final": "/create?mode=ai",
+      "bytes": 79165,
+      "sources": 13
+    },
+    {
+      "url": "/create?preset=0",
+      "status": 200,
+      "final": "/create?preset=0",
+      "bytes": 76251,
+      "sources": 1
+    },
+    {
+      "url": "/create?preset=1",
+      "status": 200,
+      "final": "/create?preset=1",
+      "bytes": 78563,
+      "sources": 1
+    },
+    {
+      "url": "/create?preset=2",
+      "status": 200,
+      "final": "/create?preset=2",
+      "bytes": 75799,
+      "sources": 1
+    },
+    {
+      "url": "/create?preset=3",
+      "status": 200,
+      "final": "/create?preset=3",
+      "bytes": 67171,
+      "sources": 1
+    },
+    {
+      "url": "/create?preset=4",
+      "status": 200,
+      "final": "/create?preset=4",
+      "bytes": 77512,
+      "sources": 1
+    },
+    {
+      "url": "/create?preset=5",
+      "status": 200,
+      "final": "/create?preset=5",
+      "bytes": 76095,
+      "sources": 1
+    },
+    {
+      "url": "/forgot-password",
+      "status": 200,
+      "final": "/forgot-password",
+      "bytes": 8344,
+      "sources": 1
+    },
+    {
+      "url": "/forgot-password?callbackUrl=%2Fadmin",
+      "status": 200,
+      "final": "/forgot-password?callbackUrl=%2Fadmin",
+      "bytes": 8365,
+      "sources": 1
+    },
+    {
+      "url": "/forgot-password?callbackUrl=%2Fsettings",
+      "status": 200,
+      "final": "/forgot-password?callbackUrl=%2Fsettings",
+      "bytes": 8368,
+      "sources": 1
+    },
+    {
+      "url": "/guest-post",
+      "status": 200,
+      "final": "/guest-post",
+      "bytes": 10733,
+      "sources": 1
+    },
+    {
+      "url": "/llms-full.txt",
+      "status": 200,
+      "final": "/llms-full.txt",
+      "bytes": 1200,
+      "sources": 0
+    },
+    {
+      "url": "/llms.txt",
+      "status": 200,
+      "final": "/llms.txt",
+      "bytes": 1200,
+      "sources": 0
+    },
+    {
+      "url": "/pricing",
+      "status": 200,
+      "final": "/pricing",
+      "bytes": 19045,
+      "sources": 21
+    },
+    {
+      "url": "/privacy-policy",
+      "status": 200,
+      "final": "/privacy-policy",
+      "bytes": 21370,
+      "sources": 14
+    },
+    {
+      "url": "/robots.txt",
+      "status": 200,
+      "final": "/robots.txt",
+      "bytes": 140,
+      "sources": 0
+    },
+    {
+      "url": "/settings",
+      "status": 200,
+      "final": "/settings",
+      "bytes": 4298,
+      "sources": 35
+    },
+    {
+      "url": "/settings/billing",
+      "status": 200,
+      "final": "/settings/billing",
+      "bytes": 4325,
+      "sources": 10
+    },
+    {
+      "url": "/settings/credits",
+      "status": 200,
+      "final": "/settings/credits",
+      "bytes": 4325,
+      "sources": 11
+    },
+    {
+      "url": "/settings/guest-posts",
+      "status": 200,
+      "final": "/settings/guest-posts",
+      "bytes": 4353,
+      "sources": 2
+    },
+    {
+      "url": "/settings/payments",
+      "status": 200,
+      "final": "/settings/payments",
+      "bytes": 4330,
+      "sources": 10
+    },
+    {
+      "url": "/settings/profile",
+      "status": 200,
+      "final": "/settings/profile",
+      "bytes": 4325,
+      "sources": 9
+    },
+    {
+      "url": "/settings/tickets",
+      "status": 200,
+      "final": "/settings/tickets",
+      "bytes": 4333,
+      "sources": 10
+    },
+    {
+      "url": "/sign-in",
+      "status": 200,
+      "final": "/sign-in",
+      "bytes": 11781,
+      "sources": 9
+    },
+    {
+      "url": "/sign-in?callbackUrl=%2Fadmin",
+      "status": 200,
+      "final": "/sign-in?callbackUrl=%2Fadmin",
+      "bytes": 11802,
+      "sources": 1
+    },
+    {
+      "url": "/sign-up?callbackUrl=%2Fsettings",
+      "status": 200,
+      "final": "/sign-up?callbackUrl=%2Fsettings",
+      "bytes": 15148,
+      "sources": 1
+    },
+    {
+      "url": "/sitemap.xml",
+      "status": 200,
+      "final": "/sitemap.xml",
+      "bytes": 1492,
+      "sources": 0
+    },
+    {
+      "url": "/terms-of-service",
+      "status": 200,
+      "final": "/terms-of-service",
+      "bytes": 21731,
+      "sources": 13
+    }
+  ]
+}

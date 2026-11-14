@@ -2,7 +2,11 @@ import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
 import { m } from '@/paraglide/messages.js';
 
-export function AuthBrandPanel() {
+export function AuthBrandPanel({
+  mode = 'sign-in',
+}: {
+  mode?: 'sign-in' | 'sign-up';
+}) {
   return (
     <aside className="maker-auth-art">
       <Link className="maker-brand" href="/">
@@ -11,7 +15,11 @@ export function AuthBrandPanel() {
       </Link>
       <div>
         <h2>{m['maker.auth.title']()}</h2>
-        <p>{m['maker.auth.description']()}</p>
+        <p>
+          {mode === 'sign-up'
+            ? m['maker.auth.signup_description']()
+            : m['maker.auth.description']()}
+        </p>
       </div>
       <figure>
         <img

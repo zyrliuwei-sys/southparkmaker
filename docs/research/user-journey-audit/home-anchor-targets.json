@@ -1,0 +1,30 @@
+[
+  {
+    "href": "#main-content",
+    "exists": true
+  },
+  {
+    "href": "/#gallery",
+    "exists": true
+  },
+  {
+    "href": "/#character-guide",
+    "exists": true
+  },
+  {
+    "href": "/#gallery",
+    "exists": true
+  },
+  {
+    "href": "/#how-it-works",
+    "exists": true
+  },
+  {
+    "href": "/#faq",
+    "exists": true
+  },
+  {
+    "href": "/#character-guide",
+    "exists": true
+  }
+]

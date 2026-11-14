@@ -1,0 +1,37 @@
+[
+  {
+    "path": "/",
+    "status": 200
+  },
+  {
+    "path": "/create",
+    "status": 200
+  },
+  {
+    "path": "/pricing",
+    "status": 200
+  },
+  {
+    "path": "/api/characters/config",
+    "status": 200,
+    "capabilities": {
+      "enabled": true,
+      "photoEnabled": false,
+      "costCredits": 26,
+      "resolutions": [
+        {
+          "resolution": "1K",
+          "costCredits": 15
+        },
+        {
+          "resolution": "1.5K",
+          "costCredits": 15
+        },
+        {
+          "resolution": "2K",
+          "costCredits": 26
+        }
+      ]
+    }
+  }
+]

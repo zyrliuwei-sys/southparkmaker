@@ -1,0 +1,37 @@
+[
+  {
+    "url": "/settings/profile",
+    "title": "Profile | southparkmaker",
+    "active": ["Profile"],
+    "nestedButtons": 0,
+    "robots": "noindex, follow"
+  },
+  {
+    "url": "/settings/credits",
+    "title": "Credits | southparkmaker",
+    "active": ["Credits"],
+    "nestedButtons": 0,
+    "robots": "noindex, follow"
+  },
+  {
+    "url": "/settings/billing",
+    "title": "Billing | southparkmaker",
+    "active": ["Billing"],
+    "nestedButtons": 0,
+    "robots": "noindex, follow"
+  },
+  {
+    "url": "/settings/payments",
+    "title": "Payments | southparkmaker",
+    "active": ["Payments"],
+    "nestedButtons": 0,
+    "robots": "noindex, follow"
+  },
+  {
+    "url": "/settings/tickets",
+    "title": "Support Tickets | southparkmaker",
+    "active": ["Support Tickets"],
+    "nestedButtons": 0,
+    "robots": "noindex, follow"
+  }
+]

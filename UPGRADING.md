@@ -677,3 +677,15 @@ grant_<orderNo>`, so the unique index allows one grant per order. Older
   `utm_source` filter (`users_sources` operation, `GET /api/admin/users/sources`,
   `users.read`). The subscriptions and credits list APIs now also return
   `userName` / `userImage`.
+
+## 2026-11-14 — User-journey and content review
+
+- Public pricing now shows purchasing availability before account sign-in. When no provider is enabled, plan purchases are disabled and the free studio remains accessible. Product amounts, credit grants and the server catalog are unchanged.
+- The manual character draft and an opened AI draft remain mounted across creation-mode switches. An explicit preset or incoming AI prompt still starts the requested look or request. This does not add cloud saving.
+- Public photo examples, FAQ answers and entry links follow the actual character-provider capabilities. Text-only installations no longer imply that a reference photo can be uploaded.
+- `AppLayout` callers now provide `statusCopy` with `loading`, `sessionError` and `retry` strings. The two built-in callers were updated. Session-check failures show a retry state instead of sending a user to sign-in as if they had signed out.
+- `DataTable` accepts an optional `errorMessage` prop. User account tables distinguish failed requests, filtered empty results and a genuinely empty history. Profile and account balance failures also expose recovery instead of an indefinite loader or an invented zero.
+- Sidebar entries render as links, close the mobile drawer on navigation, and mark only the actual current section. Authentication help links preserve validated callback parameters; email verification no longer decodes nested prompt values twice.
+- Authentication, user-center and recovery pages have explicit English titles, accessible form errors and consistent branding. These changes require no database migration, environment change or role update.
+
+- Generation reservations and refunds refresh both studio and user-center credit caches. Disabled guest-post editor links show a closed state; failed post loads show a recovery state. The canonical studio route and plain-text page directory now reflect the actual public product.

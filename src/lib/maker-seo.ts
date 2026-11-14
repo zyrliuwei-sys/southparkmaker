@@ -6,7 +6,7 @@ export function makerSeo(path: '/' | '/create') {
   const isHome = path === '/';
   const title = isHome
     ? m['common.metadata.title']()
-    : `${m['maker.create.meta_title']()} | ${envConfigs.app_name}`;
+    : m['maker.create.meta_title']();
   const description = isHome
     ? m['common.metadata.description']()
     : m['maker.create.meta_description']();

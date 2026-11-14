@@ -11,6 +11,7 @@ export function MakerHeader({
   openLabel,
   closeLabel,
   account,
+  accountLink,
   skipLabel,
 }: {
   brand: string;
@@ -20,6 +21,7 @@ export function MakerHeader({
   openLabel: string;
   closeLabel: string;
   account?: ReactNode;
+  accountLink?: { href: string; label: string };
   skipLabel: string;
 }) {
   const [open, setOpen] = useState(false);
@@ -110,8 +112,11 @@ export function MakerHeader({
               {link.label}
             </Link>
           ))}
-          <Link href="/sign-in" onClick={() => setOpen(false)}>
-            {loginLabel}
+          <Link
+            href={accountLink?.href ?? '/sign-in'}
+            onClick={() => setOpen(false)}
+          >
+            {accountLink?.label ?? loginLabel}
           </Link>
         </nav>
       )}

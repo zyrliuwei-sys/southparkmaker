@@ -1,0 +1,50 @@
+[
+  {
+    "path": "/pricing",
+    "width": 320,
+    "scrollWidth": 320,
+    "outsideControls": []
+  },
+  {
+    "path": "/pricing",
+    "width": 390,
+    "scrollWidth": 390,
+    "outsideControls": []
+  },
+  {
+    "path": "/pricing",
+    "width": 768,
+    "scrollWidth": 768,
+    "outsideControls": []
+  },
+  {
+    "path": "/pricing",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "outsideControls": []
+  },
+  {
+    "path": "/create?mode=ai",
+    "width": 320,
+    "scrollWidth": 320,
+    "outsideControls": []
+  },
+  {
+    "path": "/create?mode=ai",
+    "width": 390,
+    "scrollWidth": 390,
+    "outsideControls": []
+  },
+  {
+    "path": "/create?mode=ai",
+    "width": 768,
+    "scrollWidth": 768,
+    "outsideControls": []
+  },
+  {
+    "path": "/create?mode=ai",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "outsideControls": []
+  }
+]

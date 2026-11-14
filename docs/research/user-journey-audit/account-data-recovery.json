@@ -1,0 +1,13 @@
+{
+  "unavailable": {
+    "url": "/settings/credits",
+    "balance": "—",
+    "error": "We could not load these details. Use Refresh or try again.",
+    "hasFalseEmpty": false
+  },
+  "recovery": {
+    "path": "/settings/credits",
+    "rows": 2,
+    "errorCleared": true
+  }
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "selected": "One-time packs",
+    "prices": ["$5", "$15", "$40"],
+    "disabled": true,
+    "notice": "Credit purchases are not available yet. You can explore the plans below and use the free character builder with PNG and SVG downloads.Try the free character builder"
+  },
+  {
+    "selected": "Monthly plans",
+    "prices": ["$9", "$25", "$49"],
+    "disabled": true,
+    "notice": "Credit purchases are not available yet. You can explore the plans below and use the free character builder with PNG and SVG downloads.Try the free character builder"
+  }
+]

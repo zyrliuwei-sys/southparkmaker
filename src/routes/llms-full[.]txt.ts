@@ -1,14 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { envConfigs } from '@/config';
+import { publicPageDirectory } from '@/lib/public-page-directory';
 import { baseLocale } from '@/paraglide/runtime.js';
 import { getLocalPosts, mergePosts } from '@/content/posts';
-
-const STATIC_PAGES: { path: string; title: string; description: string }[] = [
-  { path: '', title: 'Home', description: 'Landing page' },
-  { path: '/pricing', title: 'Pricing', description: 'Pricing plans' },
-  { path: '/blog', title: 'Blog', description: 'Blog posts and articles' },
-];
 
 export const Route = createFileRoute('/llms-full.txt')({
   server: {
@@ -23,7 +18,7 @@ export const Route = createFileRoute('/llms-full.txt')({
           '',
           '## Pages',
           '',
-          ...STATIC_PAGES.map(
+          ...publicPageDirectory().map(
             (p) => `- [${p.title}](${app_url}${p.path}): ${p.description}`
           ),
         ];

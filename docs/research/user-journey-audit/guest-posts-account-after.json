@@ -1,0 +1,143 @@
+{
+  "url": "/settings/guest-posts",
+  "title": "Guest Posts | southparkmaker",
+  "h1": ["Guest Posts"],
+  "text": "Toggle Sidebar\nGuest Posts\n\nWrite for this site: submit and pay for an article; it's published once approved, and refunded if rejected\n\nGuest posts aren't open at the moment.\n\nAll statuses\nTitle\tPackage\tStatus\tReviewer's note\tLast updated\tActions\n\nLoading...",
+  "links": [
+    {
+      "index": 0,
+      "text": "southparkmaker",
+      "label": null,
+      "href": "/settings",
+      "target": ""
+    },
+    {
+      "index": 1,
+      "text": "Character builder",
+      "label": null,
+      "href": "/create",
+      "target": ""
+    },
+    {
+      "index": 2,
+      "text": "Overview",
+      "label": null,
+      "href": "/settings",
+      "target": ""
+    },
+    {
+      "index": 3,
+      "text": "Profile",
+      "label": null,
+      "href": "/settings/profile",
+      "target": ""
+    },
+    {
+      "index": 4,
+      "text": "Credits",
+      "label": null,
+      "href": "/settings/credits",
+      "target": ""
+    },
+    {
+      "index": 5,
+      "text": "Billing",
+      "label": null,
+      "href": "/settings/billing",
+      "target": ""
+    },
+    {
+      "index": 6,
+      "text": "Payments",
+      "label": null,
+      "href": "/settings/payments",
+      "target": ""
+    },
+    {
+      "index": 7,
+      "text": "Support Tickets",
+      "label": null,
+      "href": "/settings/tickets",
+      "target": ""
+    },
+    {
+      "index": 8,
+      "text": "Home",
+      "label": null,
+      "href": "/",
+      "target": "_blank"
+    },
+    {
+      "index": 9,
+      "text": "southparkmaker",
+      "label": null,
+      "href": "/settings",
+      "target": ""
+    }
+  ],
+  "buttons": [
+    {
+      "index": 0,
+      "text": "AAdmin[account email]",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 1,
+      "text": "Toggle Sidebar",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 2,
+      "text": "All statuses▼",
+      "label": null,
+      "disabled": false,
+      "role": "combobox"
+    },
+    {
+      "index": 3,
+      "text": "",
+      "label": "Refresh",
+      "disabled": true,
+      "role": null
+    },
+    {
+      "index": 4,
+      "text": "",
+      "label": "Contact support",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 5,
+      "text": "",
+      "label": "Open Tanstack query devtools",
+      "disabled": false,
+      "role": null
+    }
+  ],
+  "forms": [
+    {
+      "name": "",
+      "id": "base-ui-_r_l_",
+      "type": "text",
+      "required": false,
+      "disabled": false,
+      "placeholder": "Search titles…",
+      "label": null
+    },
+    {
+      "name": "",
+      "id": "base-ui-_r_m_-hidden-input",
+      "type": "text",
+      "required": false,
+      "disabled": false,
+      "placeholder": null,
+      "label": null
+    }
+  ],
+  "overflow": false
+}

@@ -158,7 +158,7 @@ function GuestPostsPage() {
         <div>
           <h1 className="text-2xl font-bold">{m['guest_posts.title']()}</h1>
           <p className="text-muted-foreground">
-            {m['guest_posts.description']()}
+            {m['guest_posts.account_description']()}
           </p>
         </div>
         {info.data?.enabled && (

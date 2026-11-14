@@ -1,0 +1,173 @@
+{
+  "url": "/blog",
+  "title": "Character notes | southparkmaker",
+  "h1": ["Character notes"],
+  "text": "Character notes\n\nCharacter ideas, creative prompts, and practical guides from southparkmaker.\n\nThere are no published character notes yet. Explore the free studio or read the character-making guide.\n\nOpen the free studio\nRead the character guide",
+  "links": [
+    {
+      "index": 0,
+      "text": "Skip to content",
+      "label": null,
+      "href": "#main-content",
+      "target": ""
+    },
+    {
+      "index": 1,
+      "text": "southparkmaker",
+      "label": "southparkmaker",
+      "href": "/",
+      "target": ""
+    },
+    {
+      "index": 2,
+      "text": "Character ideas",
+      "label": null,
+      "href": "/#gallery",
+      "target": ""
+    },
+    {
+      "index": 3,
+      "text": "Character guide",
+      "label": null,
+      "href": "/#character-guide",
+      "target": ""
+    },
+    {
+      "index": 4,
+      "text": "Pricing",
+      "label": null,
+      "href": "/pricing",
+      "target": ""
+    },
+    {
+      "index": 5,
+      "text": "Sign in",
+      "label": null,
+      "href": "/sign-in",
+      "target": ""
+    },
+    {
+      "index": 6,
+      "text": "Open studio",
+      "label": null,
+      "href": "/create",
+      "target": ""
+    },
+    {
+      "index": 7,
+      "text": "Open the free studio",
+      "label": null,
+      "href": "/create",
+      "target": ""
+    },
+    {
+      "index": 8,
+      "text": "Read the character guide",
+      "label": null,
+      "href": "/#character-guide",
+      "target": ""
+    },
+    {
+      "index": 9,
+      "text": "southparkmaker",
+      "label": "southparkmaker",
+      "href": "/",
+      "target": ""
+    },
+    {
+      "index": 10,
+      "text": "southparkmaker",
+      "label": null,
+      "href": "/",
+      "target": ""
+    },
+    {
+      "index": 11,
+      "text": "Character builder",
+      "label": null,
+      "href": "/create",
+      "target": ""
+    },
+    {
+      "index": 12,
+      "text": "AI generator",
+      "label": null,
+      "href": "/create?mode=ai",
+      "target": ""
+    },
+    {
+      "index": 13,
+      "text": "Pricing",
+      "label": null,
+      "href": "/pricing",
+      "target": ""
+    },
+    {
+      "index": 14,
+      "text": "Character ideas",
+      "label": null,
+      "href": "/#gallery",
+      "target": ""
+    },
+    {
+      "index": 15,
+      "text": "How to create",
+      "label": null,
+      "href": "/#how-it-works",
+      "target": ""
+    },
+    {
+      "index": 16,
+      "text": "Contact support",
+      "label": null,
+      "href": "mailto:support@southparkmaker.com",
+      "target": ""
+    },
+    {
+      "index": 17,
+      "text": "FAQs",
+      "label": null,
+      "href": "/#faq",
+      "target": ""
+    },
+    {
+      "index": 18,
+      "text": "Character guide",
+      "label": null,
+      "href": "/#character-guide",
+      "target": ""
+    },
+    {
+      "index": 19,
+      "text": "My account",
+      "label": null,
+      "href": "/settings",
+      "target": ""
+    },
+    {
+      "index": 20,
+      "text": "Privacy Policy",
+      "label": null,
+      "href": "/privacy-policy",
+      "target": ""
+    },
+    {
+      "index": 21,
+      "text": "Terms of Service",
+      "label": null,
+      "href": "/terms-of-service",
+      "target": ""
+    }
+  ],
+  "buttons": [
+    {
+      "index": 0,
+      "text": "",
+      "label": "Open navigation",
+      "disabled": false,
+      "role": null
+    }
+  ],
+  "forms": [],
+  "overflow": false
+}

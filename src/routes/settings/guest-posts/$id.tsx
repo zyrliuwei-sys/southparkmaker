@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 
 import { Link, useRouter } from '@/core/i18n/navigation';
 import { apiDelete, apiGet, apiPost, apiPut } from '@/lib/api-client';
+import { privatePageHead } from '@/lib/private-page-head';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
 import { localizeHref } from '@/paraglide/runtime.js';
@@ -182,16 +183,55 @@ function GuestPostEditorPage() {
     },
   });
 
-  if (!isNew && (detail.isPending || !loaded)) {
+  if (isNew && (info.isPending || info.isError || !info.data?.enabled)) {
     return (
-      <div className="text-muted-foreground p-6">
-        {m['guest_posts.loading']()}
+      <div className="space-y-4 p-6">
+        <h1 className="text-2xl font-bold">{m['guest_posts.new_title']()}</h1>
+        <p role={info.isError ? 'alert' : 'status'}>
+          {info.isPending
+            ? m['guest_posts.loading']()
+            : info.isError
+              ? m['common.table.load_error']()
+              : m['guest_posts.closed']()}
+        </p>
+        {info.isError && (
+          <Button onClick={() => void info.refetch()}>
+            {m['maker.ai.retry']()}
+          </Button>
+        )}
+        <Link
+          href="/settings/guest-posts"
+          className="inline-flex min-h-11 items-center text-sm underline underline-offset-4"
+        >
+          {m['guest_posts.back']()}
+        </Link>
       </div>
     );
   }
   if (!isNew && detail.isError) {
     return (
-      <div className="text-muted-foreground p-6">{detail.error.message}</div>
+      <div className="space-y-4 p-6">
+        <h1 className="text-2xl font-bold">{m['guest_posts.edit_title']()}</h1>
+        <p role="alert">{m['guest_posts.open_error']()}</p>
+        <div className="flex flex-wrap items-center gap-4">
+          <Button onClick={() => void detail.refetch()}>
+            {m['maker.ai.retry']()}
+          </Button>
+          <Link
+            href="/settings/guest-posts"
+            className="text-sm underline underline-offset-4"
+          >
+            {m['guest_posts.back']()}
+          </Link>
+        </div>
+      </div>
+    );
+  }
+  if (!isNew && (detail.isPending || !loaded)) {
+    return (
+      <div className="text-muted-foreground p-6">
+        {m['guest_posts.loading']()}
+      </div>
     );
   }
 
@@ -564,6 +604,14 @@ function StatusPanel({
 }
 
 export const Route = createFileRoute('/settings/guest-posts/$id')({
+  loader: ({ params }) => ({
+    title:
+      params.id === 'new'
+        ? m['guest_posts.new_title']()
+        : m['guest_posts.edit_title'](),
+  }),
+  head: ({ loaderData }) =>
+    privatePageHead(loaderData?.title || m['guest_posts.title']()),
   validateSearch: (search: Record<string, unknown>): { package?: string } =>
     typeof search.package === 'string' && search.package
       ? { package: search.package }

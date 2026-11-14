@@ -1,0 +1,10 @@
+[
+  {
+    "from": "/verify-email",
+    "to": "http://localhost:3000/sign-in"
+  },
+  {
+    "from": "/redeem-invite",
+    "to": "http://localhost:3000/sign-in"
+  }
+]

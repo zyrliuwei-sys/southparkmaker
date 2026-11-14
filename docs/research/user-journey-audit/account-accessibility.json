@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/settings/profile",
+    "violations": [],
+    "incomplete": []
+  },
+  {
+    "path": "/settings/credits",
+    "violations": [],
+    "incomplete": []
+  },
+  {
+    "path": "/settings/billing",
+    "violations": [],
+    "incomplete": []
+  },
+  {
+    "path": "/settings/payments",
+    "violations": [],
+    "incomplete": []
+  },
+  {
+    "path": "/settings/tickets",
+    "violations": [],
+    "incomplete": []
+  },
+  {
+    "path": "/settings",
+    "violations": [],
+    "incomplete": []
+  }
+]

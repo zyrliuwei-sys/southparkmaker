@@ -1,0 +1,222 @@
+[
+  {
+    "rect": {
+      "x": 20,
+      "y": 222.796875,
+      "width": 350,
+      "height": 73.25,
+      "top": 222.796875,
+      "right": 370,
+      "bottom": 296.046875,
+      "left": 20
+    },
+    "display": "flex",
+    "height": "73.25px",
+    "children": [
+      {
+        "tag": "LABEL",
+        "text": "Name",
+        "rect": {
+          "x": 20,
+          "y": 222.796875,
+          "width": 350,
+          "height": 19.25,
+          "top": 222.796875,
+          "right": 370,
+          "bottom": 242.046875,
+          "left": 20
+        }
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "rect": {
+          "x": 20,
+          "y": 250.046875,
+          "width": 350,
+          "height": 46,
+          "top": 250.046875,
+          "right": 370,
+          "bottom": 296.046875,
+          "left": 20
+        }
+      }
+    ]
+  },
+  {
+    "rect": {
+      "x": 20,
+      "y": 316.046875,
+      "width": 350,
+      "height": 73.25,
+      "top": 316.046875,
+      "right": 370,
+      "bottom": 389.296875,
+      "left": 20
+    },
+    "display": "flex",
+    "height": "73.25px",
+    "children": [
+      {
+        "tag": "LABEL",
+        "text": "Email",
+        "rect": {
+          "x": 20,
+          "y": 316.046875,
+          "width": 350,
+          "height": 19.25,
+          "top": 316.046875,
+          "right": 370,
+          "bottom": 335.296875,
+          "left": 20
+        }
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "rect": {
+          "x": 20,
+          "y": 343.296875,
+          "width": 350,
+          "height": 46,
+          "top": 343.296875,
+          "right": 370,
+          "bottom": 389.296875,
+          "left": 20
+        }
+      }
+    ]
+  },
+  {
+    "rect": {
+      "x": 20,
+      "y": 409.296875,
+      "width": 350,
+      "height": 73.25,
+      "top": 409.296875,
+      "right": 370,
+      "bottom": 482.546875,
+      "left": 20
+    },
+    "display": "flex",
+    "height": "73.25px",
+    "children": [
+      {
+        "tag": "LABEL",
+        "text": "Password",
+        "rect": {
+          "x": 20,
+          "y": 409.296875,
+          "width": 350,
+          "height": 19.25,
+          "top": 409.296875,
+          "right": 370,
+          "bottom": 428.546875,
+          "left": 20
+        }
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "rect": {
+          "x": 20,
+          "y": 436.546875,
+          "width": 350,
+          "height": 46,
+          "top": 436.546875,
+          "right": 370,
+          "bottom": 482.546875,
+          "left": 20
+        }
+      }
+    ]
+  },
+  {
+    "rect": {
+      "x": 20,
+      "y": 502.546875,
+      "width": 350,
+      "height": 73.25,
+      "top": 502.546875,
+      "right": 370,
+      "bottom": 575.796875,
+      "left": 20
+    },
+    "display": "flex",
+    "height": "73.25px",
+    "children": [
+      {
+        "tag": "LABEL",
+        "text": "Confirm Password",
+        "rect": {
+          "x": 20,
+          "y": 502.546875,
+          "width": 350,
+          "height": 19.25,
+          "top": 502.546875,
+          "right": 370,
+          "bottom": 521.796875,
+          "left": 20
+        }
+      },
+      {
+        "tag": "INPUT",
+        "text": "",
+        "rect": {
+          "x": 20,
+          "y": 529.796875,
+          "width": 350,
+          "height": 46,
+          "top": 529.796875,
+          "right": 370,
+          "bottom": 575.796875,
+          "left": 20
+        }
+      }
+    ]
+  },
+  {
+    "rect": {
+      "x": 20,
+      "y": 595.796875,
+      "width": 350,
+      "height": 75,
+      "top": 595.796875,
+      "right": 370,
+      "bottom": 670.796875,
+      "left": 20
+    },
+    "display": "flex",
+    "height": "75px",
+    "children": [
+      {
+        "tag": "BUTTON",
+        "text": "Sign Up",
+        "rect": {
+          "x": 20,
+          "y": 595.796875,
+          "width": 350,
+          "height": 46,
+          "top": 595.796875,
+          "right": 370,
+          "bottom": 641.796875,
+          "left": 20
+        }
+      },
+      {
+        "tag": "P",
+        "text": "Already have an account? Sign In",
+        "rect": {
+          "x": 20,
+          "y": 649.796875,
+          "width": 350,
+          "height": 21,
+          "top": 649.796875,
+          "right": 370,
+          "bottom": 670.796875,
+          "left": 20
+        }
+      }
+    ]
+  }
+]

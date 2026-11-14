@@ -1,0 +1,215 @@
+{
+  "url": "/pricing",
+  "title": "Character Generator Pricing | southparkmaker",
+  "h1": ["A little credit. A lot of character."],
+  "text": "A little credit. A lot of character.\n\nKeep the manual builder free. Add credits for AI characters when you need them, with a one-time pack or a monthly allowance.\n\nCredit purchases are not available yet. You can explore the plans below and use the free character builder with PNG and SVG downloads.\n\nTry the free character builder\nOne-time packs\nMonthly plans\n\nPay once. Keep your credits until you use them. No subscription.\n\nExplorer\n\nFor a few new looks and your first character ideas.\n\n$5\none time\n\n500 credits\n\nUp to 33 images at 1K\n\nPurchases coming soon\n1K, 1.5K, and 2K image generation\nSquare and portrait PNG images\nAutomatic credit return for failed generations\n\nOne-time credits never expire. Use them whenever an idea arrives.\n\nCreator\nFor regular creators\n\nRoom to experiment with outfits, expressions, and original characters.\n\n$15\none time\n\n1,500 credits\n\nUp to 100 images at 1K\n\nPurchases coming soon\n1K, 1.5K, and 2K image generation\nSquare and portrait PNG images\nAutomatic credit return for failed generations\n\nOne-time credits never expire. Use them whenever an idea arrives.\n\nStudio\n\nA larger allowance for an ongoing character project.\n\n$40\none time\n\n4,000 credits\n\nUp to 266 images at 1K\n\nPurchases coming soon\n1K, 1.5K, and 2K image generation\nSquare and portrait PNG images\nAutomatic credit return for failed generations\n\nOne-time credits never expire. Use them whenever an idea arrives.\n\n1K and 1.5K images use 15 credits each. 2K images use 26 credits each. Each request creates one image. Your chosen resolution determines the cost shown before generation.\n\n100 credits = $1 in every plan. The manual character builder and its PNG/SVG exports remain free.\n\nA few things about credits.\n\nKnow what you get, how credits work, and what stays free.\n\nTry the free character builder\nHow many credits does an image use?\n+\nWhat happens if my generation fails?\n+\nDo my credits expire?\n+\nCan I still make a character for free?\n+",
+  "links": [
+    {
+      "index": 0,
+      "text": "Skip to content",
+      "label": null,
+      "href": "#main-content",
+      "target": ""
+    },
+    {
+      "index": 1,
+      "text": "southparkmaker",
+      "label": "southparkmaker",
+      "href": "/",
+      "target": ""
+    },
+    {
+      "index": 2,
+      "text": "Character ideas",
+      "label": null,
+      "href": "/#gallery",
+      "target": ""
+    },
+    {
+      "index": 3,
+      "text": "Character guide",
+      "label": null,
+      "href": "/#character-guide",
+      "target": ""
+    },
+    {
+      "index": 4,
+      "text": "Pricing",
+      "label": null,
+      "href": "/pricing",
+      "target": ""
+    },
+    {
+      "index": 5,
+      "text": "Sign in",
+      "label": null,
+      "href": "/sign-in",
+      "target": ""
+    },
+    {
+      "index": 6,
+      "text": "Open studio",
+      "label": null,
+      "href": "/create",
+      "target": ""
+    },
+    {
+      "index": 7,
+      "text": "Try the free character builder",
+      "label": null,
+      "href": "/create",
+      "target": ""
+    },
+    {
+      "index": 8,
+      "text": "Try the free character builder",
+      "label": null,
+      "href": "/create",
+      "target": ""
+    },
+    {
+      "index": 9,
+      "text": "southparkmaker",
+      "label": "southparkmaker",
+      "href": "/",
+      "target": ""
+    },
+    {
+      "index": 10,
+      "text": "southparkmaker",
+      "label": null,
+      "href": "/",
+      "target": ""
+    },
+    {
+      "index": 11,
+      "text": "Character builder",
+      "label": null,
+      "href": "/create",
+      "target": ""
+    },
+    {
+      "index": 12,
+      "text": "AI generator",
+      "label": null,
+      "href": "/create?mode=ai",
+      "target": ""
+    },
+    {
+      "index": 13,
+      "text": "Pricing",
+      "label": null,
+      "href": "/pricing",
+      "target": ""
+    },
+    {
+      "index": 14,
+      "text": "Character ideas",
+      "label": null,
+      "href": "/#gallery",
+      "target": ""
+    },
+    {
+      "index": 15,
+      "text": "How to create",
+      "label": null,
+      "href": "/#how-it-works",
+      "target": ""
+    },
+    {
+      "index": 16,
+      "text": "Contact support",
+      "label": null,
+      "href": "mailto:support@southparkmaker.com",
+      "target": ""
+    },
+    {
+      "index": 17,
+      "text": "FAQs",
+      "label": null,
+      "href": "/#faq",
+      "target": ""
+    },
+    {
+      "index": 18,
+      "text": "Character guide",
+      "label": null,
+      "href": "/#character-guide",
+      "target": ""
+    },
+    {
+      "index": 19,
+      "text": "My account",
+      "label": null,
+      "href": "/settings",
+      "target": ""
+    },
+    {
+      "index": 20,
+      "text": "Privacy Policy",
+      "label": null,
+      "href": "/privacy-policy",
+      "target": ""
+    },
+    {
+      "index": 21,
+      "text": "Terms of Service",
+      "label": null,
+      "href": "/terms-of-service",
+      "target": ""
+    }
+  ],
+  "buttons": [
+    {
+      "index": 0,
+      "text": "",
+      "label": "Open navigation",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 1,
+      "text": "One-time packs",
+      "label": null,
+      "disabled": false,
+      "role": "tab"
+    },
+    {
+      "index": 2,
+      "text": "Monthly plans",
+      "label": null,
+      "disabled": false,
+      "role": "tab"
+    },
+    {
+      "index": 3,
+      "text": "Purchases coming soon",
+      "label": "Purchases coming soon: Explorer",
+      "disabled": true,
+      "role": null
+    },
+    {
+      "index": 4,
+      "text": "Purchases coming soon",
+      "label": "Purchases coming soon: Creator",
+      "disabled": true,
+      "role": null
+    },
+    {
+      "index": 5,
+      "text": "Purchases coming soon",
+      "label": "Purchases coming soon: Studio",
+      "disabled": true,
+      "role": null
+    },
+    {
+      "index": 6,
+      "text": "",
+      "label": "Open Tanstack query devtools",
+      "disabled": false,
+      "role": null
+    }
+  ],
+  "forms": [],
+  "overflow": false
+}

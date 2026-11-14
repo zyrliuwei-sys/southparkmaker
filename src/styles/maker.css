@@ -859,7 +859,7 @@
   color: var(--mk-muted);
   line-height: 1.9;
 }
-.maker-footer-column h3 {
+.maker-footer-column h2 {
   font-size: 12px;
   font-weight: 800;
   margin-bottom: 19px;

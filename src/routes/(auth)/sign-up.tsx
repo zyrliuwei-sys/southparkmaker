@@ -12,6 +12,7 @@ import { m } from '@/paraglide/messages.js';
 import { localizeHref } from '@/paraglide/runtime.js';
 import { usePublicConfig } from '@/hooks/use-public-config';
 import { AuthBrandPanel } from '@/blocks/auth-brand';
+import { AuthLinks } from '@/blocks/auth-links';
 import { TextField } from '@/components/form-field';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -169,7 +170,7 @@ function SignUpPage() {
 
   return (
     <main className="maker-auth">
-      <AuthBrandPanel />
+      <AuthBrandPanel mode="sign-up" />
       <div className="maker-auth-form">
         <Link href="/" className="maker-brand">
           {configs.app_name || envConfigs.app_name}
@@ -345,6 +346,7 @@ function SignUpPage() {
             )}
           </CardContent>
         </Card>
+        <AuthLinks />
       </div>
     </main>
   );

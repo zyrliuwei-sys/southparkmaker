@@ -1,0 +1,152 @@
+{
+  "url": "/settings/profile",
+  "title": "Profile | southparkmaker",
+  "h1": ["Profile"],
+  "text": "Toggle Sidebar\nProfile\n\nManage your account\n\nProfile\nAvatar\nUpload\nMax 2MB\nDrop an image, click to upload, or paste from clipboard\nName\nEmail\nSave",
+  "links": [
+    {
+      "index": 0,
+      "text": "southparkmaker",
+      "label": null,
+      "href": "/settings",
+      "target": ""
+    },
+    {
+      "index": 1,
+      "text": "Character builder",
+      "label": null,
+      "href": "/create",
+      "target": ""
+    },
+    {
+      "index": 2,
+      "text": "Overview",
+      "label": null,
+      "href": "/settings",
+      "target": ""
+    },
+    {
+      "index": 3,
+      "text": "Profile",
+      "label": null,
+      "href": "/settings/profile",
+      "target": ""
+    },
+    {
+      "index": 4,
+      "text": "Credits",
+      "label": null,
+      "href": "/settings/credits",
+      "target": ""
+    },
+    {
+      "index": 5,
+      "text": "Billing",
+      "label": null,
+      "href": "/settings/billing",
+      "target": ""
+    },
+    {
+      "index": 6,
+      "text": "Payments",
+      "label": null,
+      "href": "/settings/payments",
+      "target": ""
+    },
+    {
+      "index": 7,
+      "text": "Support Tickets",
+      "label": null,
+      "href": "/settings/tickets",
+      "target": ""
+    },
+    {
+      "index": 8,
+      "text": "Home",
+      "label": null,
+      "href": "/",
+      "target": "_blank"
+    },
+    {
+      "index": 9,
+      "text": "southparkmaker",
+      "label": null,
+      "href": "/settings",
+      "target": ""
+    }
+  ],
+  "buttons": [
+    {
+      "index": 0,
+      "text": "AAdmin[account email]",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 1,
+      "text": "Toggle Sidebar",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 2,
+      "text": "UploadMax 2MB",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 3,
+      "text": "Save",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 4,
+      "text": "",
+      "label": "Contact support",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 5,
+      "text": "",
+      "label": "Open Tanstack query devtools",
+      "disabled": false,
+      "role": null
+    }
+  ],
+  "forms": [
+    {
+      "name": "",
+      "id": "",
+      "type": "file",
+      "required": false,
+      "disabled": false,
+      "placeholder": null,
+      "label": null
+    },
+    {
+      "name": "name",
+      "id": "_r_m_",
+      "type": "text",
+      "required": true,
+      "disabled": false,
+      "placeholder": null,
+      "label": null
+    },
+    {
+      "name": "",
+      "id": "email",
+      "type": "text",
+      "required": false,
+      "disabled": true,
+      "placeholder": null,
+      "label": null
+    }
+  ],
+  "overflow": false
+}

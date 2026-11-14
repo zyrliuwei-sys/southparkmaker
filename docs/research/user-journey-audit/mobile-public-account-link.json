@@ -1,0 +1,23 @@
+{
+  "links": [
+    {
+      "label": "Character ideas",
+      "href": "/#gallery"
+    },
+    {
+      "label": "Character guide",
+      "href": "/#character-guide"
+    },
+    {
+      "label": "Pricing",
+      "href": "/pricing"
+    },
+    {
+      "label": "My account",
+      "href": "/settings"
+    }
+  ],
+  "overflow": false,
+  "destination": "http://localhost:3000/settings",
+  "menuClosed": true
+}

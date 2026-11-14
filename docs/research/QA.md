@@ -85,3 +85,11 @@ Philosophy 4/5: making a character is the first experience. Hierarchy 5/5: one m
 - TypeScript: `tsc --noEmit` passed.
 - `pnpm build` and `pnpm cf:build` passed. Changed-file formatting and `git diff --check` passed. The local preview was restarted after sequential builds.
 - No database schema, administrator credentials, pricing amounts or payment-provider configuration was changed for this design refinement. No deployment was performed.
+
+## Ordinary-user journey revision — 2026-11-14
+
+- Reviewed public pages, manual/AI creation, auth and recovery, user-center navigation, empty/error states, support dialogs and disabled-feature links through the real browser. The detailed findings and artifacts are in `docs/research/user-journey-audit/REPORT.md`.
+- Fixed draft loss between modes, encoded login-return loss, unsupported-photo messaging, unavailable purchase/recovery promises, credit preflight and cached account balances, nested account navigation, mobile drawers, unclear errors, heading landmarks and inaccessible form/filter/link names. Disabled guest-post editor links no longer display a template offer or load forever.
+- All 31 distinct current internal navigation/discovery targets resolved. Sixteen inspected page surfaces and the new-ticket dialog had zero automated axe violations; the homepage comparison-overlay contrast remains a documented manual check. The AI/pricing layouts fit 320, 390, 768 and 1440px widths. Gallery presets, all 43 builder choices, saved-design restoration and actual SVG/transparent PNG downloads were verified.
+- 52 focused tests, TypeScript, formatting and `git diff --check` passed. Both `pnpm build` and `pnpm cf:build` passed on the final source; the local preview was restarted afterward.
+- No schema, credentials, roles, pricing amounts or payment-provider settings were changed. No deployment, new paid generation, purchase, email or support ticket was submitted during this audit. Payment collection and email password recovery remain disabled with clear user-facing explanations.

@@ -93,7 +93,15 @@ function StatCard({
         {icon}
       </CardHeader>
       <CardContent className="space-y-1">
-        <Link href={href} className="block after:absolute after:inset-0">
+        <Link
+          href={href}
+          className="block after:absolute after:inset-0"
+          aria-label={
+            typeof value === 'string' || typeof value === 'number'
+              ? `${title}: ${value}`
+              : title
+          }
+        >
           <div className="truncate text-2xl font-semibold tabular-nums">
             {value}
           </div>
@@ -126,6 +134,7 @@ function RecentList({
         <CardTitle className="text-base">{title}</CardTitle>
         <Link
           href={href}
+          aria-label={`${m['settings.overview.view_all']()}: ${title}`}
           className="text-muted-foreground hover:text-foreground flex items-center gap-0.5 text-sm"
         >
           {m['settings.overview.view_all']()}

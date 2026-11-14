@@ -1,8 +1,8 @@
 {
-  "url": "/sign-up",
+  "url": "/sign-up?callbackUrl=%2Fadmin",
   "title": "Sign Up | southparkmaker",
   "h1": ["Sign Up"],
-  "text": "southparkmaker\nYour next alter ego is waiting.\n\nSign in to southparkmaker for optional AI character generation, account credits, and your next original cartoon idea.\n\nStart with imagination. Keep the personality.\nSign Up\nName\nEmail\nPassword\n\nUse at least 8 characters.\n\nConfirm Password\n\nUse at least 8 characters.\n\nSign Up\n\nAlready have an account? Sign In",
+  "text": "southparkmaker\nYour next alter ego is waiting.\n\nCreate a southparkmaker account for optional AI character generation, account credits, and your next original cartoon idea.\n\nStart with imagination. Keep the personality.\nSign Up\nName\nEmail\nPassword\nConfirm Password\nSign Up\n\nAlready have an account? Sign In\n\nCreate without an account\nTrouble signing in?\nPrivacy Policy\nTerms of Service",
   "links": [
     {
       "index": 0,
@@ -22,8 +22,36 @@
       "index": 2,
       "text": "Sign In",
       "label": null,
-      "href": "/sign-in",
+      "href": "/sign-in?callbackUrl=%2Fadmin",
       "target": ""
+    },
+    {
+      "index": 3,
+      "text": "Create without an account",
+      "label": null,
+      "href": "/create",
+      "target": ""
+    },
+    {
+      "index": 4,
+      "text": "Trouble signing in?",
+      "label": null,
+      "href": "/forgot-password?callbackUrl=%2Fadmin",
+      "target": ""
+    },
+    {
+      "index": 5,
+      "text": "Privacy Policy",
+      "label": "Privacy Policy (opens in a new tab)",
+      "href": "/privacy-policy",
+      "target": "_blank"
+    },
+    {
+      "index": 6,
+      "text": "Terms of Service",
+      "label": "Terms of Service (opens in a new tab)",
+      "href": "/terms-of-service",
+      "target": "_blank"
     }
   ],
   "buttons": [
@@ -45,7 +73,7 @@
   "forms": [
     {
       "name": "name",
-      "id": "_r_n_",
+      "id": "_r_5_",
       "type": "text",
       "required": true,
       "disabled": false,
@@ -54,7 +82,7 @@
     },
     {
       "name": "email",
-      "id": "_r_p_",
+      "id": "_r_7_",
       "type": "email",
       "required": true,
       "disabled": false,
@@ -63,7 +91,7 @@
     },
     {
       "name": "password",
-      "id": "_r_r_",
+      "id": "_r_9_",
       "type": "password",
       "required": true,
       "disabled": false,
@@ -72,7 +100,7 @@
     },
     {
       "name": "confirmPassword",
-      "id": "_r_t_",
+      "id": "_r_b_",
       "type": "password",
       "required": true,
       "disabled": false,

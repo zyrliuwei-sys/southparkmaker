@@ -1,8 +1,8 @@
 {
-  "url": "/sign-in",
+  "url": "/sign-in?callbackUrl=%2Fsettings",
   "title": "Sign In | southparkmaker",
   "h1": ["Sign In"],
-  "text": "southparkmaker\nYour next alter ego is waiting.\n\nSign in to southparkmaker for optional AI character generation, account credits, and your next original cartoon idea.\n\nStart with imagination. Keep the personality.\nSign In\nEmail\nPassword\nSign In\n\nDon't have an account? Sign Up",
+  "text": "southparkmaker\nSign In\nEmail\nPassword\nSign In\n\nDon't have an account? Sign Up\n\nCreate without an account\nTrouble signing in?\nPrivacy Policy\nTerms of Service",
   "links": [
     {
       "index": 0,
@@ -22,8 +22,36 @@
       "index": 2,
       "text": "Sign Up",
       "label": null,
-      "href": "/sign-up",
+      "href": "/sign-up?callbackUrl=%2Fsettings",
       "target": ""
+    },
+    {
+      "index": 3,
+      "text": "Create without an account",
+      "label": null,
+      "href": "/create",
+      "target": ""
+    },
+    {
+      "index": 4,
+      "text": "Trouble signing in?",
+      "label": null,
+      "href": "/forgot-password?callbackUrl=%2Fsettings",
+      "target": ""
+    },
+    {
+      "index": 5,
+      "text": "Privacy Policy",
+      "label": "Privacy Policy (opens in a new tab)",
+      "href": "/privacy-policy",
+      "target": "_blank"
+    },
+    {
+      "index": 6,
+      "text": "Terms of Service",
+      "label": "Terms of Service (opens in a new tab)",
+      "href": "/terms-of-service",
+      "target": "_blank"
     }
   ],
   "buttons": [
@@ -45,7 +73,7 @@
   "forms": [
     {
       "name": "email",
-      "id": "_r_j_",
+      "id": "_r_2_",
       "type": "email",
       "required": true,
       "disabled": false,

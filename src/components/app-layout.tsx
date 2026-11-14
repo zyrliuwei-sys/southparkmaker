@@ -209,7 +209,7 @@ export function AppLayout({
             <div className="flex items-center gap-1 px-4">{headerExtra}</div>
           )}
         </header>
-        <main className="min-w-0 flex-1 overflow-x-clip">{children}</main>
+        <div className="min-w-0 flex-1 overflow-x-clip">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

@@ -47,6 +47,22 @@ export function safeInternalPath(
   return AUTH_PATH_RE.test(path) ? null : path;
 }
 
+/** Carry a validated return destination across sign-in help and recovery links. */
+export function authReturnQuery(search: Record<string, unknown>): string {
+  const params = new URLSearchParams();
+  const callback =
+    typeof search.callbackUrl === 'string'
+      ? safeInternalPath(search.callbackUrl)
+      : null;
+  if (callback) params.set('callbackUrl', callback);
+  if (
+    typeof search.redirect === 'string' &&
+    (safeInternalPath(search.redirect) || isAppProtocolUrl(search.redirect))
+  )
+    params.set('redirect', search.redirect);
+  return params.size ? `?${params.toString()}` : '';
+}
+
 // Schemes that execute or embed rather than hand off to an installed app.
 // Never eligible, even if an admin puts them in desktop_auth_schemes — the
 // hand-off appends a session token to the URL.

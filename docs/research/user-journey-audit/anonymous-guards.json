@@ -1,0 +1,47 @@
+[
+  {
+    "from": "/settings",
+    "callback": "/settings",
+    "signInVisible": true
+  },
+  {
+    "from": "/settings/profile",
+    "callback": "/settings/profile",
+    "signInVisible": true
+  },
+  {
+    "from": "/settings/credits",
+    "callback": "/settings/credits",
+    "signInVisible": true
+  },
+  {
+    "from": "/settings/billing",
+    "callback": "/settings/billing",
+    "signInVisible": true
+  },
+  {
+    "from": "/settings/payments",
+    "callback": "/settings/payments",
+    "signInVisible": true
+  },
+  {
+    "from": "/settings/tickets",
+    "callback": "/settings/tickets",
+    "signInVisible": true
+  },
+  {
+    "from": "/settings/apikeys",
+    "callback": "/settings/apikeys",
+    "signInVisible": true
+  },
+  {
+    "from": "/settings/guest-posts",
+    "callback": "/settings/guest-posts",
+    "signInVisible": true
+  },
+  {
+    "from": "/admin",
+    "callback": "/admin",
+    "signInVisible": true
+  }
+]

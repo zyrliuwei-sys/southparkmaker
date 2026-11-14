@@ -11,6 +11,7 @@ import { m } from '@/paraglide/messages.js';
 import { localizeHref } from '@/paraglide/runtime.js';
 import { usePublicConfig } from '@/hooks/use-public-config';
 import { AuthBrandPanel } from '@/blocks/auth-brand';
+import { AuthLinks } from '@/blocks/auth-links';
 import { TextField } from '@/components/form-field';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -252,7 +253,7 @@ function SignInPage() {
                                 </FieldLabel>
                                 {passwordResetEnabled && (
                                   <Link
-                                    href="/forgot-password"
+                                    href={`/forgot-password${switchQuery}`}
                                     className="text-muted-foreground hover:text-foreground text-sm underline underline-offset-4"
                                   >
                                     {m['common.sign.forgot_password']()}
@@ -310,6 +311,7 @@ function SignInPage() {
             )}
           </CardContent>
         </Card>
+        <AuthLinks />
       </div>
     </main>
   );

@@ -6,7 +6,11 @@ import {
   redirectChineseEdition,
 } from '../src/lib/english-only';
 import { localizedPath } from '../src/lib/locale-path';
-import { resolveAfterAuthUrl, safeInternalPath } from '../src/lib/redirect';
+import {
+  authReturnQuery,
+  resolveAfterAuthUrl,
+  safeInternalPath,
+} from '../src/lib/redirect';
 import { m } from '../src/paraglide/messages.js';
 import { baseLocale, getLocale, locales } from '../src/paraglide/runtime.js';
 import { paraglideMiddleware } from '../src/paraglide/server.js';
@@ -62,6 +66,27 @@ test('old auth and payment return targets stay English and cannot turn into exte
   assert.equal(safeInternalPath('/zh/sign-in'), null);
   assert.equal(safeInternalPath('//foreign.example/path'), null);
   assert.equal(localizedPath('/settings/billing', 'zh'), '/settings/billing');
+});
+
+test('account help preserves an encoded character prompt and refuses unsafe return destinations', () => {
+  const prompt = 'A skater & a 100% original coat?';
+  const target = `/create?mode=ai&prompt=${encodeURIComponent(prompt)}&resolution=1K&ratio=3%3A4`;
+  const query = authReturnQuery({ callbackUrl: target });
+  assert.equal(new URLSearchParams(query).get('callbackUrl'), target);
+  assert.equal(
+    new URLSearchParams(new URL(target, 'https://product.example').search).get(
+      'prompt'
+    ),
+    prompt
+  );
+  assert.equal(
+    authReturnQuery({
+      callbackUrl: '//foreign.example',
+      redirect: 'javascript:alert(1)',
+    }),
+    ''
+  );
+  assert.equal(authReturnQuery({ callbackUrl: '/sign-in' }), '');
 });
 
 test('a stale Chinese cookie and Chinese browser preference still render English', async () => {

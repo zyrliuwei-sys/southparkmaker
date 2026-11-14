@@ -1,0 +1,38 @@
+[
+  {
+    "href": "/create",
+    "resolvedPath": "/create"
+  },
+  {
+    "href": "/create?mode=ai",
+    "resolvedPath": "/create"
+  },
+  {
+    "href": "/pricing",
+    "resolvedPath": "/pricing"
+  },
+  {
+    "href": "/#gallery",
+    "resolvedPath": "/"
+  },
+  {
+    "href": "/#how-it-works",
+    "resolvedPath": "/"
+  },
+  {
+    "href": "/#faq",
+    "resolvedPath": "/"
+  },
+  {
+    "href": "/#character-guide",
+    "resolvedPath": "/"
+  },
+  {
+    "href": "/privacy-policy",
+    "resolvedPath": "/privacy-policy"
+  },
+  {
+    "href": "/terms-of-service",
+    "resolvedPath": "/terms-of-service"
+  }
+]

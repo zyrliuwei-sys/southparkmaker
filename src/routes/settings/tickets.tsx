@@ -84,6 +84,7 @@ function AttachmentGrid({ urls }: { urls: string[] }) {
           href={url}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label={m['settings.tickets.open_attachment']({ number: i + 1 })}
         >
           <img
             src={url}
@@ -332,8 +333,15 @@ function TicketsPage() {
                   setStatus((value as TicketStatus) || 'all')
                 }
               >
-                <SelectTrigger className="h-9 w-[130px]">
-                  <SelectValue />
+                <SelectTrigger
+                  className="h-9 w-[130px]"
+                  aria-label={`${m['settings.tickets.status_filter']()}: ${status === 'all' ? m['settings.tickets.status_all']() : tDynamic(`settings.tickets.status_${status}`)}`}
+                >
+                  <SelectValue>
+                    {status === 'all'
+                      ? m['settings.tickets.status_all']()
+                      : tDynamic(`settings.tickets.status_${status}`)}
+                  </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">
@@ -486,6 +494,7 @@ function TicketsPage() {
             >
               <Textarea
                 value={reply}
+                aria-label={m['settings.tickets.reply_label']()}
                 maxLength={5000}
                 rows={3}
                 onChange={(e) => setReply(e.target.value)}
