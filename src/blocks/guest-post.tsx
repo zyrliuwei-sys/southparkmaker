@@ -27,10 +27,19 @@ export function GuestPostLanding() {
           </p>
         </div>
 
-        {!isPending && !info?.enabled ? (
-          <p className="text-muted-foreground mt-12 text-center">
-            {m['guest_posts.closed']()}
+        {isPending ? (
+          <p className="text-muted-foreground mt-12 text-center" role="status">
+            {m['common.account.loading']()}
           </p>
+        ) : !info?.enabled ? (
+          <div className="maker-notes-empty">
+            <p className="text-muted-foreground text-center">
+              {m['guest_posts.closed']()}
+            </p>
+            <Link href="/create" className="maker-button maker-button-primary">
+              {m['blog.empty_create']()}
+            </Link>
+          </div>
         ) : (
           <>
             <ol className="mt-14 grid gap-4 sm:grid-cols-3">

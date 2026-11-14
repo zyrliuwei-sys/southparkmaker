@@ -209,7 +209,7 @@ function BlogPostPage() {
     post.source === 'local' ? loadLocalPost(post.slug, locale)?.default : null;
 
   return (
-    <div className="bg-background text-foreground flex min-h-screen flex-col">
+    <div className="maker-page maker-notes-page flex min-h-screen flex-col">
       <Header />
       <main
         id="main-content"

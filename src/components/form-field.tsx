@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import type { AnyFieldApi } from '@tanstack/react-form';
 
 import { Field, FieldLabel } from '@/components/ui/field';
@@ -37,9 +38,10 @@ export function TextField({
   disabled?: boolean;
   multiline?: boolean;
 }) {
+  const id = useId();
   const error = fieldError(field);
   const inputProps = {
-    id: field.name,
+    id,
     name: field.name,
     value: (field.state.value as string) ?? '',
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -50,17 +52,22 @@ export function TextField({
     required,
     disabled,
     'aria-invalid': !!error,
+    'aria-describedby': error ? `${id}-error` : undefined,
   };
 
   return (
     <Field>
-      <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+      <FieldLabel htmlFor={id}>{label}</FieldLabel>
       {multiline ? (
         <Textarea {...inputProps} rows={3} />
       ) : (
         <Input {...inputProps} type={type} />
       )}
-      {error && <p className="text-destructive text-sm">{error}</p>}
+      {error && (
+        <p id={`${id}-error`} role="alert" className="text-destructive text-sm">
+          {error}
+        </p>
+      )}
     </Field>
   );
 }

@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { resetPassword } from '@/core/auth/client';
 import { Link, useRouter } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
+import { privatePageHead } from '@/lib/private-page-head';
 import { m } from '@/paraglide/messages.js';
 import { TextField } from '@/components/form-field';
 import { Button } from '@/components/ui/button';
@@ -20,8 +21,8 @@ import { Field, FieldDescription, FieldGroup } from '@/components/ui/field';
 
 const resetSchema = z
   .object({
-    password: z.string().min(8),
-    confirmPassword: z.string().min(8),
+    password: z.string().min(8, m['common.sign.password_min']()),
+    confirmPassword: z.string().min(8, m['common.sign.password_min']()),
   })
   .refine((d) => d.password === d.confirmPassword, {
     path: ['confirmPassword'],
@@ -70,15 +71,15 @@ function ResetPasswordPage() {
   });
 
   return (
-    <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+    <main className="maker-auth-utility">
       <div className="flex w-full max-w-sm flex-col gap-6">
-        <Link href="/" className="self-center font-serif text-lg italic">
+        <Link href="/" className="maker-brand self-center">
           {envConfigs.app_name}
         </Link>
         <Card>
           <CardHeader className="text-center">
             <CardTitle className="text-xl">
-              {m['common.sign.reset_password_title']()}
+              <h1>{m['common.sign.reset_password_title']()}</h1>
             </CardTitle>
             {!success && tokenChecked && token && (
               <CardDescription>
@@ -179,10 +180,11 @@ function ResetPasswordPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </main>
   );
 }
 
 export const Route = createFileRoute('/(auth)/reset-password')({
+  head: () => privatePageHead(m['common.sign.reset_password_title']()),
   component: ResetPasswordPage,
 });

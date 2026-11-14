@@ -1,0 +1,26 @@
+[
+  {
+    "url": "/create?preset=0",
+    "presetMatch": 0
+  },
+  {
+    "url": "/create?preset=1",
+    "presetMatch": 1
+  },
+  {
+    "url": "/create?preset=2",
+    "presetMatch": 2
+  },
+  {
+    "url": "/create?preset=3",
+    "presetMatch": 3
+  },
+  {
+    "url": "/create?preset=4",
+    "presetMatch": 4
+  },
+  {
+    "url": "/create?preset=5",
+    "presetMatch": 5
+  }
+]

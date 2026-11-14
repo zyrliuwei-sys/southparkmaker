@@ -7,7 +7,19 @@ import { AIMediaType } from '../src/core/ai/types';
 import {
   CHARACTER_RESOLUTIONS,
   characterCreditCost,
+  generationCreditShortfall,
 } from '../src/lib/character-pricing';
+
+test('generation readiness follows the selected resolution without treating an unknown balance as zero', () => {
+  assert.equal(generationCreditShortfall(undefined, 26), undefined);
+  assert.equal(generationCreditShortfall(0, undefined), undefined);
+  assert.equal(generationCreditShortfall(Number.NaN, 26), undefined);
+  assert.equal(generationCreditShortfall(0, characterCreditCost('1K')), 15);
+  assert.equal(generationCreditShortfall(15, characterCreditCost('1K')), 0);
+  assert.equal(generationCreditShortfall(15, characterCreditCost('2K')), 11);
+  assert.equal(generationCreditShortfall(26, characterCreditCost('2K')), 0);
+  assert.equal(generationCreditShortfall(-1, 26), undefined);
+});
 
 test('eightfold USD markup rounds up, and all six packs preserve the same credit value', () => {
   assert.deepEqual(

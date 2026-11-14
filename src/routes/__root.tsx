@@ -12,6 +12,7 @@ import {
 import { createServerFn } from '@tanstack/react-start';
 import { ThemeProvider } from 'next-themes';
 
+import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
 import {
   APPEARANCE_CONFIG_KEYS,
@@ -28,6 +29,7 @@ import {
 } from '@/config/appearance';
 import { parseCookieConsent } from '@/lib/cookie-consent';
 import { getQueryClient } from '@/lib/query-client';
+import { m } from '@/paraglide/messages.js';
 import { getLocale } from '@/paraglide/runtime.js';
 import { useAppearance } from '@/hooks/use-appearance';
 import { useCookieConsent } from '@/hooks/use-cookie-consent';
@@ -229,35 +231,52 @@ function RootDocument({ children }: { children: ReactNode }) {
 
 function NotFound() {
   return (
-    <div className="bg-background text-foreground flex min-h-screen flex-col items-center justify-center gap-4">
-      <h1 className="text-6xl font-bold">404</h1>
-      <p className="text-muted-foreground">Page not found</p>
-      <a href="/" className="text-sm underline underline-offset-4">
-        Back to home
-      </a>
-    </div>
+    <main className="maker-page maker-status-page">
+      <Link href="/" className="maker-brand">
+        <img src="/logo.svg" width="36" height="36" alt="" />
+        {envConfigs.app_name}
+      </Link>
+      <p className="maker-status-code">404</p>
+      <h1>{m['common.not_found.title']()}</h1>
+      <p>{m['common.not_found.description']()}</p>
+      <div className="maker-status-actions">
+        <Link href="/create" className="maker-button maker-button-primary">
+          {m['common.not_found.create']()}
+        </Link>
+        <Link href="/" className="maker-button maker-button-outline">
+          {m['common.not_found.home']()}
+        </Link>
+      </div>
+    </main>
   );
 }
 
 function RootError({ error, reset }: ErrorComponentProps) {
   return (
-    <div className="bg-background text-foreground flex min-h-screen flex-col items-center justify-center gap-4">
-      <h1 className="text-4xl font-bold">Oops</h1>
-      <p className="text-muted-foreground">
-        Something went wrong. Please try again.
-      </p>
+    <main className="maker-page maker-status-page">
+      <Link href="/" className="maker-brand">
+        <img src="/logo.svg" width="36" height="36" alt="" />
+        {envConfigs.app_name}
+      </Link>
+      <h1>{m['common.error.title']()}</h1>
+      <p>{m['common.error.description']()}</p>
       {import.meta.env.DEV && error instanceof Error && (
         <pre className="bg-muted mt-2 max-w-lg overflow-auto rounded p-4 text-xs">
           {error.message}
         </pre>
       )}
-      <button
-        type="button"
-        onClick={reset}
-        className="text-sm underline underline-offset-4"
-      >
-        Try again
-      </button>
-    </div>
+      <div className="maker-status-actions">
+        <button
+          type="button"
+          onClick={reset}
+          className="maker-button maker-button-primary"
+        >
+          {m['common.error.retry']()}
+        </button>
+        <Link href="/" className="maker-button maker-button-outline">
+          {m['common.not_found.home']()}
+        </Link>
+      </div>
+    </main>
   );
 }

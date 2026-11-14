@@ -10,22 +10,17 @@ import { Link } from '@/core/i18n/navigation';
 import { apiGet, apiPost } from '@/lib/api-client';
 import {
   DEFAULT_CHARACTER_RESOLUTION,
+  generationCreditShortfall,
   type CharacterResolution,
 } from '@/lib/character-pricing';
 import { m } from '@/paraglide/messages.js';
+import { useCharacterCapabilities } from '@/hooks/use-character-capabilities';
 
 type Generation = {
   taskId: string;
   status: string;
   images: string[];
   error?: string;
-};
-type Capabilities = {
-  enabled: boolean;
-  photoEnabled: boolean;
-  photoCostCredits?: number;
-  costCredits: number;
-  resolutions: { resolution: CharacterResolution; costCredits: number }[];
 };
 type ReferenceImage = {
   data: string;
@@ -57,11 +52,7 @@ export function AICharacterGenerator({
     queryFn: () => apiGet<{ balance: number }>('/api/credits'),
     enabled: !!session?.user,
   });
-  const config = useQuery({
-    queryKey: ['character-capabilities'],
-    queryFn: () => apiGet<Capabilities>('/api/characters/config'),
-    staleTime: 60_000,
-  });
+  const config = useCharacterCapabilities();
   const generation = useMutation({
     mutationFn: (value: { prompt: string; aspectRatio: '1:1' | '3:4' }) =>
       apiPost<Generation>('/api/characters/generate', {
@@ -128,6 +119,13 @@ export function AICharacterGenerator({
   const cost =
     config.data?.resolutions?.find((item) => item.resolution === resolution)
       ?.costCredits ?? config.data?.costCredits;
+  const selectedCost = image ? config.data?.photoCostCredits : cost;
+  const shortfall = generationCreditShortfall(
+    balance.data?.balance,
+    selectedCost
+  );
+  const insufficient =
+    !!session?.user && shortfall !== undefined && shortfall > 0;
   const form = useForm({
     defaultValues: {
       prompt: initialPrompt,
@@ -208,7 +206,12 @@ export function AICharacterGenerator({
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              if (!busy && config.data?.enabled && session?.user)
+              if (
+                !busy &&
+                !insufficient &&
+                config.data?.enabled &&
+                session?.user
+              )
                 void form.handleSubmit();
             }}
           >
@@ -385,9 +388,9 @@ export function AICharacterGenerator({
             )}
             <div className="maker-ai-credit-line">
               <span>
-                {cost !== undefined &&
+                {selectedCost !== undefined &&
                   m['maker.ai.credit_cost']({
-                    count: String(image ? config.data?.photoCostCredits : cost),
+                    count: String(selectedCost),
                   })}
                 {balance.data && (
                   <>
@@ -400,6 +403,25 @@ export function AICharacterGenerator({
               </span>
               <Link href="/pricing">{c('buy_credits')}</Link>
             </div>
+            {insufficient && (
+              <p className="maker-ai-message" role="status">
+                {m['maker.ai.insufficient_credits']({
+                  count: String(shortfall),
+                })}
+              </p>
+            )}
+            {session?.user && balance.isError && (
+              <div className="maker-ai-message" role="alert">
+                <p>{c('balance_error')}</p>
+                <button
+                  type="button"
+                  className="maker-text-link"
+                  onClick={() => void balance.refetch()}
+                >
+                  {c('retry')}
+                </button>
+              </div>
+            )}
             {config.data?.enabled && !sessionPending && !session?.user ? (
               <form.Subscribe
                 selector={(state) => ({
@@ -421,7 +443,13 @@ export function AICharacterGenerator({
               <button
                 type="submit"
                 className="maker-button maker-button-primary w-full"
-                disabled={busy || !config.data?.enabled || sessionPending}
+                disabled={
+                  busy ||
+                  insufficient ||
+                  !config.data?.enabled ||
+                  sessionPending ||
+                  (!!session?.user && balance.isPending)
+                }
               >
                 {busy ? (
                   <LoaderCircle size={16} className="animate-spin" />

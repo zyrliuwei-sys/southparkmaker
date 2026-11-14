@@ -1,0 +1,217 @@
+[
+  {
+    "tab": "hair",
+    "label": "Short",
+    "selected": true
+  },
+  {
+    "tab": "hair",
+    "label": "Curly",
+    "selected": true
+  },
+  {
+    "tab": "hair",
+    "label": "Long",
+    "selected": true
+  },
+  {
+    "tab": "hair",
+    "label": "Spiky",
+    "selected": true
+  },
+  {
+    "tab": "hair",
+    "label": "Bob",
+    "selected": true
+  },
+  {
+    "tab": "hair",
+    "label": "None",
+    "selected": true
+  },
+  {
+    "tab": "hair",
+    "label": "Hair color: Dark brown",
+    "selected": true
+  },
+  {
+    "tab": "hair",
+    "label": "Hair color: Chestnut",
+    "selected": true
+  },
+  {
+    "tab": "hair",
+    "label": "Hair color: Copper",
+    "selected": true
+  },
+  {
+    "tab": "hair",
+    "label": "Hair color: Blonde",
+    "selected": true
+  },
+  {
+    "tab": "hair",
+    "label": "Hair color: Auburn",
+    "selected": true
+  },
+  {
+    "tab": "hair",
+    "label": "Hair color: Silver violet",
+    "selected": true
+  },
+  {
+    "tab": "hair",
+    "label": "None",
+    "selected": true
+  },
+  {
+    "tab": "hair",
+    "label": "Beanie",
+    "selected": true
+  },
+  {
+    "tab": "hair",
+    "label": "Cap",
+    "selected": true
+  },
+  {
+    "tab": "outfit",
+    "label": "Hoodie",
+    "selected": true
+  },
+  {
+    "tab": "outfit",
+    "label": "Jacket",
+    "selected": true
+  },
+  {
+    "tab": "outfit",
+    "label": "T-shirt",
+    "selected": true
+  },
+  {
+    "tab": "outfit",
+    "label": "Outfit color: Clay orange",
+    "selected": true
+  },
+  {
+    "tab": "outfit",
+    "label": "Outfit color: Pine green",
+    "selected": true
+  },
+  {
+    "tab": "outfit",
+    "label": "Outfit color: Lavender",
+    "selected": true
+  },
+  {
+    "tab": "outfit",
+    "label": "Outfit color: Mustard yellow",
+    "selected": true
+  },
+  {
+    "tab": "outfit",
+    "label": "Outfit color: Lake blue",
+    "selected": true
+  },
+  {
+    "tab": "outfit",
+    "label": "Outfit color: Dusty rose",
+    "selected": true
+  },
+  {
+    "tab": "outfit",
+    "label": "Outfit color: Charcoal plum",
+    "selected": true
+  },
+  {
+    "tab": "outfit",
+    "label": "Outfit color: Cream",
+    "selected": true
+  },
+  {
+    "tab": "face",
+    "label": "Skin tone: Peach",
+    "selected": true
+  },
+  {
+    "tab": "face",
+    "label": "Skin tone: Warm beige",
+    "selected": true
+  },
+  {
+    "tab": "face",
+    "label": "Skin tone: Tan",
+    "selected": true
+  },
+  {
+    "tab": "face",
+    "label": "Skin tone: Warm brown",
+    "selected": true
+  },
+  {
+    "tab": "face",
+    "label": "Skin tone: Deep brown",
+    "selected": true
+  },
+  {
+    "tab": "face",
+    "label": "Skin tone: Light peach",
+    "selected": true
+  },
+  {
+    "tab": "face",
+    "label": "Happy",
+    "selected": true
+  },
+  {
+    "tab": "face",
+    "label": "Chill",
+    "selected": true
+  },
+  {
+    "tab": "face",
+    "label": "Surprised",
+    "selected": true
+  },
+  {
+    "tab": "face",
+    "label": "Grumpy",
+    "selected": true
+  },
+  {
+    "tab": "face",
+    "label": "None",
+    "selected": true
+  },
+  {
+    "tab": "face",
+    "label": "Glasses",
+    "selected": true
+  },
+  {
+    "tab": "face",
+    "label": "Freckles",
+    "selected": true
+  },
+  {
+    "tab": "background",
+    "label": "Snowy town",
+    "selected": true
+  },
+  {
+    "tab": "background",
+    "label": "In the park",
+    "selected": true
+  },
+  {
+    "tab": "background",
+    "label": "Plain paper",
+    "selected": true
+  },
+  {
+    "tab": "background",
+    "label": "Transparent",
+    "selected": true
+  }
+]

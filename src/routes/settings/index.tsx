@@ -14,6 +14,7 @@ import {
 import { useSession } from '@/core/auth/client';
 import { Link } from '@/core/i18n/navigation';
 import { apiGet, type PageResult } from '@/lib/api-client';
+import { privatePageHead } from '@/lib/private-page-head';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
 import { useGuestPostInfo } from '@/hooks/use-guest-posts';
@@ -485,5 +486,6 @@ function DashboardPage() {
 }
 
 export const Route = createFileRoute('/settings/')({
+  head: () => privatePageHead(m['settings.nav.overview']()),
   component: DashboardPage,
 });

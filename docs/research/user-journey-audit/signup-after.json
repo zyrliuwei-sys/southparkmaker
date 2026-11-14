@@ -1,0 +1,84 @@
+{
+  "url": "/sign-up",
+  "title": "Sign Up | southparkmaker",
+  "h1": ["Sign Up"],
+  "text": "southparkmaker\nYour next alter ego is waiting.\n\nSign in to southparkmaker for optional AI character generation, account credits, and your next original cartoon idea.\n\nStart with imagination. Keep the personality.\nSign Up\nName\nEmail\nPassword\n\nUse at least 8 characters.\n\nConfirm Password\n\nUse at least 8 characters.\n\nSign Up\n\nAlready have an account? Sign In",
+  "links": [
+    {
+      "index": 0,
+      "text": "southparkmaker",
+      "label": null,
+      "href": "/",
+      "target": ""
+    },
+    {
+      "index": 1,
+      "text": "southparkmaker",
+      "label": null,
+      "href": "/",
+      "target": ""
+    },
+    {
+      "index": 2,
+      "text": "Sign In",
+      "label": null,
+      "href": "/sign-in",
+      "target": ""
+    }
+  ],
+  "buttons": [
+    {
+      "index": 0,
+      "text": "Sign Up",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 1,
+      "text": "",
+      "label": "Open Tanstack query devtools",
+      "disabled": false,
+      "role": null
+    }
+  ],
+  "forms": [
+    {
+      "name": "name",
+      "id": "_r_n_",
+      "type": "text",
+      "required": true,
+      "disabled": false,
+      "placeholder": "Enter your name",
+      "label": null
+    },
+    {
+      "name": "email",
+      "id": "_r_p_",
+      "type": "email",
+      "required": true,
+      "disabled": false,
+      "placeholder": "Enter your email",
+      "label": null
+    },
+    {
+      "name": "password",
+      "id": "_r_r_",
+      "type": "password",
+      "required": true,
+      "disabled": false,
+      "placeholder": "Enter your password",
+      "label": null
+    },
+    {
+      "name": "confirmPassword",
+      "id": "_r_t_",
+      "type": "password",
+      "required": true,
+      "disabled": false,
+      "placeholder": "Re-enter your password",
+      "label": null
+    }
+  ],
+  "overflow": false
+}

@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 
 import { tDynamic } from '@/core/i18n/dynamic';
 import { apiGet, apiPatch, apiPost, type PageResult } from '@/lib/api-client';
+import { privatePageHead } from '@/lib/private-page-head';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
 import { DataTable, type Column } from '@/components/data-table';
@@ -314,7 +315,14 @@ function TicketsPage() {
             pageSize={PAGE_SIZE}
             onPageChange={setPage}
             rowKey={(r) => r.id}
-            emptyText={m['settings.tickets.empty']()}
+            emptyText={
+              search || status !== 'all'
+                ? m['common.table.no_matches']()
+                : m['settings.tickets.empty']()
+            }
+            errorMessage={
+              listQuery.isError ? m['common.table.load_error']() : undefined
+            }
             search={search}
             onSearchChange={setSearch}
             toolbar={
@@ -519,6 +527,7 @@ function TicketsPage() {
 }
 
 export const Route = createFileRoute('/settings/tickets')({
+  head: () => privatePageHead(m['settings.tickets.title']()),
   component: () => (
     <FeatureGate feature="tickets">
       <TicketsPage />

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { ArrowRight, Check, LoaderCircle } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -33,6 +33,9 @@ export function MakerPricing({
   onChoose,
   labels,
   initialGroup,
+  notice,
+  purchaseDisabled = false,
+  disabledLabel,
 }: {
   title: string;
   description: string;
@@ -44,6 +47,9 @@ export function MakerPricing({
   onChoose: (id: string) => void;
   labels: { tabs: string; recommended: string; loading: string };
   initialGroup?: string;
+  notice?: ReactNode;
+  purchaseDisabled?: boolean;
+  disabledLabel?: string;
 }) {
   const [selected, setSelected] = useState(() =>
     Math.max(
@@ -61,6 +67,11 @@ export function MakerPricing({
           <Heading>{title}</Heading>
           <p>{description}</p>
         </div>
+        {notice && (
+          <div className="maker-price-notice" role="status">
+            {notice}
+          </div>
+        )}
         <div
           className="maker-price-switch"
           role="tablist"
@@ -126,8 +137,8 @@ export function MakerPricing({
               <button
                 type="button"
                 className={`maker-button ${plan.featured ? 'maker-button-primary' : 'maker-button-outline'}`}
-                disabled={!!busyId}
-                aria-label={`${plan.action}: ${plan.name}`}
+                disabled={!!busyId || purchaseDisabled}
+                aria-label={`${purchaseDisabled ? disabledLabel : plan.action}: ${plan.name}`}
                 onClick={() => onChoose(plan.id)}
               >
                 {busyId === plan.id ? (
@@ -137,7 +148,7 @@ export function MakerPricing({
                   </>
                 ) : (
                   <>
-                    {plan.action}
+                    {purchaseDisabled ? disabledLabel : plan.action}
                     <ArrowRight size={16} />
                   </>
                 )}

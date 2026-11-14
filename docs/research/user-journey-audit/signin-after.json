@@ -1,0 +1,66 @@
+{
+  "url": "/sign-in",
+  "title": "Sign In | southparkmaker",
+  "h1": ["Sign In"],
+  "text": "southparkmaker\nYour next alter ego is waiting.\n\nSign in to southparkmaker for optional AI character generation, account credits, and your next original cartoon idea.\n\nStart with imagination. Keep the personality.\nSign In\nEmail\nPassword\nSign In\n\nDon't have an account? Sign Up",
+  "links": [
+    {
+      "index": 0,
+      "text": "southparkmaker",
+      "label": null,
+      "href": "/",
+      "target": ""
+    },
+    {
+      "index": 1,
+      "text": "southparkmaker",
+      "label": null,
+      "href": "/",
+      "target": ""
+    },
+    {
+      "index": 2,
+      "text": "Sign Up",
+      "label": null,
+      "href": "/sign-up",
+      "target": ""
+    }
+  ],
+  "buttons": [
+    {
+      "index": 0,
+      "text": "Sign In",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 1,
+      "text": "",
+      "label": "Open Tanstack query devtools",
+      "disabled": false,
+      "role": null
+    }
+  ],
+  "forms": [
+    {
+      "name": "email",
+      "id": "_r_j_",
+      "type": "email",
+      "required": true,
+      "disabled": false,
+      "placeholder": "Enter your email",
+      "label": null
+    },
+    {
+      "name": "password",
+      "id": "password",
+      "type": "password",
+      "required": true,
+      "disabled": false,
+      "placeholder": "Enter your password",
+      "label": null
+    }
+  ],
+  "overflow": false
+}

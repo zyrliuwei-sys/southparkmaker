@@ -1,10 +1,8 @@
-'use client';
-
 import { useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import { useSession } from '@/core/auth/client';
-import { usePathname, useRouter } from '@/core/i18n/navigation';
+import { Link, usePathname, useRouter } from '@/core/i18n/navigation';
 import { apiGet } from '@/lib/api-client';
 import { cn } from '@/lib/utils';
 import { useAppearance } from '@/hooks/use-appearance';
@@ -30,6 +28,7 @@ export function AppLayout({
   profileHref,
   requirePermission,
   unauthorizedRedirect = '/settings',
+  statusCopy,
 }: {
   children: React.ReactNode;
   navItems: NavItem[];
@@ -42,8 +41,14 @@ export function AppLayout({
   profileHref?: string;
   requirePermission?: string;
   unauthorizedRedirect?: string;
+  statusCopy: { loading: string; sessionError: string; retry: string };
 }) {
-  const { data: session, isPending } = useSession();
+  const {
+    data: session,
+    isPending,
+    error: sessionError,
+    refetch: refreshSession,
+  } = useSession();
   const { appearance } = useAppearance();
   const router = useRouter();
   const pathname = usePathname();
@@ -79,7 +84,7 @@ export function AppLayout({
     (!requirePermission || isAdmin);
 
   useEffect(() => {
-    if (isPending) return;
+    if (isPending || sessionError) return;
 
     if (!session?.user) {
       if (redirectingRef.current) return;
@@ -116,6 +121,7 @@ export function AppLayout({
     }
   }, [
     isPending,
+    sessionError,
     session,
     router,
     pathname,
@@ -128,12 +134,31 @@ export function AppLayout({
     isAdmin,
   ]);
 
+  if (sessionError) {
+    return (
+      <main className="bg-background text-foreground flex min-h-svh flex-col items-center justify-center gap-4 p-6">
+        <p role="alert" className="text-center text-sm">
+          {statusCopy.sessionError}
+        </p>
+        <button
+          type="button"
+          className="rounded-lg border px-5 py-3 text-sm"
+          onClick={() => void refreshSession()}
+        >
+          {statusCopy.retry}
+        </button>
+      </main>
+    );
+  }
+
   if (isPending || !authorized || !session?.user) {
     return (
       <div className="bg-background flex min-h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-3">
           <div className="border-primary size-6 animate-spin rounded-full border-2 border-t-transparent" />
-          <span className="text-muted-foreground text-sm">Loading...</span>
+          <span className="text-muted-foreground text-sm">
+            {statusCopy.loading}
+          </span>
         </div>
       </div>
     );
@@ -170,7 +195,14 @@ export function AppLayout({
           )}
         >
           <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
+            <SidebarTrigger className="-ml-1 size-11" />
+            <Link
+              href={brandHref}
+              className="truncate text-base font-semibold md:hidden"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              {mobileBrand ?? brand}
+            </Link>
           </div>
           <div className="flex-1" />
           {headerExtra && (

@@ -72,6 +72,13 @@ export function CharacterStudio({
   }, []);
 
   useEffect(() => {
+    // A mode switch drops the preset query, but must retain the current draft.
+    if (
+      initialPreset === undefined &&
+      !initialOutfitColor &&
+      !initialExpression
+    )
+      return;
     setOptions({
       ...(CHARACTER_PRESETS[initialPreset ?? -1]?.options ?? DEFAULT_CHARACTER),
       ...(initialOutfitColor ? { outfitColor: initialOutfitColor } : {}),
@@ -183,7 +190,8 @@ export function CharacterStudio({
             type="button"
             className="character-swatch"
             style={{ '--swatch': value } as React.CSSProperties}
-            aria-label={`${title} ${index + 1}`}
+            aria-label={`${title}: ${copy[`${key}_name_${index + 1}`]}`}
+            title={copy[`${key}_name_${index + 1}`]}
             aria-pressed={options[key] === value}
             onClick={() => change(key, value)}
           >
@@ -253,6 +261,8 @@ export function CharacterStudio({
             onClick={() => exportImage('svg')}
             disabled={exporting}
             className="character-svg-download"
+            aria-label={copy.download_svg}
+            title={copy.download_svg}
           >
             SVG
           </Button>

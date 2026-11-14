@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
 
 import { tDynamic } from '@/core/i18n/dynamic';
@@ -19,6 +20,28 @@ export function MakerCreate({
   resolution?: CharacterResolution;
   ratio?: '1:1' | '3:4';
 }) {
+  const [aiOpened, setAiOpened] = useState(mode === 'ai');
+  const [lastAIInput, setLastAIInput] = useState({
+    prompt,
+    photo,
+    resolution,
+    ratio,
+  });
+  const hasIncomingAIInput =
+    prompt !== undefined ||
+    photo === true ||
+    resolution !== undefined ||
+    ratio !== undefined;
+  useEffect(() => {
+    if (mode !== 'ai') return;
+    setAiOpened(true);
+    if (hasIncomingAIInput)
+      setLastAIInput({ prompt, photo, resolution, ratio });
+  }, [mode, prompt, photo, resolution, ratio, hasIncomingAIInput]);
+  const aiInput =
+    mode === 'ai' && hasIncomingAIInput
+      ? { prompt, photo, resolution, ratio }
+      : lastAIInput;
   return (
     <main id="main-content" tabIndex={-1} className="maker-container">
       <div className="maker-create-top">
@@ -62,19 +85,20 @@ export function MakerCreate({
           </nav>
         </div>
       </div>
-      {mode === 'ai' ? (
-        <AICharacterGenerator
-          key={`${prompt}-${resolution}-${ratio}`}
-          initialPrompt={prompt}
-          initialPhoto={photo}
-          initialResolution={resolution}
-          initialRatio={ratio}
-        />
-      ) : (
-        <div className="py-8 pb-20">
-          <CharacterStudio />
-        </div>
-      )}
+      <div hidden={mode !== 'ai'}>
+        {(aiOpened || mode === 'ai') && (
+          <AICharacterGenerator
+            key={`${aiInput.prompt}-${aiInput.resolution}-${aiInput.ratio}-${aiInput.photo}`}
+            initialPrompt={aiInput.prompt}
+            initialPhoto={aiInput.photo}
+            initialResolution={aiInput.resolution}
+            initialRatio={aiInput.ratio}
+          />
+        )}
+      </div>
+      <div hidden={mode !== 'builder'} className="py-8 pb-20">
+        <CharacterStudio />
+      </div>
       <Link className="maker-create-help" href="/#character-guide">
         {tDynamic('maker.create.guide_link')}
       </Link>

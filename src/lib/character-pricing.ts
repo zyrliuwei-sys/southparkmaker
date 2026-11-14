@@ -18,3 +18,20 @@ export function characterCreditCost(resolution: CharacterResolution) {
       (10 * APP_CREDIT_MICRO_USD)
   );
 }
+
+/** UI guidance only. The server still validates and reserves the actual charge. */
+export function generationCreditShortfall(
+  balance: number | undefined,
+  cost: number | undefined
+): number | undefined {
+  if (
+    balance === undefined ||
+    cost === undefined ||
+    !Number.isFinite(balance) ||
+    !Number.isFinite(cost) ||
+    balance < 0 ||
+    cost < 0
+  )
+    return undefined;
+  return Math.max(0, cost - balance);
+}

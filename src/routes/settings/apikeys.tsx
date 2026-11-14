@@ -16,6 +16,7 @@ import {
   pageQuery,
   type PageResult,
 } from '@/lib/api-client';
+import { privatePageHead } from '@/lib/private-page-head';
 import { m } from '@/paraglide/messages.js';
 import { DataTable, type Column } from '@/components/data-table';
 import { Button } from '@/components/ui/button';
@@ -345,6 +346,7 @@ function ApiKeysPage() {
 }
 
 export const Route = createFileRoute('/settings/apikeys')({
+  head: () => privatePageHead(m['settings.apikeys.title']()),
   component: () => (
     <FeatureGate feature="apikeys">
       <ApiKeysPage />

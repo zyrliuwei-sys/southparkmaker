@@ -24,10 +24,10 @@ import {
 
 const signUpSchema = z
   .object({
-    name: z.string().min(1),
-    email: z.string().email(m['common.sign.email_placeholder']()),
-    password: z.string().min(8),
-    confirmPassword: z.string().min(8),
+    name: z.string().trim().min(1, m['common.sign.name_required']()),
+    email: z.string().email(m['common.sign.email_invalid']()),
+    password: z.string().min(8, m['common.sign.password_min']()),
+    confirmPassword: z.string().min(8, m['common.sign.password_min']()),
     inviteCode: z.string(),
   })
   .refine((d) => d.password === d.confirmPassword, {

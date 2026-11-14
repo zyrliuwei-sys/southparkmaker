@@ -2,11 +2,13 @@ import { ArrowUpRight, MoveHorizontal } from 'lucide-react';
 
 import { Link } from '@/core/i18n/navigation';
 import { m } from '@/paraglide/messages.js';
+import { useCharacterCapabilities } from '@/hooks/use-character-capabilities';
 import { PhotoComparison } from '@/components/photo-comparison';
 
 import '@/styles/photo-comparisons.css';
 
 export function PhotoComparisons() {
+  const capabilities = useCharacterCapabilities();
   const examples = [
     {
       id: 'purple-glasses',
@@ -96,9 +98,15 @@ export function PhotoComparisons() {
         </div>
 
         <div className="maker-photo-footer">
-          <p>{m['maker.comparisons.note']()}</p>
+          <p>
+            {capabilities.data?.photoEnabled
+              ? m['maker.comparisons.note']()
+              : m['maker.comparisons.text_only_note']()}
+          </p>
           <Link href="/create?mode=ai" className="maker-photo-action">
-            {m['maker.comparisons.action']()}
+            {capabilities.data?.photoEnabled
+              ? m['maker.comparisons.action']()
+              : m['maker.comparisons.text_only_action']()}
             <ArrowUpRight size={16} aria-hidden="true" />
           </Link>
         </div>

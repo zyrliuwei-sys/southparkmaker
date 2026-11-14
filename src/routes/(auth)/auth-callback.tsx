@@ -3,7 +3,9 @@ import { createFileRoute } from '@tanstack/react-router';
 import { Loader2 } from 'lucide-react';
 
 import { useSession } from '@/core/auth/client';
+import { Link } from '@/core/i18n/navigation';
 import { apiGet } from '@/lib/api-client';
+import { privatePageHead } from '@/lib/private-page-head';
 import {
   isAllowedAppProtocolUrl,
   isAppProtocolUrl,
@@ -81,9 +83,17 @@ function AuthCallbackPage() {
   }, [isPending, session?.user, configQuery.isSuccess, configQuery.data]);
 
   return (
-    <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-3 p-6">
+    <main className="maker-page maker-status-page">
+      <h1>{m['common.auth_callback.title']()}</h1>
       {error ? (
-        <p className="text-destructive text-sm">{error}</p>
+        <>
+          <p className="text-destructive text-sm" role="alert">
+            {error}
+          </p>
+          <Link className="maker-button maker-button-primary" href="/">
+            {m['common.not_found.home']()}
+          </Link>
+        </>
       ) : (
         <>
           <Loader2 className="text-muted-foreground size-5 animate-spin" />
@@ -92,10 +102,11 @@ function AuthCallbackPage() {
           </p>
         </>
       )}
-    </div>
+    </main>
   );
 }
 
 export const Route = createFileRoute('/(auth)/auth-callback')({
+  head: () => privatePageHead(m['common.auth_callback.title']()),
   component: AuthCallbackPage,
 });

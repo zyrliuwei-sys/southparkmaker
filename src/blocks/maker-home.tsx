@@ -1,4 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
 import {
   ArrowDownToLine,
   ArrowRight,
@@ -12,19 +11,15 @@ import {
 
 import { tDynamic } from '@/core/i18n/dynamic';
 import { Link } from '@/core/i18n/navigation';
-import { apiGet } from '@/lib/api-client';
 import { CHARACTER_PRESETS } from '@/lib/character';
+import { useCharacterCapabilities } from '@/hooks/use-character-capabilities';
 import { CharacterPreview } from '@/components/character-preview';
 import { MakerHero } from '@/components/maker-hero';
 
 const c = (key: string) => tDynamic(`maker.${key}`);
 
 export function MakerHeroBlock() {
-  const capabilities = useQuery({
-    queryKey: ['character-capabilities'],
-    queryFn: () => apiGet<{ photoEnabled: boolean }>('/api/characters/config'),
-    staleTime: 60_000,
-  });
+  const capabilities = useCharacterCapabilities();
   return (
     <MakerHero
       photoAvailable={capabilities.data?.photoEnabled === true}
@@ -229,6 +224,7 @@ export function MakerHowItWorks() {
 }
 
 export function MakerFAQ() {
+  const capabilities = useCharacterCapabilities();
   return (
     <section id="faq" className="maker-section">
       <div className="maker-container maker-faq-grid">
@@ -243,7 +239,13 @@ export function MakerFAQ() {
                 {c(`faq.question_${index}`)}
                 <Plus size={17} />
               </summary>
-              <p>{c(`faq.answer_${index}`)}</p>
+              <p>
+                {c(
+                  index === 3 && !capabilities.data?.photoEnabled
+                    ? 'faq.photo_unavailable_answer'
+                    : `faq.answer_${index}`
+                )}
+              </p>
             </details>
           ))}
         </div>

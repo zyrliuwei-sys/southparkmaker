@@ -20,7 +20,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 const profileSchema = z.object({
-  name: z.string().min(1),
+  name: z.string().trim().min(1, m['common.sign.name_required']()),
 });
 
 export function SettingsForm({

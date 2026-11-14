@@ -1,5 +1,3 @@
-'use client';
-
 import { useEffect, useRef, useState } from 'react';
 import { ChevronRight, type LucideIcon } from 'lucide-react';
 
@@ -19,6 +17,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from '@/components/ui/sidebar';
 
 export interface NavSubItem {
@@ -58,6 +57,10 @@ export function AppSidebar({
   /** offcanvas hides the sidebar on toggle; icon shrinks it to an icon rail. */
   collapsible?: 'offcanvas' | 'icon';
 }) {
+  const { isMobile, setOpenMobile } = useSidebar();
+  const closeMobile = () => {
+    if (isMobile) setOpenMobile(false);
+  };
   const pathname = usePathname();
   // A misconfigured logo URL falls back to the text brand, not a broken image.
   const [logoFailed, setLogoFailed] = useState(false);
@@ -84,7 +87,7 @@ export function AppSidebar({
   // The first nav item (dashboard root, e.g. /admin) matches exactly; everything
   // else matches by path prefix so sub-routes light up their entry.
   const isActiveHref = (href: string) =>
-    href === navItems[0]?.href
+    href === brandHref || href === navItems[0]?.href
       ? pathname === href
       : pathname === href || pathname.startsWith(href + '/');
 
@@ -161,6 +164,7 @@ export function AppSidebar({
           <SidebarMenuItem>
             <Link
               href={brandHref}
+              onClick={closeMobile}
               className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-left text-sm group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-0"
             >
               {showLogo && (
@@ -172,7 +176,10 @@ export function AppSidebar({
                   className="size-7 shrink-0 rounded-lg object-contain"
                 />
               )}
-              <span className="flex-1 truncate font-serif text-lg leading-none italic group-data-[collapsible=icon]:hidden">
+              <span
+                className="flex-1 truncate text-lg leading-none font-semibold tracking-tight group-data-[collapsible=icon]:hidden"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
                 {brand}
               </span>
               {/* Icon rail without a logo: the brand's first letter. */}
@@ -224,8 +231,22 @@ export function AppSidebar({
                             {item.items.map((sub) => (
                               <SidebarMenuSubItem key={sub.href}>
                                 <SidebarMenuSubButton
-                                  render={<Link href={sub.href} />}
+                                  render={
+                                    <Link
+                                      href={sub.href}
+                                      onClick={closeMobile}
+                                      target={sub.newTab ? '_blank' : undefined}
+                                      rel={
+                                        sub.newTab
+                                          ? 'noopener noreferrer'
+                                          : undefined
+                                      }
+                                    />
+                                  }
                                   isActive={isActiveHref(sub.href)}
+                                  aria-current={
+                                    isActiveHref(sub.href) ? 'page' : undefined
+                                  }
                                 >
                                   <span>{sub.label}</span>
                                 </SidebarMenuSubButton>
@@ -240,15 +261,26 @@ export function AppSidebar({
                   // Plain link.
                   return (
                     <SidebarMenuItem key={item.href}>
-                      <Link href={item.href}>
-                        <SidebarMenuButton
-                          tooltip={item.label}
-                          isActive={isActiveHref(item.href)}
-                        >
-                          <Icon />
-                          <span>{item.label}</span>
-                        </SidebarMenuButton>
-                      </Link>
+                      <SidebarMenuButton
+                        render={
+                          <Link
+                            href={item.href}
+                            onClick={closeMobile}
+                            target={item.newTab ? '_blank' : undefined}
+                            rel={
+                              item.newTab ? 'noopener noreferrer' : undefined
+                            }
+                          />
+                        }
+                        tooltip={item.label}
+                        isActive={isActiveHref(item.href)}
+                        aria-current={
+                          isActiveHref(item.href) ? 'page' : undefined
+                        }
+                      >
+                        <Icon />
+                        <span>{item.label}</span>
+                      </SidebarMenuButton>
                     </SidebarMenuItem>
                   );
                 })}
@@ -269,25 +301,28 @@ export function AppSidebar({
                   ? pathname === '/'
                   : pathname.startsWith(item.href);
               const button = (
-                <SidebarMenuButton tooltip={item.label} isActive={isActive}>
+                <SidebarMenuButton
+                  tooltip={item.label}
+                  isActive={isActive}
+                  render={
+                    item.newTab ? (
+                      <a
+                        href={localizeHref(item.href)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={closeMobile}
+                      />
+                    ) : (
+                      <Link href={item.href} onClick={closeMobile} />
+                    )
+                  }
+                >
                   <Icon />
                   <span>{item.label}</span>
                 </SidebarMenuButton>
               );
               return (
-                <SidebarMenuItem key={item.href}>
-                  {item.newTab ? (
-                    <a
-                      href={localizeHref(item.href)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {button}
-                    </a>
-                  ) : (
-                    <Link href={item.href}>{button}</Link>
-                  )}
-                </SidebarMenuItem>
+                <SidebarMenuItem key={item.href}>{button}</SidebarMenuItem>
               );
             })}
           </SidebarMenu>

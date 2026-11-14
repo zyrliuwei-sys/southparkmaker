@@ -14,6 +14,7 @@ const copyKeys = [
   'reset',
   'exporting',
   'download_png',
+  'download_svg',
   'save',
   'device_note',
   'saved_success',
@@ -94,6 +95,16 @@ export function CharacterStudio() {
   const copy = Object.fromEntries(
     copyKeys.map((key) => [key, tDynamic(`studio.${key}`)])
   );
+  for (const [field, count] of [
+    ['skinTone', 6],
+    ['hairColor', 6],
+    ['outfitColor', 8],
+  ] as const) {
+    for (let index = 1; index <= count; index++)
+      copy[`${field}_name_${index}`] = tDynamic(
+        `studio.${field}_name_${index}`
+      );
+  }
   copy.load_saved = m['studio.load_saved']({ number: '{number}' });
   return (
     <Studio

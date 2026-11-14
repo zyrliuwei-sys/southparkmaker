@@ -6,6 +6,7 @@ import { ExternalLink } from 'lucide-react';
 import { tDynamic } from '@/core/i18n/dynamic';
 import { Link } from '@/core/i18n/navigation';
 import { apiGet, type PageResult } from '@/lib/api-client';
+import { privatePageHead } from '@/lib/private-page-head';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
 import { DataTable, type Column } from '@/components/data-table';
@@ -232,7 +233,14 @@ function PaymentsPage() {
             pageSize={PAGE_SIZE}
             onPageChange={setPage}
             rowKey={(o) => o.id}
-            emptyText={m['settings.payments.no_payments']()}
+            emptyText={
+              search || tab !== 'all' || status !== 'all'
+                ? m['common.table.no_matches']()
+                : m['settings.payments.no_payments']()
+            }
+            errorMessage={
+              query.isError ? m['common.table.load_error']() : undefined
+            }
             search={search}
             onSearchChange={setSearch}
             toolbar={
@@ -265,6 +273,7 @@ function PaymentsPage() {
 }
 
 export const Route = createFileRoute('/settings/payments')({
+  head: () => privatePageHead(m['settings.payments.title']()),
   component: () => (
     <FeatureGate feature="payments">
       <PaymentsPage />

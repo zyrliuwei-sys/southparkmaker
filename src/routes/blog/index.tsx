@@ -51,7 +51,7 @@ function BlogPage() {
   const { locale, posts, guestPostsOpen } = Route.useLoaderData();
 
   return (
-    <div className="bg-background text-foreground flex min-h-screen flex-col">
+    <div className="maker-page maker-notes-page flex min-h-screen flex-col">
       <Header />
       <main
         id="main-content"
@@ -77,9 +77,25 @@ function BlogPage() {
             )}
           </div>
           {posts.length === 0 ? (
-            <p className="text-muted-foreground text-center">
-              {m['blog.no_posts']()}
-            </p>
+            <div className="maker-notes-empty">
+              <p className="text-muted-foreground text-center">
+                {m['blog.no_posts']()}
+              </p>
+              <div className="maker-status-actions">
+                <Link
+                  href="/create"
+                  className="maker-button maker-button-primary"
+                >
+                  {m['blog.empty_create']()}
+                </Link>
+                <Link
+                  href="/#character-guide"
+                  className="maker-button maker-button-outline"
+                >
+                  {m['blog.empty_guide']()}
+                </Link>
+              </div>
+            </div>
           ) : (
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (

@@ -22,7 +22,8 @@ const providers: PaymentProvider[] = ['stripe', 'creem', 'paypal'];
 export function Pricing({ heading = 'h2' }: { heading?: 'h1' | 'h2' } = {}) {
   const router = useRouter();
   const { data: session, isPending: sessionPending } = useSession();
-  const { data: configs, isPending: configPending } = usePublicConfig();
+  const configQuery = usePublicConfig();
+  const { data: configs, isPending: configPending } = configQuery;
   const initialGroup = useLocation({
     select: (location) =>
       (location.search as Record<string, unknown>).billing === 'monthly'
@@ -85,14 +86,14 @@ export function Pricing({ heading = 'h2' }: { heading?: 'h1' | 'h2' } = {}) {
       })),
   }));
   function choose(id: string) {
+    if (!enabled.length) {
+      toast.error(c('checkout_unavailable'));
+      return;
+    }
     if (!session?.user) {
       router.push(
         `/sign-in?callbackUrl=${encodeURIComponent(`/pricing?billing=${id.endsWith('_monthly') ? 'monthly' : 'pack'}`)}`
       );
-      return;
-    }
-    if (!enabled.length) {
-      toast.error(c('checkout_unavailable'));
       return;
     }
     setPendingId(id);
@@ -112,6 +113,31 @@ export function Pricing({ heading = 'h2' }: { heading?: 'h1' | 'h2' } = {}) {
         description={c('description')}
         heading={heading}
         initialGroup={initialGroup}
+        purchaseDisabled={
+          configQuery.isError || (configQuery.isSuccess && !enabled.length)
+        }
+        disabledLabel={c('unavailable_action')}
+        notice={
+          configQuery.isError ? (
+            <>
+              <p>{c('options_error')}</p>
+              <button
+                type="button"
+                className="maker-text-link"
+                onClick={() => void configQuery.refetch()}
+              >
+                {m['maker.ai.retry']()}
+              </button>
+            </>
+          ) : configQuery.isSuccess && !enabled.length ? (
+            <>
+              <p>{c('unavailable_notice')}</p>
+              <Link className="maker-text-link" href="/create">
+                {c('builder_action')}
+              </Link>
+            </>
+          ) : undefined
+        }
         groups={groups}
         costNote={c('cost_note')}
         freeNote={c('free_note')}

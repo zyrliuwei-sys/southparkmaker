@@ -6,6 +6,8 @@ import { toast } from 'sonner';
 import { authClient, useSession } from '@/core/auth/client';
 import { Link, useRouter } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
+import { privatePageHead } from '@/lib/private-page-head';
+import { safeInternalPath } from '@/lib/redirect';
 import { m } from '@/paraglide/messages.js';
 import { deLocalizeHref, localizeHref } from '@/paraglide/runtime.js';
 import { Button } from '@/components/ui/button';
@@ -21,14 +23,7 @@ import {
 const RESEND_COOLDOWN_SECONDS = 60;
 
 function safeDecodeCallbackUrl(raw?: string | null) {
-  if (!raw) return '/';
-  try {
-    const decoded = decodeURIComponent(raw);
-    if (decoded.startsWith('/')) return decoded;
-    return '/';
-  } catch {
-    return '/';
-  }
+  return safeInternalPath(raw) || '/';
 }
 
 function stripLocalePrefix(path: string) {
@@ -229,15 +224,15 @@ function VerifyEmailPage() {
   };
 
   return (
-    <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+    <main className="maker-auth-utility">
       <div className="flex w-full max-w-sm flex-col gap-6">
-        <Link href="/" className="self-center font-serif text-lg italic">
+        <Link href="/" className="maker-brand self-center">
           {envConfigs.app_name}
         </Link>
         <Card>
           <CardHeader>
             <CardTitle className="text-lg md:text-xl">
-              {m['common.sign.verify_email_page_title']()}
+              <h1>{m['common.sign.verify_email_page_title']()}</h1>
             </CardTitle>
             <CardDescription className="text-xs md:text-sm">
               {m['common.sign.verify_email_page_description']()}
@@ -294,10 +289,11 @@ function VerifyEmailPage() {
           </CardFooter>
         </Card>
       </div>
-    </div>
+    </main>
   );
 }
 
 export const Route = createFileRoute('/(auth)/verify-email')({
+  head: () => privatePageHead(m['common.sign.verify_email_page_title']()),
   component: VerifyEmailPage,
 });

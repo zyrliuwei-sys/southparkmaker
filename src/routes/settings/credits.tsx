@@ -6,6 +6,7 @@ import { Coins } from 'lucide-react';
 import { tDynamic } from '@/core/i18n/dynamic';
 import { Link } from '@/core/i18n/navigation';
 import { apiGet, type PageResult } from '@/lib/api-client';
+import { privatePageHead } from '@/lib/private-page-head';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
 import { DataTable, type Column } from '@/components/data-table';
@@ -86,13 +87,34 @@ function CreditsPage() {
         <Badge
           variant={r.transactionType === 'consume' ? 'secondary' : 'default'}
         >
-          {r.transactionType}
+          {r.transactionType === 'grant'
+            ? m['settings.credits.tab_grant']()
+            : r.transactionType === 'consume'
+              ? m['settings.credits.tab_consume']()
+              : m['settings.credits.adjustment']()}
         </Badge>
       ),
     },
     {
       header: m['settings.credits.scene'](),
-      cell: (r) => r.transactionScene || '—',
+      cell: (r) =>
+        r.transactionScene
+          ? (
+              {
+                payment: m['settings.credits.source_payment'](),
+                subscription: m['settings.credits.source_subscription'](),
+                renewal: m['settings.credits.source_renewal'](),
+                gift: m['settings.credits.source_gift'](),
+                reward: m['settings.credits.source_reward'](),
+                refund: m['settings.credits.source_refund'](),
+                ai: m['settings.credits.source_ai'](),
+                ai_task: m['settings.credits.source_ai'](),
+                character: m['settings.credits.source_ai'](),
+                'ai-image': m['settings.credits.source_ai'](),
+                image: m['settings.credits.source_ai'](),
+              } as Record<string, string>
+            )[r.transactionScene] || m['settings.credits.source_other']()
+          : '—',
     },
     {
       header: m['settings.credits.credits'](),
@@ -113,7 +135,7 @@ function CreditsPage() {
       className: 'text-right',
       cell: (r) => (
         <span className="text-muted-foreground text-sm tabular-nums">
-          {r.remainingCredits}
+          {r.transactionType === 'grant' ? r.remainingCredits : '—'}
         </span>
       ),
     },
@@ -162,8 +184,13 @@ function CreditsPage() {
         </CardHeader>
         <CardContent>
           <p className="text-3xl font-bold">
-            {balanceLoaded ? (balance ?? 0) : '…'}
+            {balanceQuery.isError ? '—' : balanceLoaded ? (balance ?? 0) : '…'}
           </p>
+          {balanceQuery.isError && (
+            <p className="text-destructive mt-3 text-sm" role="alert">
+              {m['common.table.load_error']()}
+            </p>
+          )}
         </CardContent>
       </Card>
 
@@ -194,10 +221,19 @@ function CreditsPage() {
             pageSize={PAGE_SIZE}
             onPageChange={setPage}
             rowKey={(r) => r.id}
-            emptyText={m['settings.credits.no_records']()}
+            emptyText={
+              search || tab !== 'all'
+                ? m['common.table.no_matches']()
+                : m['settings.credits.no_records']()
+            }
+            errorMessage={
+              query.isError ? m['common.table.load_error']() : undefined
+            }
             search={search}
             onSearchChange={setSearch}
-            onRefresh={() => query.refetch()}
+            onRefresh={() =>
+              Promise.all([query.refetch(), balanceQuery.refetch()])
+            }
             loading={query.isFetching || query.isPending}
           />
         </CardContent>
@@ -207,6 +243,7 @@ function CreditsPage() {
 }
 
 export const Route = createFileRoute('/settings/credits')({
+  head: () => privatePageHead(m['settings.credits.title']()),
   component: () => (
     <FeatureGate feature="credits">
       <CreditsPage />

@@ -4,6 +4,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { signOut, useSession } from '@/core/auth/client';
 import { useRouter } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
+import { privatePageHead } from '@/lib/private-page-head';
 import { m } from '@/paraglide/messages.js';
 import { localizeHref } from '@/paraglide/runtime.js';
 import { Button } from '@/components/ui/button';
@@ -102,15 +103,13 @@ function RedeemInvitePage() {
   }
 
   return (
-    <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+    <main className="maker-auth-utility">
       <div className="flex w-full max-w-sm flex-col gap-6">
-        <span className="self-center font-serif text-lg italic">
-          {envConfigs.app_name}
-        </span>
+        <span className="maker-brand self-center">{envConfigs.app_name}</span>
         <Card>
           <CardHeader className="text-center">
             <CardTitle className="text-xl">
-              {m['common.sign.redeem_title']()}
+              <h1>{m['common.sign.redeem_title']()}</h1>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -155,10 +154,11 @@ function RedeemInvitePage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </main>
   );
 }
 
 export const Route = createFileRoute('/(auth)/redeem-invite')({
+  head: () => privatePageHead(m['common.sign.redeem_title']()),
   component: RedeemInvitePage,
 });

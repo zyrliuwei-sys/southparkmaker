@@ -115,6 +115,11 @@ function AdminLayout() {
 
   return (
     <AppLayout
+      statusCopy={{
+        loading: m['common.account.loading'](),
+        sessionError: m['common.account.session_error'](),
+        retry: m['maker.ai.retry'](),
+      }}
       navItems={navItems}
       footerNavItems={footerNavItems}
       brand={envConfigs.app_name}

@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { requestPasswordReset } from '@/core/auth/client';
 import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
+import { privatePageHead } from '@/lib/private-page-head';
 import { m } from '@/paraglide/messages.js';
 import { localizeHref } from '@/paraglide/runtime.js';
 import { usePublicConfig } from '@/hooks/use-public-config';
@@ -21,7 +22,7 @@ import {
 import { Field, FieldDescription, FieldGroup } from '@/components/ui/field';
 
 const forgotSchema = z.object({
-  email: z.string().email(m['common.sign.email_placeholder']()),
+  email: z.string().email(m['common.sign.email_invalid']()),
 });
 
 function ForgotPasswordPage() {
@@ -60,17 +61,19 @@ function ForgotPasswordPage() {
   });
 
   return (
-    <div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+    <main className="maker-auth-utility">
       <div className="flex w-full max-w-sm flex-col gap-6">
-        <Link href="/" className="self-center font-serif text-lg italic">
+        <Link href="/" className="maker-brand self-center">
           {configs.app_name || envConfigs.app_name}
         </Link>
         <Card>
           <CardHeader className="text-center">
             <CardTitle className="text-xl">
-              {sent
-                ? m['common.sign.reset_link_sent_title']()
-                : m['common.sign.forgot_password_title']()}
+              <h1>
+                {sent
+                  ? m['common.sign.reset_link_sent_title']()
+                  : m['common.sign.forgot_password_title']()}
+              </h1>
             </CardTitle>
             {!sent && (
               <CardDescription>
@@ -163,10 +166,11 @@ function ForgotPasswordPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </main>
   );
 }
 
 export const Route = createFileRoute('/(auth)/forgot-password')({
+  head: () => privatePageHead(m['common.sign.forgot_password_title']()),
   component: ForgotPasswordPage,
 });

@@ -6,6 +6,7 @@ import { ExternalLink, Eye, Pencil, Plus } from 'lucide-react';
 import { tDynamic } from '@/core/i18n/dynamic';
 import { Link } from '@/core/i18n/navigation';
 import { apiGet, pageQuery, type PageResult } from '@/lib/api-client';
+import { privatePageHead } from '@/lib/private-page-head';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
 import { localizeHref } from '@/paraglide/runtime.js';
@@ -221,5 +222,6 @@ function GuestPostsPage() {
 }
 
 export const Route = createFileRoute('/settings/guest-posts/')({
+  head: () => privatePageHead(m['guest_posts.title']()),
   component: GuestPostsPage,
 });

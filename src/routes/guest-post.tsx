@@ -27,7 +27,7 @@ export const Route = createFileRoute('/guest-post')({
 
 function GuestPostPage() {
   return (
-    <div className="bg-background text-foreground flex min-h-screen flex-col">
+    <div className="maker-page maker-notes-page flex min-h-screen flex-col">
       <Header />
       <main id="main-content" tabIndex={-1} className="flex-1">
         <GuestPostLanding />

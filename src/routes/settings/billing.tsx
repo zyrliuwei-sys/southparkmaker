@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 import { tDynamic } from '@/core/i18n/dynamic';
 import { Link } from '@/core/i18n/navigation';
 import { ApiError, apiGet, apiPost, type PageResult } from '@/lib/api-client';
+import { privatePageHead } from '@/lib/private-page-head';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
 import { DataTable, type Column } from '@/components/data-table';
@@ -285,7 +286,11 @@ function BillingPage() {
           </div>
         </CardHeader>
         <CardContent>
-          {!currentLoaded ? (
+          {currentQuery.isError ? (
+            <p className="text-destructive text-sm" role="alert">
+              {m['common.table.load_error']()}
+            </p>
+          ) : !currentLoaded ? (
             <p className="text-muted-foreground text-sm">…</p>
           ) : current ? (
             <div className="space-y-2">
@@ -354,7 +359,14 @@ function BillingPage() {
             pageSize={PAGE_SIZE}
             onPageChange={setPage}
             rowKey={(r) => r.id}
-            emptyText={m['settings.billing.no_subscription']()}
+            emptyText={
+              search || tab !== 'all'
+                ? m['common.table.no_matches']()
+                : m['settings.billing.no_subscription']()
+            }
+            errorMessage={
+              listQuery.isError ? m['common.table.load_error']() : undefined
+            }
             search={search}
             onSearchChange={setSearch}
             onRefresh={async () => {
@@ -481,6 +493,7 @@ function DetailRow({
 }
 
 export const Route = createFileRoute('/settings/billing')({
+  head: () => privatePageHead(m['settings.billing.title']()),
   component: () => (
     <FeatureGate feature="billing">
       <BillingPage />

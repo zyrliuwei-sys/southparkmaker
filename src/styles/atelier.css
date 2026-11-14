@@ -2109,3 +2109,146 @@ body {
   max-width: 64ch;
   line-height: 1.7;
 }
+
+/* User-journey review: explicit availability and consistent recovery pages. */
+.maker-price-notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid var(--mk-hair);
+  border-radius: var(--radius-control);
+  background: var(--mk-paper-deep);
+  padding: 20px 24px;
+  margin: 24px 0;
+  color: var(--mk-ink);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.maker-price-notice p {
+  max-width: 72ch;
+}
+.maker-price-notice .maker-text-link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.maker-auth-utility {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: var(--mk-paper);
+  color: var(--mk-ink);
+  font-family: var(--font-body);
+}
+.maker-auth-utility h1 {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.8px;
+}
+.maker-auth-utility [data-slot='card'] {
+  background: var(--mk-white);
+  border: 1px solid var(--mk-hair);
+  box-shadow: none;
+  border-radius: 20px;
+}
+.maker-auth-utility [data-slot='card-content'],
+.maker-auth-utility [data-slot='card-header'],
+.maker-auth-utility [data-slot='card-footer'] {
+  padding-inline: 24px;
+}
+.maker-auth-utility input {
+  min-height: 44px;
+  border-color: var(--mk-control-border);
+  font-size: 16px;
+}
+.maker-auth-utility button {
+  min-height: 44px;
+}
+.maker-auth-utility :is(a, button, input):focus-visible {
+  outline: 2px solid var(--mk-accent);
+  outline-offset: 3px;
+}
+.maker-status-page {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 48px 24px;
+  text-align: center;
+}
+.maker-status-page h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(36px, 6vw, 72px);
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  max-width: 900px;
+}
+.maker-status-page > p {
+  max-width: 56ch;
+  line-height: 1.9;
+  color: var(--mk-muted);
+}
+.maker-status-page .maker-brand {
+  margin-bottom: 16px;
+}
+.maker-status-code {
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+.maker-status-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.maker-notes-page h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+.maker-notes-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  border-top: 1px solid var(--mk-hair);
+  padding: 48px 0;
+}
+.maker-notes-empty > p {
+  max-width: 60ch;
+  line-height: 1.9;
+}
+@media (max-width: 640px) {
+  .maker-price-notice {
+    padding: 16px;
+    font-size: 12px;
+  }
+  .maker-status-actions {
+    width: 100%;
+  }
+  .maker-status-actions .maker-button {
+    width: 100%;
+  }
+}
+
+/* Keep keyboard targets and in-page navigation clear of the sticky masthead. */
+html {
+  scroll-padding-top: 100px;
+}
+.maker-page section[id] {
+  scroll-margin-top: 12px;
+}
+.maker-page :is(button, input, textarea, select, summary) {
+  scroll-margin-top: 12px;
+  scroll-margin-bottom: 24px;
+}

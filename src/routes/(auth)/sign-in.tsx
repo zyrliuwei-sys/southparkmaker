@@ -24,8 +24,8 @@ import {
 import { Input } from '@/components/ui/input';
 
 const signInSchema = z.object({
-  email: z.string().email(m['common.sign.email_placeholder']()),
-  password: z.string().min(1),
+  email: z.string().email(m['common.sign.email_invalid']()),
+  password: z.string().min(1, m['common.sign.password_required']()),
 });
 
 function SignInPage() {

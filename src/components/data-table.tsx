@@ -47,6 +47,7 @@ interface DataTableProps<T> {
   rowKey: (row: T) => string;
   onRefresh?: () => void | Promise<unknown>;
   loading?: boolean;
+  errorMessage?: string;
 }
 
 export function DataTable<T>({
@@ -64,6 +65,7 @@ export function DataTable<T>({
   rowKey,
   onRefresh,
   loading,
+  errorMessage,
 }: DataTableProps<T>) {
   const [refreshing, setRefreshing] = useState(false);
 
@@ -163,7 +165,18 @@ export function DataTable<T>({
             ))}
           </TableHeader>
           <TableBody>
-            {initialLoading ? (
+            {errorMessage ? (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="py-8 text-center"
+                >
+                  <p role="alert" className="text-destructive text-sm">
+                    {errorMessage}
+                  </p>
+                </TableCell>
+              </TableRow>
+            ) : initialLoading ? (
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
@@ -210,7 +223,9 @@ export function DataTable<T>({
 
       <div className="flex items-center justify-between px-2">
         <p className="text-muted-foreground text-sm">
-          {initialLoading ? '' : m['common.table.total']({ count: total })}
+          {initialLoading || errorMessage
+            ? ''
+            : m['common.table.total']({ count: total })}
         </p>
         {total > pageSize && (
           <div className="flex items-center gap-2">
