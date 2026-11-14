@@ -16,6 +16,7 @@ import {
   MakerHeroBlock,
   MakerHowItWorks,
 } from '@/blocks/maker-home';
+import { PhotoComparisons } from '@/blocks/photo-comparisons';
 import { Pricing } from '@/blocks/pricing';
 
 export const Route = createFileRoute('/')({
@@ -26,8 +27,9 @@ function HomePage() {
   return (
     <div className="maker-page">
       <Header />
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <MakerHeroBlock />
+        <PhotoComparisons />
         <MakerCreationPaths />
         <MakerGallery />
         <MakerHowItWorks />

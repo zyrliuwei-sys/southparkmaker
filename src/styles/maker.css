@@ -943,7 +943,7 @@
   font-weight: 750;
   border-radius: 9px;
 }
-.maker-create-tabs a[aria-current='page'] {
+.maker-create-tabs a[data-selected='true'] {
   color: var(--mk-on-accent);
   background: var(--mk-accent);
 }
@@ -1861,7 +1861,7 @@
 .maker-price-card.is-featured {
   border-color: var(--mk-accent);
   box-shadow: inset 0 0 0 1px var(--mk-accent);
-  background: color-mix(in oklch, var(--mk-accent-soft) 30%, var(--mk-white));
+  background: color-mix(in oklab, var(--mk-accent-soft) 30%, var(--mk-white));
 }
 .maker-price-card-top {
   display: flex;

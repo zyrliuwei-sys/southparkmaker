@@ -1,0 +1,220 @@
+{
+  "url": "/settings/payments",
+  "title": "southparkmaker",
+  "h1": ["Payments"],
+  "text": "Toggle Sidebar\nPayments\n\nYour payment history\n\nAll\nOne-time\nSubscription\nRenewal\nAll statuses\nOrder\tProduct\tAmount\tStatus\tType\tProvider\tDate\tInvoice\nNo payments yet\n\n0 records",
+  "links": [
+    {
+      "index": 0,
+      "text": "southparkmaker",
+      "label": null,
+      "href": "/settings",
+      "target": ""
+    },
+    {
+      "index": 1,
+      "text": "Character builder",
+      "label": null,
+      "href": "/create",
+      "target": ""
+    },
+    {
+      "index": 2,
+      "text": "Overview",
+      "label": null,
+      "href": "/settings",
+      "target": ""
+    },
+    {
+      "index": 3,
+      "text": "Profile",
+      "label": null,
+      "href": "/settings/profile",
+      "target": ""
+    },
+    {
+      "index": 4,
+      "text": "Credits",
+      "label": null,
+      "href": "/settings/credits",
+      "target": ""
+    },
+    {
+      "index": 5,
+      "text": "Billing",
+      "label": null,
+      "href": "/settings/billing",
+      "target": ""
+    },
+    {
+      "index": 6,
+      "text": "Payments",
+      "label": null,
+      "href": "/settings/payments",
+      "target": ""
+    },
+    {
+      "index": 7,
+      "text": "Support Tickets",
+      "label": null,
+      "href": "/settings/tickets",
+      "target": ""
+    },
+    {
+      "index": 8,
+      "text": "Home",
+      "label": null,
+      "href": "/",
+      "target": "_blank"
+    }
+  ],
+  "buttons": [
+    {
+      "index": 0,
+      "text": "Character builder",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 1,
+      "text": "Overview",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 2,
+      "text": "Profile",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 3,
+      "text": "Credits",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 4,
+      "text": "Billing",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 5,
+      "text": "Payments",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 6,
+      "text": "Support Tickets",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 7,
+      "text": "Home",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 8,
+      "text": "AAdmin[account email]",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 9,
+      "text": "Toggle Sidebar",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 10,
+      "text": "All",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 11,
+      "text": "One-time",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 12,
+      "text": "Subscription",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 13,
+      "text": "Renewal",
+      "label": null,
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 14,
+      "text": "All statuses▼",
+      "label": null,
+      "disabled": false,
+      "role": "combobox"
+    },
+    {
+      "index": 15,
+      "text": "",
+      "label": "Refresh",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 16,
+      "text": "",
+      "label": "Contact support",
+      "disabled": false,
+      "role": null
+    },
+    {
+      "index": 17,
+      "text": "",
+      "label": "Open Tanstack query devtools",
+      "disabled": false,
+      "role": null
+    }
+  ],
+  "forms": [
+    {
+      "name": "",
+      "id": "base-ui-_r_17_",
+      "type": "text",
+      "required": false,
+      "disabled": false,
+      "placeholder": "Search...",
+      "label": null
+    },
+    {
+      "name": "",
+      "id": "base-ui-_r_18_-hidden-input",
+      "type": "text",
+      "required": false,
+      "disabled": false,
+      "placeholder": null,
+      "label": null
+    }
+  ],
+  "overflow": false
+}

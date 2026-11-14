@@ -1,0 +1,42 @@
+[
+  {
+    "page": "home",
+    "violations": [],
+    "incomplete": [],
+    "passes": 37,
+    "h1": 1,
+    "overflow": false
+  },
+  {
+    "page": "pricing",
+    "violations": [],
+    "incomplete": [],
+    "passes": 36,
+    "h1": 1,
+    "overflow": false
+  },
+  {
+    "page": "generator",
+    "violations": [],
+    "incomplete": [],
+    "passes": 35,
+    "h1": 1,
+    "overflow": false
+  },
+  {
+    "page": "studio",
+    "violations": [],
+    "incomplete": [],
+    "passes": 34,
+    "h1": 1,
+    "overflow": false
+  },
+  {
+    "page": "legal",
+    "violations": [],
+    "incomplete": [],
+    "passes": 27,
+    "h1": 1,
+    "overflow": false
+  }
+]

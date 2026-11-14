@@ -129,6 +129,9 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
         {
           enabled: Boolean(selectCharacterProvider(configs, false)),
           photoEnabled: Boolean(selectCharacterProvider(configs, true)),
+          photoCostCredits: selectCharacterProvider(configs, true)
+            ? CHARACTER_CREDIT_COST
+            : undefined,
           costCredits:
             selection?.name === 'seeapi'
               ? characterCreditCost('2K')

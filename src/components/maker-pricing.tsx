@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { ArrowRight, Check, LoaderCircle } from 'lucide-react';
 
+import { cn } from '@/lib/utils';
+
 export type MakerPricePlan = {
   id: string;
   name: string;
@@ -30,6 +32,7 @@ export function MakerPricing({
   busyId,
   onChoose,
   labels,
+  initialGroup,
 }: {
   title: string;
   description: string;
@@ -40,10 +43,17 @@ export function MakerPricing({
   busyId?: string;
   onChoose: (id: string) => void;
   labels: { tabs: string; recommended: string; loading: string };
+  initialGroup?: string;
 }) {
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(() =>
+    Math.max(
+      0,
+      groups.findIndex((group) => group.id === initialGroup)
+    )
+  );
   const group = groups[selected];
   const Heading = heading;
+  const PlanHeading = heading === 'h1' ? 'h2' : 'h3';
   return (
     <section id="pricing" className="maker-section maker-pricing-section">
       <div className="maker-container">
@@ -83,7 +93,7 @@ export function MakerPricing({
                 setSelected(next);
                 event.currentTarget.parentElement
                   ?.querySelectorAll<HTMLButtonElement>('[role=tab]')
-                  [next]?.focus();
+                  [next]?.focus({ preventScroll: true });
               }}
             >
               {g.label}
@@ -100,10 +110,10 @@ export function MakerPricing({
           {group.plans.map((plan) => (
             <article
               key={plan.id}
-              className={`maker-price-card${plan.featured ? 'is-featured' : ''}`}
+              className={cn('maker-price-card', plan.featured && 'is-featured')}
             >
               <div className="maker-price-card-top">
-                <h3>{plan.name}</h3>
+                <PlanHeading>{plan.name}</PlanHeading>
                 {plan.featured && <span>{labels.recommended}</span>}
               </div>
               <p className="maker-price-description">{plan.description}</p>
@@ -117,6 +127,7 @@ export function MakerPricing({
                 type="button"
                 className={`maker-button ${plan.featured ? 'maker-button-primary' : 'maker-button-outline'}`}
                 disabled={!!busyId}
+                aria-label={`${plan.action}: ${plan.name}`}
                 onClick={() => onChoose(plan.id)}
               >
                 {busyId === plan.id ? (

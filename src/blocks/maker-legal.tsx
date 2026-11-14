@@ -10,7 +10,11 @@ export function MakerLegal({ children }: { children: ReactNode }) {
   return (
     <div className="maker-page">
       <Header />
-      <main className="maker-container maker-legal-layout">
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="maker-container maker-legal-layout"
+      >
         <aside className="maker-legal-nav">
           <h2>{m['maker.legal.title']()}</h2>
           <p>{m['maker.legal.description']()}</p>

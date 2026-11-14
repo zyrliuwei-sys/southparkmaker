@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
+import { useLocation } from '@tanstack/react-router';
 import { toast } from 'sonner';
 
 import { useSession } from '@/core/auth/client';
 import { tDynamic } from '@/core/i18n/dynamic';
-import { useRouter } from '@/core/i18n/navigation';
+import { Link, useRouter } from '@/core/i18n/navigation';
 import { characterProducts } from '@/config/pricing';
 import { apiPost } from '@/lib/api-client';
 import { characterCreditCost } from '@/lib/character-pricing';
-import { currentPathWithQuery } from '@/lib/redirect';
 import { m } from '@/paraglide/messages.js';
 import { usePublicConfig } from '@/hooks/use-public-config';
 import { MakerPricing } from '@/components/maker-pricing';
@@ -21,8 +21,14 @@ const c = (key: string) => tDynamic(`maker.pricing.${key}`);
 const providers: PaymentProvider[] = ['stripe', 'creem', 'paypal'];
 export function Pricing({ heading = 'h2' }: { heading?: 'h1' | 'h2' } = {}) {
   const router = useRouter();
-  const { data: session } = useSession();
-  const { data: configs } = usePublicConfig();
+  const { data: session, isPending: sessionPending } = useSession();
+  const { data: configs, isPending: configPending } = usePublicConfig();
+  const initialGroup = useLocation({
+    select: (location) =>
+      (location.search as Record<string, unknown>).billing === 'monthly'
+        ? 'monthly'
+        : 'pack',
+  });
   const [pendingId, setPendingId] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [loadingProvider, setLoadingProvider] =
@@ -81,7 +87,7 @@ export function Pricing({ heading = 'h2' }: { heading?: 'h1' | 'h2' } = {}) {
   function choose(id: string) {
     if (!session?.user) {
       router.push(
-        `/sign-in?callbackUrl=${encodeURIComponent(currentPathWithQuery('/pricing'))}`
+        `/sign-in?callbackUrl=${encodeURIComponent(`/pricing?billing=${id.endsWith('_monthly') ? 'monthly' : 'pack'}`)}`
       );
       return;
     }
@@ -105,10 +111,17 @@ export function Pricing({ heading = 'h2' }: { heading?: 'h1' | 'h2' } = {}) {
         title={c('title')}
         description={c('description')}
         heading={heading}
+        initialGroup={initialGroup}
         groups={groups}
         costNote={c('cost_note')}
         freeNote={c('free_note')}
-        busyId={checkout.isPending ? pendingId : undefined}
+        busyId={
+          checkout.isPending
+            ? pendingId
+            : sessionPending || configPending
+              ? 'loading'
+              : undefined
+        }
         onChoose={choose}
         labels={{
           tabs: c('tabs'),
@@ -127,5 +140,32 @@ export function Pricing({ heading = 'h2' }: { heading?: 'h1' | 'h2' } = {}) {
         }}
       />
     </>
+  );
+}
+
+export function PricingQuestions() {
+  return (
+    <section className="maker-section atelier-pricing-questions">
+      <div className="maker-container maker-faq-grid">
+        <div>
+          <h2>{c('questions_title')}</h2>
+          <p className="atelier-pricing-help">{c('questions_description')}</p>
+          <Link className="maker-text-link" href="/create">
+            {c('builder_action')}
+          </Link>
+        </div>
+        <div className="maker-faq">
+          {[1, 2, 3, 4].map((index) => (
+            <details key={index}>
+              <summary>
+                {c(`question_${index}`)}
+                <span aria-hidden="true">+</span>
+              </summary>
+              <p>{c(`answer_${index}`)}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

@@ -8,16 +8,24 @@ export function MakerFooter({
   columns,
   copyright,
   disclaimer,
+  signature,
 }: {
   brand: string;
   description: string;
   columns: { title: string; links: { href: string; label: string }[] }[];
   copyright: string;
   disclaimer: string;
+  signature: string;
 }) {
   return (
     <footer className="maker-footer">
       <div className="maker-color-rule" />
+      <div className="maker-container atelier-footer-signature">
+        <p>{signature}</p>
+        <Link href="/" aria-label={brand}>
+          {brand}
+        </Link>
+      </div>
       <div className="maker-container maker-footer-grid">
         <div className="maker-footer-brand">
           <Link href="/" className="maker-brand">

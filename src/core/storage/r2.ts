@@ -122,7 +122,6 @@ export class R2Provider implements StorageProvider {
       const headers: Record<string, string> = {
         'Content-Type': options.contentType || 'application/octet-stream',
         'Content-Disposition': options.disposition || 'inline',
-        'Content-Length': bodyArray.length.toString(),
       };
 
       const request = new Request(url, {

@@ -1,0 +1,4 @@
+{
+  "text": "Submit a Ticket\n\nDescribe your issue and we'll respond as soon as possible\n\nSubject\nDescription\nImages (optional)\nUpload\nMax 10MB\nCancel\nSubmit\nClose",
+  "buttons": ["UploadMax 10MB", "Cancel", "Submit", "Close"]
+}

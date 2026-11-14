@@ -42,12 +42,18 @@ const tabs: StudioTab[] = ['hair', 'outfit', 'face', 'background'];
 export function CharacterStudio({
   copy,
   initialPreset,
+  initialOutfitColor,
+  initialExpression,
 }: {
   copy: CharacterStudioCopy;
   initialPreset?: number;
+  initialOutfitColor?: CharacterOptions['outfitColor'];
+  initialExpression?: CharacterOptions['expression'];
 }) {
   const [options, setOptions] = useState<CharacterOptions>(() => ({
     ...(CHARACTER_PRESETS[initialPreset ?? -1]?.options ?? DEFAULT_CHARACTER),
+    ...(initialOutfitColor ? { outfitColor: initialOutfitColor } : {}),
+    ...(initialExpression ? { expression: initialExpression } : {}),
   }));
   const [history, setHistory] = useState<CharacterOptions[]>([]);
   const [tab, setTab] = useState<StudioTab>('hair');
@@ -68,10 +74,12 @@ export function CharacterStudio({
   useEffect(() => {
     setOptions({
       ...(CHARACTER_PRESETS[initialPreset ?? -1]?.options ?? DEFAULT_CHARACTER),
+      ...(initialOutfitColor ? { outfitColor: initialOutfitColor } : {}),
+      ...(initialExpression ? { expression: initialExpression } : {}),
     });
     setHistory([]);
     setStatus('');
-  }, [initialPreset]);
+  }, [initialPreset, initialOutfitColor, initialExpression]);
 
   function update(next: CharacterOptions) {
     setHistory((previous) => [...previous.slice(-19), options]);

@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import {
   ArrowDownToLine,
   ArrowRight,
@@ -11,6 +12,7 @@ import {
 
 import { tDynamic } from '@/core/i18n/dynamic';
 import { Link } from '@/core/i18n/navigation';
+import { apiGet } from '@/lib/api-client';
 import { CHARACTER_PRESETS } from '@/lib/character';
 import { CharacterPreview } from '@/components/character-preview';
 import { MakerHero } from '@/components/maker-hero';
@@ -18,11 +20,18 @@ import { MakerHero } from '@/components/maker-hero';
 const c = (key: string) => tDynamic(`maker.${key}`);
 
 export function MakerHeroBlock() {
+  const capabilities = useQuery({
+    queryKey: ['character-capabilities'],
+    queryFn: () => apiGet<{ photoEnabled: boolean }>('/api/characters/config'),
+    staleTime: 60_000,
+  });
   return (
     <MakerHero
+      photoAvailable={capabilities.data?.photoEnabled === true}
       copy={{
-        eyebrow: c('hero.eyebrow'),
         title: c('hero.title'),
+        titleLead: c('hero.title_lead'),
+        titleTail: c('hero.title_tail'),
         description: c('hero.description'),
         modes: [
           c('hero.mode_text'),
@@ -45,16 +54,29 @@ export function MakerHeroBlock() {
           c('hero.benefit_2'),
           c('hero.benefit_3'),
         ],
-        artAlt: c('hero.art_alt'),
-        artCaption: c('hero.art_caption'),
         artNote: c('hero.art_note'),
         previewLabel: c('hero.preview_label'),
         previewFormat: c('hero.preview_format'),
         previewHint: c('hero.preview_hint'),
         previewHintAI: c('hero.preview_ai_hint'),
+        previewLabelAI: c('hero.preview_ai_label'),
         builderHint: c('hero.builder_hint'),
+        stageControls: {
+          colors: c('hero.colors_label'),
+          colorNames: [1, 2, 3, 4].map((index) => c(`hero.color_${index}`)),
+          expressionAction: c('hero.expression_action'),
+          expressionNames: Object.fromEntries(
+            ['happy', 'calm', 'surprised', 'grumpy'].map((value) => [
+              value,
+              tDynamic(`studio.${value}`),
+            ])
+          ) as Record<'happy' | 'calm' | 'surprised' | 'grumpy', string>,
+        },
         presetNames: [0, 2, 4].map((index) =>
           tDynamic(CHARACTER_PRESETS[index].name)
+        ),
+        presetShortNames: [1, 2, 3].map((index) =>
+          c(`hero.preset_short_${index}`)
         ),
       }}
     />
@@ -103,10 +125,16 @@ export function MakerCreationPaths() {
                 <ArrowUpRight size={16} />
               </Link>
             </div>
-            <div className="maker-prompt-paper">
-              <Sparkles size={19} />
-              <p>{c('paths.sample')}</p>
-            </div>
+            <figure className="atelier-ai-example">
+              <img
+                src="/imgs/generated/seedream-character-example.jpg"
+                alt={c('paths.example_alt')}
+                width="1400"
+                height="1400"
+                loading="lazy"
+              />
+              <figcaption>{c('paths.example_caption')}</figcaption>
+            </figure>
           </article>
         </div>
       </div>
@@ -143,7 +171,7 @@ export function MakerGallery() {
                 }}
               >
                 <CharacterPreview
-                  options={preset.options}
+                  options={{ ...preset.options, background: 'transparent' }}
                   label={tDynamic(preset.name)}
                 />
               </div>

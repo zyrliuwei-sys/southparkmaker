@@ -1,5 +1,3 @@
-'use client';
-
 import { LogOutIcon, SettingsIcon, ShieldIcon } from 'lucide-react';
 
 import { signOut } from '@/core/auth/client';
@@ -21,10 +19,12 @@ export function SiteUserMenu({
   name,
   email,
   image,
+  label,
 }: {
   name: string;
   email: string;
   image?: string | null;
+  label?: string;
 }) {
   const router = useRouter();
   const { data } = useUserPermissions();
@@ -37,8 +37,11 @@ export function SiteUserMenu({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="focus-visible:ring-ring rounded-full outline-none focus-visible:ring-2">
-        <Avatar className="size-9">
+      <DropdownMenuTrigger
+        aria-label={label || name}
+        className="focus-visible:ring-ring rounded-full outline-none focus-visible:ring-2"
+      >
+        <Avatar className="size-9" aria-hidden="true">
           <AvatarImage src={image || undefined} alt={name} />
           <AvatarFallback className="text-xs">
             {name.charAt(0).toUpperCase()}

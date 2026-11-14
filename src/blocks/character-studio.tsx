@@ -1,6 +1,7 @@
 import { useLocation } from '@tanstack/react-router';
 
 import { tDynamic } from '@/core/i18n/dynamic';
+import { EXPRESSIONS, OUTFIT_COLORS } from '@/lib/character';
 import { m } from '@/paraglide/messages.js';
 import { CharacterStudio as Studio } from '@/components/character-studio';
 
@@ -68,6 +69,19 @@ const copyKeys = [
 ] as const;
 
 export function CharacterStudio() {
+  const initialLook = useLocation({
+    select: (location) => {
+      const values = location.search as Record<string, unknown>;
+      return {
+        outfitColor: OUTFIT_COLORS.includes(values.outfitColor as any)
+          ? (values.outfitColor as (typeof OUTFIT_COLORS)[number])
+          : undefined,
+        expression: EXPRESSIONS.includes(values.expression as any)
+          ? (values.expression as (typeof EXPRESSIONS)[number])
+          : undefined,
+      };
+    },
+  });
   const initialPreset = useLocation({
     select: (location) => {
       const value = (location.search as Record<string, unknown>).preset;
@@ -81,5 +95,12 @@ export function CharacterStudio() {
     copyKeys.map((key) => [key, tDynamic(`studio.${key}`)])
   );
   copy.load_saved = m['studio.load_saved']({ number: '{number}' });
-  return <Studio copy={copy} initialPreset={initialPreset} />;
+  return (
+    <Studio
+      copy={copy}
+      initialPreset={initialPreset}
+      initialOutfitColor={initialLook.outfitColor}
+      initialExpression={initialLook.expression}
+    />
+  );
 }

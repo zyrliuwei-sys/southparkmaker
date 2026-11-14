@@ -1,0 +1,12 @@
+{
+  "light": {
+    "comparisonOriginalLabel": 15.98,
+    "comparisonStyleLabel": 9.04,
+    "inputBoundary": 3.49
+  },
+  "dark": {
+    "comparisonOriginalLabel": 16.61,
+    "comparisonStyleLabel": 9.98,
+    "inputBoundary": 3.97
+  }
+}

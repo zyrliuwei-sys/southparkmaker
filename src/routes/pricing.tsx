@@ -5,9 +5,17 @@ import { m } from '@/paraglide/messages.js';
 import { getLocale } from '@/paraglide/runtime.js';
 import { Footer } from '@/blocks/footer';
 import { Header } from '@/blocks/header';
-import { Pricing } from '@/blocks/pricing';
+import { Pricing, PricingQuestions } from '@/blocks/pricing';
 
 export const Route = createFileRoute('/pricing')({
+  validateSearch: (search: Record<string, unknown>) => ({
+    billing:
+      search.billing === 'monthly'
+        ? 'monthly'
+        : search.billing === 'pack'
+          ? 'pack'
+          : undefined,
+  }),
   loader: () => {
     const locale = getLocale();
     return {
@@ -36,8 +44,9 @@ function PricingPage() {
   return (
     <div className="maker-page">
       <Header />
-      <main className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1">
         <Pricing heading="h1" />
+        <PricingQuestions />
       </main>
       <Footer />
     </div>

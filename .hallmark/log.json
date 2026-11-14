@@ -1,6 +1,15 @@
 [
   {
     "date": "2026-11-14",
+    "scope": "app",
+    "macrostructure": "Workbench",
+    "theme": "Alpine Studio",
+    "theme_axes": "snow / expressive grotesque / forest",
+    "enrichment": "Working character stage and actual Seedream output",
+    "brief": "Craft refinement of homepage, studio, pricing, shared navigation and footer; visual, interaction, responsive and accessibility review."
+  },
+  {
+    "date": "2026-11-14",
     "macrostructure": "Interactive Workshop",
     "theme": "custom",
     "theme_axes": "paper / editorial serif / orange",

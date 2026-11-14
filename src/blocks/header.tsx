@@ -9,12 +9,11 @@ export function Header() {
   return (
     <MakerHeader
       brand={envConfigs.app_name}
+      skipLabel={tDynamic('maker.nav.skip')}
       links={[
         { href: '/#gallery', label: tDynamic('maker.nav.gallery') },
-        { href: '/#how-it-works', label: tDynamic('maker.nav.how') },
         { href: '/#character-guide', label: tDynamic('maker.nav.guide') },
         { href: '/pricing', label: tDynamic('maker.nav.pricing') },
-        { href: '/#faq', label: tDynamic('maker.nav.faq') },
       ]}
       loginLabel={tDynamic('maker.nav.login')}
       startLabel={tDynamic('maker.nav.start')}
@@ -23,6 +22,7 @@ export function Header() {
       account={
         session?.user ? (
           <SiteUserMenu
+            label={tDynamic('maker.nav.account')}
             name={session.user.name}
             email={session.user.email}
             image={session.user.image}

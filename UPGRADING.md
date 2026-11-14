@@ -48,6 +48,35 @@ exports, permission codes, and behavior that changes for end users.
 
 ## 2026-11-14: SeeAPI admin settings
 
+### Character generation and credit pricing
+
+The character generator now prefers the saved SeeAPI key for Seedream 5.5
+text-to-image. Requests use the documented asynchronous generation/status
+endpoints and a stable task ID as the provider idempotency key. Interrupted
+submissions retain their credit reservation and resume using that same key;
+terminal failures refund through the existing atomic credit ledger. Existing
+Fal/Replicate tasks remain readable. Reference photos require the existing
+photo-capable provider and are hidden when unavailable.
+
+The public pricing snapshot checked on 2026-11-14 is 4.9 SeeAPI credits for
+1K/1.5K and 8.5 for 2K. At the published USD estimate of $0.0037/provider
+credit, the policy in `src/lib/character-pricing.ts` applies an 8× multiplier,
+then rounds up to whole application credits at $0.01 each: 15 or 26 credits.
+Review this snapshot when the upstream price or credit exchange rate changes.
+
+`src/config/pricing.ts` replaces the template's nine public demo plans with
+six `character_*` products: three one-time packs and three monthly plans.
+One-time credits never expire; monthly credits expire at the paid period end
+and do not roll over. Existing paid orders/subscriptions retain their stored
+terms. Configure the new IDs in any payment-provider product/price mappings
+before enabling checkout. No payment provider is enabled automatically.
+Guest-post products remain intact. No schema migration is required.
+
+The AI-task service now persists optional scene/options in the initial atomic
+insert so a disconnected submit can recover the original size and aspect
+ratio. Port the AI provider, character handlers/input, credit policy, catalog,
+pricing component/block, English messages and AI-task service together.
+
 Admin → Settings → AI now includes SeeAPI Base URL and API Key fields plus a
 read-only Test action (`GET https://api.seeapi.com/v1/credits`). Leave Base URL
 blank for the official endpoint. Credentials use the existing config table,

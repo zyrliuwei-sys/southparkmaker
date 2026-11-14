@@ -133,7 +133,7 @@ function SignInPage() {
   }
 
   return (
-    <div className="maker-auth">
+    <main className="maker-auth">
       <AuthBrandPanel />
       <div className="maker-auth-form">
         <Link href="/" className="maker-brand">
@@ -311,7 +311,7 @@ function SignInPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </main>
   );
 }
 

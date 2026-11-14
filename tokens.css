@@ -6,6 +6,7 @@
   --mk-ink: oklch(0.235 0.027 162);
   --mk-muted: oklch(0.49 0.024 162);
   --mk-hair: oklch(0.89 0.015 160);
+  --mk-control-border: oklch(0.62 0.02 162);
   --mk-accent: oklch(0.39 0.075 162);
   --mk-accent-soft: oklch(0.936 0.025 158);
   --mk-on-accent: oklch(0.99 0.005 150);
@@ -17,11 +18,24 @@
   --mk-shadow: oklch(0.27 0.03 160 / 0.09);
   --font-display: 'Bricolage Grotesque Variable', sans-serif;
   --font-body: 'Manrope Variable', sans-serif;
+  --mk-mountain: oklch(0.73 0.042 219);
+  --mk-mountain-near: oklch(0.62 0.043 210);
+  --mk-snow: oklch(0.984 0.009 90);
+  --mk-forest-art: oklch(0.49 0.048 163);
+  --mk-stage-shadow: oklch(0.32 0.05 195 / 0.15);
+  --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
   --space-lg: 24px;
   --space-xl: 40px;
+  --space-2xl: 64px;
   --space-section: 104px;
+  --text-display: clamp(3rem, 6.4vw, 6.4rem);
+  --text-section: clamp(2.2rem, 3.8vw, 3.5rem);
+  --text-body: 15px;
+  --dur-micro: 120ms;
+  --dur-short: 240ms;
+  --dur-long: 480ms;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
@@ -30,12 +44,18 @@
   --radius-control: 12px;
 }
 .dark {
+  --mk-mountain: oklch(0.38 0.035 219);
+  --mk-mountain-near: oklch(0.3 0.035 210);
+  --mk-snow: oklch(0.65 0.016 160);
+  --mk-forest-art: oklch(0.25 0.035 163);
+  --mk-stage-shadow: oklch(0.08 0.02 195 / 0.25);
   --mk-paper: oklch(0.175 0.018 162);
   --mk-paper-deep: oklch(0.21 0.025 162);
   --mk-white: oklch(0.235 0.024 162);
   --mk-ink: oklch(0.954 0.009 155);
   --mk-muted: oklch(0.76 0.019 160);
   --mk-hair: oklch(0.35 0.026 162);
+  --mk-control-border: oklch(0.55 0.026 162);
   --mk-accent: oklch(0.79 0.084 158);
   --mk-accent-soft: oklch(0.285 0.041 162);
   --mk-on-accent: oklch(0.18 0.025 162);

@@ -23,6 +23,7 @@ type Generation = {
 type Capabilities = {
   enabled: boolean;
   photoEnabled: boolean;
+  photoCostCredits?: number;
   costCredits: number;
   resolutions: { resolution: CharacterResolution; costCredits: number }[];
 };
@@ -34,8 +35,14 @@ const c = (key: string) => tDynamic(`maker.ai.${key}`);
 
 export function AICharacterGenerator({
   initialPrompt = '',
+  initialPhoto = false,
+  initialResolution = DEFAULT_CHARACTER_RESOLUTION,
+  initialRatio = '1:1',
 }: {
   initialPrompt?: string;
+  initialPhoto?: boolean;
+  initialResolution?: CharacterResolution;
+  initialRatio?: '1:1' | '3:4';
 }) {
   const { data: session, isPending: sessionPending } = useSession();
   const queryClient = useQueryClient();
@@ -43,9 +50,8 @@ export function AICharacterGenerator({
   const [imagePreview, setImagePreview] = useState('');
   const [fileError, setFileError] = useState('');
   const [taskId, setTaskId] = useState('');
-  const [resolution, setResolution] = useState<CharacterResolution>(
-    DEFAULT_CHARACTER_RESOLUTION
-  );
+  const [resolution, setResolution] =
+    useState<CharacterResolution>(initialResolution);
   const balance = useQuery({
     queryKey: ['character-balance', session?.user?.id],
     queryFn: () => apiGet<{ balance: number }>('/api/credits'),
@@ -69,12 +75,13 @@ export function AICharacterGenerator({
     },
   });
   const task = useQuery({
-    queryKey: ['character-task', taskId],
+    queryKey: ['character-task', session?.user?.id, taskId],
     queryFn: ({ signal }) =>
       apiGet<Generation>(`/api/characters/${encodeURIComponent(taskId)}`, {
         signal,
       }),
     enabled:
+      !!session?.user &&
       !!taskId &&
       !['success', 'failed', 'canceled'].includes(
         generation.data?.status ?? ''
@@ -94,12 +101,21 @@ export function AICharacterGenerator({
     ? `character-active:${session.user.id}`
     : '';
   useEffect(() => {
+    setTaskId('');
+    generation.reset();
     if (!storageKey) return;
     try {
       const saved = localStorage.getItem(storageKey);
       if (saved && /^[a-f0-9-]{36}$/i.test(saved)) setTaskId(saved);
     } catch {}
   }, [storageKey]);
+  useEffect(() => {
+    if (task.error?.message !== 'Character not found.') return;
+    setTaskId('');
+    try {
+      if (storageKey) localStorage.removeItem(storageKey);
+    } catch {}
+  }, [task.error, storageKey]);
   useEffect(() => {
     if (!storageKey || !taskId) return;
     try {
@@ -115,7 +131,7 @@ export function AICharacterGenerator({
   const form = useForm({
     defaultValues: {
       prompt: initialPrompt,
-      aspectRatio: '1:1' as '1:1' | '3:4',
+      aspectRatio: initialRatio,
     },
     validators: {
       onSubmit: z.object({
@@ -162,6 +178,7 @@ export function AICharacterGenerator({
     <div className="maker-ai-wrap">
       <div className="maker-ai-layout">
         <div className="maker-ai-form">
+          <h2 className="atelier-form-title">{c('form_title')}</h2>
           {config.data?.enabled && !sessionPending && !session?.user && (
             <p className="maker-ai-message">{c('sign_in_note')}</p>
           )}
@@ -195,6 +212,11 @@ export function AICharacterGenerator({
                 void form.handleSubmit();
             }}
           >
+            {initialPhoto &&
+              config.data?.enabled &&
+              !config.data.photoEnabled && (
+                <p className="maker-ai-message">{c('photo_unavailable')}</p>
+              )}
             <div className="maker-ai-field">
               <form.Field name="prompt">
                 {(field) => (
@@ -202,6 +224,9 @@ export function AICharacterGenerator({
                     <label htmlFor="character-prompt">
                       {c('prompt_label')}
                     </label>
+                    <span className="atelier-prompt-count" aria-hidden="true">
+                      {field.state.value.length} / 1500
+                    </span>
                     <textarea
                       id="character-prompt"
                       name="prompt"
@@ -212,64 +237,102 @@ export function AICharacterGenerator({
                       onBlur={field.handleBlur}
                       placeholder={c('placeholder')}
                       maxLength={1500}
-                      disabled={busy || !session?.user}
+                      disabled={busy}
                       aria-invalid={field.state.meta.errors.length > 0}
+                      aria-required="true"
+                      aria-describedby={
+                        field.state.meta.errors.length
+                          ? 'character-prompt-error'
+                          : 'character-prompt-hint'
+                      }
                     />
                     {field.state.meta.errors.length > 0 && (
-                      <p className="maker-ai-note" role="alert">
+                      <p
+                        id="character-prompt-error"
+                        className="atelier-prompt-helper"
+                        role="alert"
+                      >
                         {c('prompt_required')}
+                      </p>
+                    )}
+                    {!field.state.meta.errors.length && (
+                      <p
+                        id="character-prompt-hint"
+                        className="atelier-prompt-helper"
+                      >
+                        {c('prompt_hint')}
                       </p>
                     )}
                   </>
                 )}
               </form.Field>
             </div>
-            <div className="maker-ai-field">
-              <label htmlFor="character-photo">{c('photo_label')}</label>
-              <div className="maker-ai-upload">
-                {imagePreview ? (
-                  <>
-                    <img src={imagePreview} alt={c('reference_alt')} />
-                    <button
-                      type="button"
-                      className="maker-button maker-button-outline"
-                      onClick={() => {
-                        setImage(undefined);
-                        setImagePreview('');
-                      }}
-                      disabled={busy || !session?.user}
-                    >
-                      <X size={14} />
-                      {c('remove_photo')}
-                    </button>
-                  </>
-                ) : (
-                  <ImagePlus size={28} strokeWidth={1.3} />
-                )}
-                <input
-                  id="character-photo"
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  disabled={
-                    busy || !session?.user || !config.data?.photoEnabled
+            <div
+              className="atelier-prompt-examples"
+              role="group"
+              aria-label={c('examples_label')}
+            >
+              {[1, 2, 3].map((index) => (
+                <button
+                  key={index}
+                  type="button"
+                  disabled={busy}
+                  onClick={() =>
+                    form.setFieldValue('prompt', c(`example_prompt_${index}`))
                   }
-                  onChange={(event) => {
-                    void chooseFile(event.target.files?.[0]);
-                    event.target.value = '';
-                  }}
-                />
-                <p>
-                  {config.data?.photoEnabled
-                    ? c('photo_hint')
-                    : c('photo_unavailable')}
-                </p>
-              </div>
-              {fileError && (
-                <p className="maker-ai-note" role="alert">
-                  {fileError}
-                </p>
-              )}
+                >
+                  {c(`example_${index}`)}
+                </button>
+              ))}
             </div>
+            {config.data?.photoEnabled && (
+              <div className="maker-ai-field">
+                <label htmlFor="character-photo">{c('photo_label')}</label>
+                <div className="maker-ai-upload">
+                  {imagePreview ? (
+                    <>
+                      <img src={imagePreview} alt={c('reference_alt')} />
+                      <button
+                        type="button"
+                        className="maker-button maker-button-outline"
+                        onClick={() => {
+                          setImage(undefined);
+                          setImagePreview('');
+                        }}
+                        disabled={busy}
+                      >
+                        <X size={14} />
+                        {c('remove_photo')}
+                      </button>
+                    </>
+                  ) : (
+                    <ImagePlus size={28} strokeWidth={1.3} />
+                  )}
+                  <input
+                    id="character-photo"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    disabled={
+                      busy || !session?.user || !config.data?.photoEnabled
+                    }
+                    onChange={(event) => {
+                      void chooseFile(event.target.files?.[0]);
+                      event.target.value = '';
+                    }}
+                  />
+                  <p>
+                    {config.data?.photoEnabled
+                      ? c('photo_hint')
+                      : c('photo_unavailable')}
+                  </p>
+                </div>
+                {fileError && (
+                  <p className="maker-ai-note" role="alert">
+                    {fileError}
+                  </p>
+                )}
+              </div>
+            )}
             {!image && (
               <div className="maker-ai-field">
                 <form.Field name="aspectRatio">
@@ -281,7 +344,7 @@ export function AICharacterGenerator({
                       <select
                         id="character-ratio"
                         value={field.state.value}
-                        disabled={busy || !session?.user}
+                        disabled={busy}
                         onChange={(event) =>
                           field.handleChange(
                             event.target.value as '1:1' | '3:4'
@@ -324,7 +387,7 @@ export function AICharacterGenerator({
               <span>
                 {cost !== undefined &&
                   m['maker.ai.credit_cost']({
-                    count: String(image ? config.data?.costCredits : cost),
+                    count: String(image ? config.data?.photoCostCredits : cost),
                   })}
                 {balance.data && (
                   <>
@@ -338,13 +401,22 @@ export function AICharacterGenerator({
               <Link href="/pricing">{c('buy_credits')}</Link>
             </div>
             {config.data?.enabled && !sessionPending && !session?.user ? (
-              <Link
-                className="maker-button maker-button-primary w-full"
-                href={`/sign-in?callbackUrl=${encodeURIComponent(`/create?mode=ai&prompt=${encodeURIComponent(initialPrompt)}`)}`}
+              <form.Subscribe
+                selector={(state) => ({
+                  prompt: state.values.prompt,
+                  ratio: state.values.aspectRatio,
+                })}
               >
-                {c('sign_in')}
-                <ArrowRight size={16} />
-              </Link>
+                {({ prompt, ratio }) => (
+                  <Link
+                    className="maker-button maker-button-primary w-full"
+                    href={`/sign-in?callbackUrl=${encodeURIComponent(`/create?mode=ai&prompt=${encodeURIComponent(prompt)}&resolution=${resolution}&ratio=${encodeURIComponent(ratio)}`)}`}
+                  >
+                    {c('sign_in')}
+                    <ArrowRight size={16} />
+                  </Link>
+                )}
+              </form.Subscribe>
             ) : (
               <button
                 type="submit"
@@ -388,7 +460,12 @@ export function AICharacterGenerator({
         </div>
         {result?.images?.length ? (
           <figure className="maker-ai-result">
-            <img src={result.images[0]} alt={c('result_alt')} />
+            <img
+              src={result.images[0]}
+              alt={c('result_alt')}
+              width="2048"
+              height="2048"
+            />
             <figcaption>
               <span>{c('result_title')}</span>
               <a
@@ -405,12 +482,17 @@ export function AICharacterGenerator({
         ) : (
           <div className="maker-ai-result maker-ai-empty" aria-live="polite">
             <img
-              src="/imgs/generated/southparkmaker-hero.jpg"
+              src="/imgs/generated/seedream-character-example.jpg"
               alt=""
-              width="180"
-              height="180"
+              width="1400"
+              height="1400"
             />
-            <h2>{busy ? c('creating_title') : c('empty_title')}</h2>
+            <h2>
+              {busy && (
+                <LoaderCircle className="mr-2 inline animate-spin" size={20} />
+              )}{' '}
+              {busy ? c('creating_title') : c('empty_title')}
+            </h2>
             <p>{busy ? c('creating_description') : c('empty_description')}</p>
           </div>
         )}

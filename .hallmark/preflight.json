@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-14",
+  "framework": "TanStack Start / React 19 / Tailwind 4",
+  "fonts": ["Bricolage Grotesque Variable", "Manrope Variable"],
+  "palette": "Alpine Studio / existing OKLCH tokens",
+  "motion": "CSS state feedback and responsive character eyes; reduced motion supported",
+  "spacing": "4px base; existing semantic tokens",
+  "sourceFiles": [
+    "tokens.css",
+    "src/styles/globals.css",
+    "src/styles/atelier.css",
+    "package.json"
+  ]
+}

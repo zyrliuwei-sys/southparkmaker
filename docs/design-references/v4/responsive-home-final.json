@@ -1,0 +1,26 @@
+[
+  {
+    "width": 320,
+    "scrollWidth": 320,
+    "ctaBottom": 817.25,
+    "outsideControls": []
+  },
+  {
+    "width": 375,
+    "scrollWidth": 375,
+    "ctaBottom": 802.734375,
+    "outsideControls": []
+  },
+  {
+    "width": 414,
+    "scrollWidth": 414,
+    "ctaBottom": 810.59375,
+    "outsideControls": []
+  },
+  {
+    "width": 768,
+    "scrollWidth": 768,
+    "ctaBottom": 729.03125,
+    "outsideControls": []
+  }
+]

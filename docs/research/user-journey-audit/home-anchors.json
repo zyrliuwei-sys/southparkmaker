@@ -1,0 +1,26 @@
+[
+  {
+    "href": "/#gallery",
+    "targetExists": true,
+    "top": 111.9140625,
+    "headerBottom": 85
+  },
+  {
+    "href": "/#character-guide",
+    "targetExists": true,
+    "top": 112.140625,
+    "headerBottom": 85
+  },
+  {
+    "href": "/#how-it-works",
+    "targetExists": true,
+    "top": 109.96875,
+    "headerBottom": 85
+  },
+  {
+    "href": "/#faq",
+    "targetExists": true,
+    "top": 111.8828125,
+    "headerBottom": 85
+  }
+]

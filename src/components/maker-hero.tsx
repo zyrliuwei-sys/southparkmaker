@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from '@tanstack/react-form';
 import {
   ArrowRight,
@@ -11,12 +11,21 @@ import {
 import { z } from 'zod';
 
 import { useRouter } from '@/core/i18n/navigation';
-import { CHARACTER_PRESETS } from '@/lib/character';
+import {
+  CHARACTER_PRESETS,
+  EXPRESSIONS,
+  type CharacterOptions,
+} from '@/lib/character';
 import { CharacterPreview } from '@/components/character-preview';
+import {
+  MakerCharacterStage,
+  type CharacterStageCopy,
+} from '@/components/maker-character-stage';
 
 export interface MakerHeroCopy {
-  eyebrow: string;
   title: string;
+  titleLead: string;
+  titleTail: string;
   description: string;
   modes: [string, string, string];
   panelTitle: string;
@@ -31,27 +40,55 @@ export interface MakerHeroCopy {
   samplesLabel: string;
   samples: string[];
   benefits: string[];
-  artAlt: string;
-  artCaption: string;
   artNote: string;
   builderHint: string;
   presetNames: string[];
+  presetShortNames: string[];
   previewLabel: string;
   previewFormat: string;
   previewHint: string;
   previewHintAI: string;
+  previewLabelAI: string;
+  stageControls: Pick<
+    CharacterStageCopy,
+    'colors' | 'colorNames' | 'expressionAction' | 'expressionNames'
+  >;
 }
-
-export function MakerHero({ copy }: { copy: MakerHeroCopy }) {
+export function MakerHero({
+  copy,
+  photoAvailable = false,
+}: {
+  copy: MakerHeroCopy;
+  photoAvailable?: boolean;
+}) {
   const [mode, setMode] = useState<'text' | 'photo' | 'builder'>('builder');
   const [selectedPreset, setSelectedPreset] = useState(0);
+  const [outfitColor, setOutfitColor] = useState<
+    CharacterOptions['outfitColor']
+  >(CHARACTER_PRESETS[0].options.outfitColor);
+  const [expression, setExpression] = useState<CharacterOptions['expression']>(
+    CHARACTER_PRESETS[0].options.expression
+  );
   const router = useRouter();
+  useEffect(() => {
+    if (mode === 'photo' && !photoAvailable) setMode('builder');
+  }, [mode, photoAvailable]);
+  const availableModes = (['text', 'photo', 'builder'] as const).filter(
+    (value) => value !== 'photo' || photoAvailable
+  );
+  const options = {
+    ...CHARACTER_PRESETS[selectedPreset].options,
+    outfitColor,
+    expression,
+  };
   const form = useForm({
     defaultValues: { prompt: '' },
     validators: { onSubmit: z.object({ prompt: z.string().max(1500) }) },
     onSubmit: ({ value }) => {
       if (mode === 'builder') {
-        router.push(`/create?preset=${selectedPreset}`);
+        router.push(
+          `/create?preset=${selectedPreset}&outfitColor=${encodeURIComponent(outfitColor)}&expression=${expression}`
+        );
         return;
       }
       router.push(
@@ -61,203 +98,215 @@ export function MakerHero({ copy }: { copy: MakerHeroCopy }) {
   });
   const icons = [Type, ImagePlus, SlidersHorizontal];
   return (
-    <section className="maker-hero" aria-labelledby="maker-title">
-      <div className="maker-container maker-hero-grid">
-        <div className="maker-hero-copy">
-          <p className="maker-eyebrow">{copy.eyebrow}</p>
-          <h1 id="maker-title">{copy.title}</h1>
-          <p className="maker-hero-description">{copy.description}</p>
-          <form
-            className="maker-prompt-box"
-            onSubmit={(event) => {
-              event.preventDefault();
-              void form.handleSubmit();
-            }}
+    <section className="maker-hero atelier-hero" aria-labelledby="maker-title">
+      <div className="maker-container atelier-hero-heading">
+        <h1 id="maker-title">
+          <span>{copy.titleLead}</span> <strong>{copy.titleTail}</strong>
+        </h1>
+        <p className="maker-hero-description">{copy.description}</p>
+      </div>
+      <div className="maker-container atelier-workshop">
+        <MakerCharacterStage
+          disabled={mode !== 'builder'}
+          options={options}
+          companions={[
+            CHARACTER_PRESETS[(selectedPreset + 1) % 6].options,
+            CHARACTER_PRESETS[(selectedPreset + 4) % 6].options,
+          ]}
+          copy={{
+            label: mode === 'builder' ? copy.previewLabel : copy.previewLabelAI,
+            format: copy.previewFormat,
+            name: copy.presetNames[[0, 2, 4].indexOf(selectedPreset)],
+            hint: mode === 'builder' ? copy.previewHint : copy.previewHintAI,
+            ...copy.stageControls,
+          }}
+          onColor={setOutfitColor}
+          onExpression={() =>
+            setExpression(
+              EXPRESSIONS[
+                (EXPRESSIONS.indexOf(expression) + 1) % EXPRESSIONS.length
+              ]
+            )
+          }
+        />
+        <form
+          className="maker-prompt-box atelier-entry"
+          onSubmit={(event) => {
+            event.preventDefault();
+            void form.handleSubmit();
+          }}
+        >
+          <div
+            className="maker-prompt-modes"
+            data-photo={photoAvailable}
+            role="tablist"
+            aria-label={copy.panelTitle}
           >
-            <div
-              className="maker-prompt-modes"
-              role="tablist"
-              aria-label={copy.panelTitle}
-            >
-              {(['text', 'photo', 'builder'] as const).map((key, index) => {
-                const Icon = icons[index];
-                return (
-                  <button
-                    type="button"
-                    role="tab"
-                    key={key}
-                    aria-selected={mode === key}
-                    id={`maker-mode-${key}`}
-                    aria-controls="maker-mode-panel"
-                    tabIndex={mode === key ? 0 : -1}
-                    className={mode === key ? 'is-active' : ''}
-                    onClick={() => setMode(key)}
-                    onKeyDown={(event) => {
-                      const modes = ['text', 'photo', 'builder'] as const;
-                      const current = modes.indexOf(mode);
-                      const next =
-                        event.key === 'ArrowRight'
-                          ? (current + 1) % 3
-                          : event.key === 'ArrowLeft'
-                            ? (current + 2) % 3
-                            : event.key === 'Home'
-                              ? 0
-                              : event.key === 'End'
-                                ? 2
-                                : null;
-                      if (next === null) return;
-                      event.preventDefault();
-                      setMode(modes[next]);
-                      event.currentTarget.parentElement
-                        ?.querySelectorAll<HTMLButtonElement>('[role="tab"]')
-                        [next]?.focus();
-                    }}
-                  >
-                    <Icon size={16} />
-                    {copy.modes[index]}
-                  </button>
-                );
-              })}
+            {availableModes.map((key) => {
+              const index = (['text', 'photo', 'builder'] as const).indexOf(
+                key
+              );
+              const Icon = icons[index];
+              return (
+                <button
+                  type="button"
+                  role="tab"
+                  key={key}
+                  aria-selected={mode === key}
+                  id={`maker-mode-${key}`}
+                  aria-controls="maker-mode-panel"
+                  tabIndex={mode === key ? 0 : -1}
+                  className={mode === key ? 'is-active' : ''}
+                  onClick={() => setMode(key)}
+                  onKeyDown={(event) => {
+                    const modes = availableModes;
+                    const current = modes.indexOf(mode);
+                    const next =
+                      event.key === 'ArrowRight'
+                        ? (current + 1) % modes.length
+                        : event.key === 'ArrowLeft'
+                          ? (current - 1 + modes.length) % modes.length
+                          : event.key === 'Home'
+                            ? 0
+                            : event.key === 'End'
+                              ? modes.length - 1
+                              : null;
+                    if (next === null) return;
+                    event.preventDefault();
+                    setMode(modes[next]);
+                    event.currentTarget.parentElement
+                      ?.querySelectorAll<HTMLButtonElement>('[role=tab]')
+                      [next]?.focus({ preventScroll: true });
+                  }}
+                >
+                  <Icon size={16} />
+                  {copy.modes[index]}
+                </button>
+              );
+            })}
+          </div>
+          <div
+            className="maker-prompt-body"
+            role="tabpanel"
+            id="maker-mode-panel"
+            aria-labelledby={`maker-mode-${mode}`}
+          >
+            <div className="maker-prompt-heading">
+              <strong>{copy.panelTitle}</strong>
+              <span>{copy.panelHint}</span>
             </div>
-            <div
-              className="maker-prompt-body"
-              role="tabpanel"
-              id="maker-mode-panel"
-              aria-labelledby={`maker-mode-${mode}`}
-            >
-              <div className="maker-prompt-heading">
-                <strong>{copy.panelTitle}</strong>
-                <span>{copy.panelHint}</span>
-              </div>
-              {mode === 'builder' ? (
-                <>
-                  <div className="maker-builder-presets">
-                    {[0, 2, 4].map((index, position) => (
-                      <button
-                        type="button"
-                        key={index}
-                        aria-pressed={selectedPreset === index}
-                        onClick={() => setSelectedPreset(index)}
-                      >
-                        <CharacterPreview
-                          options={CHARACTER_PRESETS[index].options}
-                        />
-                        <span>{copy.presetNames[position]}</span>
-                      </button>
-                    ))}
-                  </div>
-                  <div className="maker-prompt-bottom">
-                    <span className="maker-mode-note">
-                      <SlidersHorizontal size={14} />
-                      {copy.builderHint}
-                    </span>
+            {mode === 'builder' ? (
+              <>
+                <div className="maker-builder-presets">
+                  {[0, 2, 4].map((index, position) => (
                     <button
-                      type="submit"
-                      className="maker-button maker-button-primary"
-                    >
-                      {copy.customize}
-                      <ArrowRight size={16} />
-                    </button>
-                  </div>
-                </>
-              ) : mode === 'photo' ? (
-                <div className="maker-photo-entry">
-                  <ImagePlus size={28} strokeWidth={1.3} />
-                  <strong>{copy.photoTitle}</strong>
-                  <p>{copy.photoDescription}</p>
-                  <button
-                    type="submit"
-                    className="maker-button maker-button-primary"
-                  >
-                    {copy.choosePhoto}
-                    <ArrowRight size={16} />
-                  </button>
-                </div>
-              ) : (
-                <>
-                  <form.Field name="prompt">
-                    {(field) => (
-                      <label className="maker-prompt-input">
-                        <span className="sr-only">{copy.promptLabel}</span>
-                        <textarea
-                          name="prompt"
-                          value={field.state.value}
-                          maxLength={1500}
-                          onChange={(event) =>
-                            field.handleChange(event.target.value)
-                          }
-                          onBlur={field.handleBlur}
-                          placeholder={copy.placeholder}
-                        />
-                      </label>
-                    )}
-                  </form.Field>
-                  <div className="maker-prompt-bottom">
-                    <span className="maker-mode-note">
-                      <Sparkles size={14} />
-                      {copy.artNote}
-                    </span>
-                    <button
-                      type="submit"
-                      className="maker-button maker-button-primary"
-                    >
-                      {copy.create}
-                      <ArrowRight size={16} />
-                    </button>
-                  </div>
-                </>
-              )}
-              {mode === 'text' && (
-                <div className="maker-samples">
-                  <span>{copy.samplesLabel}</span>
-                  {copy.samples.map((sample) => (
-                    <button
-                      key={sample}
                       type="button"
+                      key={index}
+                      aria-label={copy.presetNames[position]}
+                      aria-pressed={selectedPreset === index}
                       onClick={() => {
-                        setMode('text');
-                        form.setFieldValue('prompt', sample);
+                        setSelectedPreset(index);
+                        setOutfitColor(
+                          CHARACTER_PRESETS[index].options.outfitColor
+                        );
+                        setExpression(
+                          CHARACTER_PRESETS[index].options.expression
+                        );
                       }}
                     >
-                      {sample}
+                      <CharacterPreview
+                        options={{
+                          ...CHARACTER_PRESETS[index].options,
+                          background: 'transparent',
+                        }}
+                      />
+                      <span>{copy.presetShortNames[position]}</span>
                     </button>
                   ))}
                 </div>
-              )}
-            </div>
-          </form>
-          <div className="maker-hero-benefits">
-            {copy.benefits.map((benefit) => (
-              <span key={benefit}>
-                <Check size={14} />
-                {benefit}
-              </span>
-            ))}
+                <p className="atelier-entry-hint">
+                  <SlidersHorizontal size={15} />
+                  {copy.builderHint}
+                </p>
+                <button
+                  type="submit"
+                  className="maker-button maker-button-primary atelier-entry-action"
+                >
+                  {copy.customize}
+                  <ArrowRight size={18} />
+                </button>
+              </>
+            ) : mode === 'photo' ? (
+              <div className="maker-photo-entry">
+                <ImagePlus size={30} strokeWidth={1.3} />
+                <strong>{copy.photoTitle}</strong>
+                <p>{copy.photoDescription}</p>
+                <button
+                  type="submit"
+                  className="maker-button maker-button-primary"
+                >
+                  {copy.choosePhoto}
+                  <ArrowRight size={16} />
+                </button>
+              </div>
+            ) : (
+              <>
+                <form.Field name="prompt">
+                  {(field) => (
+                    <label className="maker-prompt-input">
+                      <span className="sr-only">{copy.promptLabel}</span>
+                      <textarea
+                        name="prompt"
+                        value={field.state.value}
+                        maxLength={1500}
+                        onChange={(event) =>
+                          field.handleChange(event.target.value)
+                        }
+                        onBlur={field.handleBlur}
+                        placeholder={copy.placeholder}
+                      />
+                    </label>
+                  )}
+                </form.Field>
+                <button
+                  type="submit"
+                  className="maker-button maker-button-primary atelier-entry-action"
+                >
+                  {copy.create}
+                  <ArrowRight size={18} />
+                </button>
+                <p className="atelier-entry-hint">
+                  <Sparkles size={14} />
+                  {copy.artNote}
+                </p>
+              </>
+            )}
+            {mode === 'text' && (
+              <div className="maker-samples">
+                <span>{copy.samplesLabel}</span>
+                {copy.samples.map((sample) => (
+                  <button
+                    key={sample}
+                    type="button"
+                    onClick={() => form.setFieldValue('prompt', sample)}
+                  >
+                    {sample}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
+        </form>
+      </div>
+      <div className="maker-container atelier-hero-baseline">
+        <div className="maker-hero-benefits">
+          {copy.benefits.map((benefit) => (
+            <span key={benefit}>
+              <Check size={14} />
+              {benefit}
+            </span>
+          ))}
         </div>
-        <figure className="maker-hero-art">
-          <div className="maker-art-topline">
-            <span>{copy.previewLabel}</span>
-            <span>{copy.previewFormat}</span>
-          </div>
-          <div className="maker-art-stage">
-            <CharacterPreview
-              options={CHARACTER_PRESETS[selectedPreset].options}
-              label={copy.artAlt}
-            />
-          </div>
-          <figcaption>
-            <div>
-              <strong>
-                {copy.presetNames[[0, 2, 4].indexOf(selectedPreset)]}
-              </strong>
-              <p>
-                {mode === 'builder' ? copy.previewHint : copy.previewHintAI}
-              </p>
-            </div>
-            <SlidersHorizontal size={22} aria-hidden="true" />
-          </figcaption>
-        </figure>
       </div>
     </section>
   );

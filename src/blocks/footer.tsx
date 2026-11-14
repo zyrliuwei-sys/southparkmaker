@@ -6,6 +6,7 @@ export function Footer() {
   return (
     <MakerFooter
       brand={envConfigs.app_name}
+      signature={tDynamic('maker.footer.signature')}
       description={tDynamic('maker.footer.description')}
       columns={[
         {
@@ -15,6 +16,7 @@ export function Footer() {
             { href: '/create?mode=ai', label: tDynamic('maker.nav.ai') },
             { href: '/pricing', label: tDynamic('maker.nav.pricing') },
             { href: '/#gallery', label: tDynamic('maker.nav.gallery') },
+            { href: '/#how-it-works', label: tDynamic('maker.nav.how') },
           ],
         },
         {

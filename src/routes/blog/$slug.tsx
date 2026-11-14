@@ -211,7 +211,11 @@ function BlogPostPage() {
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1 px-6 py-12 md:px-8 md:py-16">
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="flex-1 px-6 py-12 md:px-8 md:py-16"
+      >
         {post.preview && (
           <PreviewBanner
             info={post.previewInfo}

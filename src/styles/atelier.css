@@ -1,0 +1,2111 @@
+/* Hallmark · pre-emit critique: P4 H5 E4 S5 R4 V4 · internal design review, not an awards score.
+ * Genre: playful editorial · tone: playful and precise · anchor: forest green · macrostructure: Workbench · design-system: design.md · designed-as-app
+ * Refinement: functional character stage, asymmetric cast catalogue, studio masthead, wordmark signature.
+ * Self-critique recorded after rendered review in docs/research/QA.md.
+ */
+html,
+body {
+  overflow-x: clip;
+}
+.maker-page {
+  font-family: var(--font-body);
+}
+.maker-container {
+  width: min(1280px, calc(100% - 96px));
+}
+.maker-page :is(h1, h2, h3) {
+  text-wrap: balance;
+  min-width: 0;
+}
+.maker-page p {
+  text-wrap: pretty;
+}
+.maker-header {
+  background: var(--mk-paper);
+  backdrop-filter: none;
+}
+.maker-header-inner {
+  height: 84px;
+  gap: var(--space-xl);
+}
+.maker-brand {
+  font-size: 25px;
+  letter-spacing: -1.15px;
+  gap: var(--space-sm);
+}
+.maker-brand img {
+  width: 36px;
+  height: 36px;
+}
+.maker-desktop-nav {
+  margin-left: auto;
+  gap: var(--space-xl);
+  font-size: 12px;
+}
+.maker-desktop-nav a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+.maker-desktop-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 7px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--mk-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-short) var(--ease-out);
+}
+.maker-header-actions {
+  margin-left: var(--space-lg);
+}
+.maker-button {
+  min-height: 48px;
+  padding: 13px 22px;
+  border-radius: var(--radius-control);
+  font-size: 12px;
+  letter-spacing: -0.1px;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.maker-button svg {
+  flex-shrink: 0;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.maker-button:active {
+  transform: translateY(1px);
+}
+.maker-button:disabled {
+  transform: none;
+}
+.maker-button-outline {
+  background: transparent;
+  border-color: var(--mk-hair);
+}
+.atelier-skip-link {
+  position: absolute;
+  left: var(--space-lg);
+  top: var(--space-sm);
+  transform: translateY(-160%);
+  z-index: 2;
+  background: var(--mk-accent);
+  color: var(--mk-on-accent);
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+.atelier-skip-link:focus {
+  transform: none;
+}
+.maker-menu-button {
+  min-width: 44px;
+  min-height: 44px;
+}
+.maker-mobile-nav a {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.maker-mobile-nav {
+  animation: atelier-enter var(--dur-short) var(--ease-out) both;
+}
+.maker-page :is(a, button, input, textarea, select, summary):focus-visible {
+  outline: 2px solid var(--mk-accent);
+  outline-offset: 4px;
+}
+.atelier-hero {
+  padding: 48px 0 0;
+}
+.atelier-hero-heading {
+  animation: atelier-enter var(--dur-long) var(--ease-out) both;
+}
+.atelier-hero .maker-eyebrow {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--mk-muted);
+}
+.atelier-hero h1 {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: 1.01;
+  font-weight: 500;
+  letter-spacing: -0.065em;
+  max-width: none;
+  margin: 20px 0 18px;
+  color: var(--mk-accent);
+}
+.atelier-hero h1 strong {
+  font-weight: 720;
+}
+.atelier-hero .maker-hero-description {
+  margin: 0;
+  max-width: 680px;
+  font-size: 15px;
+  line-height: 1.85;
+}
+.atelier-workshop {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(340px, 1fr);
+  gap: 32px;
+  align-items: center;
+  margin-top: 32px;
+}
+.atelier-stage {
+  height: 500px;
+  position: relative;
+  isolation: isolate;
+  border-radius: 28px;
+  background: var(--mk-sky);
+  overflow: hidden;
+  margin: 0;
+  animation: atelier-enter var(--dur-long) var(--ease-out) 80ms both;
+}
+.atelier-stage-label {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--mk-ink);
+  z-index: 4;
+}
+.atelier-stage-label span:last-child {
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+.atelier-stage-landscape {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.atelier-mountain {
+  position: absolute;
+  width: 110%;
+  height: 78%;
+  left: -10%;
+  top: 9%;
+  background: var(--mk-mountain);
+  clip-path: polygon(0 100%, 30% 12%, 46% 56%, 69% 0, 100% 100%);
+}
+.atelier-mountain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--mk-snow);
+  clip-path: polygon(
+    30% 12%,
+    41% 43%,
+    34% 36%,
+    30% 40%,
+    25% 32%,
+    19% 46%,
+    69% 0,
+    81% 39%,
+    72% 29%,
+    68% 36%,
+    64% 26%,
+    58% 41%
+  );
+}
+.atelier-mountain-front {
+  left: 9%;
+  top: 24%;
+  background: var(--mk-mountain-near);
+  transform: scaleX(-1);
+}
+.atelier-stage-ground {
+  position: absolute;
+  width: 150%;
+  height: 33%;
+  bottom: 0;
+  left: -25%;
+  border-radius: 50% 60% 0 0;
+  background: var(--mk-snow);
+  transform: rotate(-3deg);
+}
+.atelier-stage-character {
+  position: absolute;
+  width: min(70%, 500px);
+  left: 50%;
+  bottom: 50px;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 8px 1px var(--mk-stage-shadow));
+  z-index: 2;
+}
+.atelier-cast {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.atelier-companion {
+  position: absolute;
+  width: 43%;
+  bottom: 80px;
+  max-width: 310px;
+}
+.atelier-companion-0 {
+  left: -4%;
+  transform: rotate(-7deg);
+}
+.atelier-companion-1 {
+  right: -3%;
+  transform: rotate(6deg);
+}
+.atelier-stage-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--mk-white);
+  border: 1px solid var(--mk-hair);
+  border-top: 0;
+  border-radius: 0 0 28px 28px;
+}
+.atelier-stage-caption strong {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 650;
+  letter-spacing: -0.5px;
+}
+.atelier-stage-caption p {
+  font-size: 10px;
+  margin: 4px 0 0;
+  color: var(--mk-muted);
+}
+.atelier-stage-tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+.atelier-color-options {
+  display: flex;
+}
+.atelier-color-options button {
+  width: 36px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.atelier-color-options button span {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  outline: 1px solid var(--mk-hair);
+  outline-offset: 0;
+}
+.atelier-color-options [aria-pressed='true'] span {
+  outline: 2px solid var(--mk-accent);
+  outline-offset: 3px;
+}
+.atelier-expression {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 9px;
+  border-left: 1px solid var(--mk-hair);
+  color: var(--mk-accent);
+  font-size: 11px;
+  font-weight: 650;
+  cursor: pointer;
+}
+.atelier-entry {
+  align-self: center;
+  background: var(--mk-white);
+  box-shadow: none;
+  border: 1px solid var(--mk-hair);
+  border-radius: 24px;
+  overflow: hidden;
+  animation: atelier-enter var(--dur-long) var(--ease-out) 140ms both;
+}
+.atelier-entry .maker-prompt-modes {
+  padding: 6px;
+  gap: 2px;
+  background: var(--mk-paper-deep);
+  border-bottom: 1px solid var(--mk-hair);
+}
+.atelier-entry .maker-prompt-modes button {
+  min-height: 44px;
+  padding: 10px 7px;
+  font-size: 10px;
+  gap: 6px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.atelier-entry .maker-prompt-modes .is-active {
+  background: var(--mk-white);
+  color: var(--mk-accent);
+  border-color: var(--mk-hair);
+  box-shadow: none;
+}
+.atelier-entry .maker-prompt-body {
+  padding: 24px;
+}
+.atelier-entry .maker-prompt-heading {
+  display: block;
+  margin: 0 0 18px;
+}
+.atelier-entry .maker-prompt-heading strong {
+  font-family: var(--font-display);
+  display: block;
+  font-size: 23px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  line-height: 1.1;
+}
+.atelier-entry .maker-prompt-heading > span {
+  display: block;
+  font-size: 11px;
+  margin-top: 7px;
+  color: var(--mk-muted);
+}
+.atelier-entry .maker-builder-presets {
+  gap: 8px;
+}
+.atelier-entry .maker-builder-presets button {
+  padding: 0 0 10px;
+  border-radius: 12px;
+  background: var(--mk-paper);
+  border: 1px solid var(--mk-hair);
+  outline: 0;
+}
+.atelier-entry .maker-builder-presets [aria-pressed='true'] {
+  background: var(--mk-accent-soft);
+  border-color: var(--mk-accent);
+  box-shadow: inset 0 0 0 1px var(--mk-accent);
+}
+.atelier-entry .maker-builder-presets button:focus-visible {
+  outline: 2px solid var(--mk-accent);
+  outline-offset: 4px;
+}
+.atelier-entry .maker-builder-presets .character-art {
+  width: 100%;
+  padding: 4px;
+}
+.atelier-entry .maker-builder-presets button > span {
+  font-size: 10px;
+  padding: 0;
+  margin-top: 0;
+  white-space: nowrap;
+}
+.atelier-entry-hint {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin: 18px 0;
+  color: var(--mk-muted);
+  font-size: 10px;
+  line-height: 1.7;
+}
+.atelier-entry-hint svg {
+  flex-shrink: 0;
+}
+.atelier-entry-action {
+  width: 100%;
+  justify-content: space-between;
+}
+.atelier-entry .maker-prompt-input textarea {
+  min-height: 130px;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.atelier-entry .maker-samples {
+  margin-top: 18px;
+  gap: 7px;
+}
+.atelier-entry .maker-samples > span {
+  flex-basis: 100%;
+}
+.atelier-entry .maker-samples button {
+  min-height: 36px;
+  font-size: 10px;
+}
+.atelier-entry .maker-photo-entry {
+  min-height: 220px;
+  padding: 8px 0 0;
+}
+.atelier-entry .maker-photo-entry p {
+  font-size: 12px;
+}
+.atelier-hero-baseline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid var(--mk-hair);
+  padding: 24px 0 28px;
+}
+.atelier-hero-baseline .maker-hero-benefits {
+  margin: 0;
+  gap: 24px;
+  font-size: 10px;
+}
+.atelier-hero-baseline > span {
+  color: var(--mk-muted);
+  font-size: 10px;
+}
+.maker-section {
+  padding-block: 104px;
+}
+.maker-section-heading {
+  margin-bottom: 40px;
+  max-width: 780px;
+}
+.maker-section h2 {
+  font-size: var(--text-section);
+  letter-spacing: -0.045em;
+  font-weight: 600;
+  line-height: 1.08;
+}
+.maker-section-heading p {
+  font-size: 15px;
+  line-height: 1.9;
+  max-width: 62ch;
+  margin-top: 20px;
+}
+.maker-two-paths {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 28px;
+}
+.maker-path {
+  display: block;
+  border: 0;
+  padding: 40px;
+  border-radius: 24px;
+  background: var(--mk-paper-deep);
+  position: relative;
+  overflow: hidden;
+}
+.maker-path:first-child {
+  padding-right: 38%;
+}
+.maker-path:nth-child(2) {
+  padding-bottom: 0;
+}
+.maker-path-icon {
+  display: none;
+}
+.maker-path h3 {
+  font-size: 30px;
+  letter-spacing: -1px;
+  font-weight: 600;
+}
+.maker-path p {
+  font-size: 13px;
+  line-height: 1.9;
+}
+.maker-path a {
+  font-size: 12px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+.maker-path-preview {
+  position: absolute;
+  width: 54%;
+  height: auto;
+  right: -5%;
+  bottom: -4%;
+  border-radius: 0;
+  background: transparent;
+}
+.maker-path:nth-child(2) > div {
+  max-width: none;
+}
+.atelier-ai-example {
+  margin: 28px -40px 0;
+  position: relative;
+}
+.atelier-ai-example img {
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+  object-position: center 42%;
+}
+.atelier-ai-example figcaption {
+  padding: 12px 20px;
+  color: var(--mk-muted);
+  font-size: 10px;
+  text-align: center;
+  background: var(--mk-white);
+}
+.maker-gallery-section {
+  padding-top: 32px;
+}
+.maker-gallery {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 36px 28px;
+  align-items: start;
+}
+.maker-gallery-card {
+  grid-column: span 4;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
+.maker-gallery-card:nth-child(1) {
+  grid-column: span 5;
+}
+.maker-gallery-card:nth-child(2) {
+  grid-column: span 3;
+  padding-top: 72px;
+}
+.maker-gallery-card:nth-child(4) {
+  grid-column: span 3;
+}
+.maker-gallery-card:nth-child(6) {
+  grid-column: span 5;
+  padding-top: 48px;
+}
+.maker-gallery-picture {
+  aspect-ratio: 1.1;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+.maker-gallery-card:nth-child(2) .maker-gallery-picture,
+.maker-gallery-card:nth-child(4) .maker-gallery-picture {
+  aspect-ratio: 0.8;
+}
+.maker-gallery-picture .character-art {
+  position: absolute;
+  width: 100%;
+  bottom: -2%;
+  left: 0;
+  aspect-ratio: 1;
+  transition: transform var(--dur-long) var(--ease-out);
+}
+.maker-gallery-card:nth-child(2) .character-art,
+.maker-gallery-card:nth-child(4) .character-art {
+  width: 125%;
+  left: -12.5%;
+}
+.maker-gallery-meta {
+  padding: 18px 0 0;
+}
+.maker-gallery-meta h3 {
+  font-size: 20px;
+  font-weight: 650;
+  letter-spacing: -0.5px;
+}
+.maker-gallery-meta p {
+  font-size: 11px;
+  margin-top: 5px;
+}
+.maker-gallery-meta > span {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--mk-hair);
+}
+.maker-steps-section {
+  background: transparent;
+  border-top: 1px solid var(--mk-hair);
+  border-bottom: 1px solid var(--mk-hair);
+}
+.maker-step-visual {
+  height: 172px;
+  border-radius: 16px;
+  background: var(--mk-paper-deep);
+}
+.maker-step-number {
+  font-size: 11px;
+  color: var(--mk-muted);
+}
+.maker-steps h3 {
+  font-size: 23px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  margin: 22px 0 12px;
+}
+.maker-steps p {
+  font-size: 13px;
+  line-height: 1.9;
+}
+.maker-guide-intro {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.8fr);
+  gap: 80px;
+  align-items: center;
+}
+.maker-guide-intro p {
+  font-size: 15px;
+  line-height: 1.9;
+  max-width: 60ch;
+}
+.maker-guide-intro figure {
+  border-radius: 20px;
+  transform: rotate(2deg);
+}
+.maker-guide-intro figure img {
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.maker-guide-details {
+  margin-top: 72px;
+  gap: 44px 64px;
+}
+.maker-guide-details article {
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 16px;
+}
+.maker-guide-icon {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  width: 28px;
+}
+.maker-guide-details h3 {
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+.maker-guide-details p {
+  font-size: 13px;
+  line-height: 1.9;
+}
+.maker-use-section {
+  padding-top: 0;
+}
+.maker-use-grid {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  gap: 24px;
+}
+.maker-use-grid article {
+  border: 0;
+  border-top: 1px solid var(--mk-hair);
+  padding: 24px 0 0;
+}
+.maker-use-grid h3 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  letter-spacing: -0.5px;
+}
+.maker-use-grid p {
+  font-size: 12px;
+  line-height: 1.9;
+}
+.maker-export-section {
+  background: var(--mk-paper-deep);
+}
+.maker-export-grid {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.1fr);
+  gap: 80px;
+}
+.maker-export-art {
+  border-radius: 20px;
+  padding: 20px;
+}
+.maker-export-sample {
+  border-radius: 12px;
+}
+.maker-export-formats {
+  gap: 28px;
+}
+.maker-export-formats h3 {
+  font-size: 17px;
+}
+.maker-export-formats p {
+  font-size: 13px;
+  line-height: 1.9;
+}
+.maker-pricing-section {
+  border: 0;
+}
+.maker-pricing-intro {
+  margin: 0 0 32px;
+  text-align: left;
+  max-width: 800px;
+}
+.maker-pricing-intro :is(h1, h2) {
+  font-size: var(--text-section);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+}
+.maker-pricing-intro p {
+  max-width: 65ch;
+}
+.maker-price-switch {
+  margin: 0;
+}
+.maker-price-group-note {
+  margin: 20px 0 36px;
+  text-align: left;
+  max-width: 760px;
+  min-height: 42px;
+}
+.maker-price-card {
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: none;
+}
+.maker-price-card.is-featured {
+  box-shadow: none;
+  border-color: var(--mk-accent);
+  background: var(--mk-accent-soft);
+}
+.maker-price-card-top span {
+  font-size: 9px;
+  border: 1px solid var(--mk-hair);
+  background: var(--mk-white);
+}
+.maker-price-amount strong {
+  font-size: 64px;
+  font-weight: 600;
+  letter-spacing: -3px;
+}
+.maker-price-description {
+  min-height: 48px;
+}
+.maker-price-card ul {
+  font-size: 12px;
+  gap: 16px;
+}
+.maker-price-expiry {
+  font-size: 11px;
+  line-height: 1.85;
+}
+.maker-price-footnote {
+  max-width: 800px;
+  margin: 28px 0 0;
+  text-align: left;
+}
+.maker-faq-grid {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 80px;
+}
+.maker-faq summary {
+  min-height: 64px;
+  font-size: 13px;
+  padding-block: 20px;
+}
+.maker-faq p {
+  font-size: 13px;
+  line-height: 1.9;
+  max-width: 65ch;
+}
+.maker-cta {
+  border-top: 1px solid var(--mk-hair);
+  padding: 64px 0;
+}
+.maker-cta h2 {
+  font-size: clamp(32px, 4.2vw, 60px);
+  max-width: 760px;
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -2px;
+}
+.maker-cta p {
+  max-width: 56ch;
+  line-height: 1.9;
+  margin-top: 18px;
+}
+.maker-cta-inner {
+  gap: 40px;
+}
+.maker-footer {
+  background: var(--mk-paper-deep);
+}
+.atelier-footer-signature {
+  padding-top: 48px;
+}
+.atelier-footer-signature > p {
+  color: var(--mk-muted);
+  font-size: 12px;
+}
+.atelier-footer-signature > a {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(34px, 11.1vw, 160px);
+  font-weight: 700;
+  letter-spacing: -0.065em;
+  color: var(--mk-accent);
+  line-height: 1.1;
+  white-space: nowrap;
+  padding: 20px 0 40px;
+  border-bottom: 1px solid var(--mk-hair);
+}
+.maker-footer-grid {
+  padding-block: 44px 40px;
+  gap: 80px;
+}
+.maker-footer-brand .maker-brand {
+  font-size: 20px;
+}
+.maker-footer-brand p {
+  font-size: 12px;
+  max-width: 38ch;
+  line-height: 1.9;
+}
+.maker-footer-column h3 {
+  font-size: 11px;
+}
+.maker-footer-column a {
+  min-height: 36px;
+  margin: 0;
+  font-size: 11px;
+  align-items: center;
+  white-space: nowrap;
+}
+.maker-footer-bottom {
+  padding-block: 24px;
+  font-size: 9px;
+  line-height: 1.9;
+  gap: 32px;
+}
+.maker-create-top {
+  padding-top: 40px;
+}
+.maker-create-heading {
+  padding-top: 24px;
+}
+.maker-create-heading h1 {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 3.8vw, 54px);
+  font-weight: 600;
+  letter-spacing: -1.8px;
+  line-height: 1.08;
+}
+.maker-create-heading p {
+  max-width: 64ch;
+  line-height: 1.85;
+  margin-top: 18px;
+}
+.maker-create-tabs {
+  padding: 5px;
+  border: 1px solid var(--mk-hair);
+  flex-shrink: 0;
+}
+.maker-create-tabs a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.maker-ai-form {
+  border-radius: 20px;
+  padding: 28px;
+}
+.maker-ai-layout {
+  gap: 28px;
+  align-items: start;
+}
+.maker-ai-field label {
+  font-size: 12px;
+  font-weight: 700;
+}
+.maker-ai-field :is(textarea, select) {
+  border-radius: 10px;
+  font-size: 13px;
+  background: var(--mk-paper);
+  border-width: 1px;
+}
+.maker-ai-field :is(textarea, select):focus-visible {
+  outline: 2px solid var(--mk-accent);
+  outline-offset: 3px;
+}
+.maker-ai-field [aria-invalid='true'] {
+  border-color: var(--destructive);
+}
+.atelier-form-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.8px;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+.atelier-prompt-helper {
+  min-height: 36px;
+  color: var(--mk-muted);
+  font-size: 11px;
+  line-height: 1.7;
+  margin-top: 8px;
+}
+.atelier-prompt-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.atelier-prompt-examples button {
+  font-size: 10px;
+  padding: 0 10px;
+  min-height: 36px;
+  border: 1px solid var(--mk-hair);
+  border-radius: 8px;
+  color: var(--mk-muted);
+  cursor: pointer;
+}
+.atelier-prompt-examples button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.maker-ai-result {
+  border-radius: 20px;
+  padding: 16px;
+  background: var(--mk-paper-deep);
+  position: sticky;
+  top: 108px;
+}
+.maker-ai-result > img {
+  border-radius: 12px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+.maker-ai-empty {
+  padding: 16px 16px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  min-height: 0;
+  gap: 0;
+}
+.maker-ai-empty > img {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  border-radius: 12px;
+  margin: 0 0 28px;
+}
+.maker-ai-empty h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  letter-spacing: -0.7px;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 0 16px;
+}
+.maker-ai-empty > p {
+  font-size: 12px;
+  line-height: 1.9;
+  padding: 0 20px;
+  max-width: 52ch;
+  margin-top: 14px;
+}
+.maker-ai-message {
+  font-size: 12px;
+  line-height: 1.8;
+  border-radius: 10px;
+  padding: 16px;
+}
+.maker-ai-credit-line {
+  font-size: 11px;
+  margin: 24px 0 18px;
+}
+.maker-ai-result figcaption {
+  padding: 16px 0 0;
+  font-size: 12px;
+}
+.maker-ai-field textarea::placeholder {
+  color: var(--mk-muted);
+  opacity: 1;
+}
+.maker-page .character-preview-column {
+  border-radius: 20px;
+  background: var(--mk-paper-deep);
+  border-color: var(--mk-hair);
+}
+.maker-page .character-controls-column {
+  border-radius: 20px;
+}
+.maker-page .character-tabs [role='tab'] {
+  min-height: 44px;
+}
+.maker-page .character-choice {
+  border-radius: 10px;
+}
+.maker-page .character-choice-preview {
+  border-radius: 7px;
+}
+.maker-page .character-swatch {
+  min-width: 44px;
+  min-height: 44px;
+}
+.maker-page .character-preview-stage {
+  background: var(--mk-white);
+  border-radius: 14px;
+}
+@keyframes atelier-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .maker-desktop-nav a:hover::after {
+    transform: scaleX(1);
+  }
+  .maker-button:hover {
+    transform: translateY(-2px);
+  }
+  .maker-button:hover svg:last-child {
+    transform: translateX(3px);
+  }
+  .maker-gallery-card:hover {
+    transform: none;
+  }
+  .maker-gallery-card:hover .character-art {
+    transform: translateY(-7px) rotate(-2deg);
+  }
+  .maker-gallery-card:hover .maker-gallery-meta > span {
+    background: var(--mk-accent-soft);
+    color: var(--mk-accent);
+  }
+  .atelier-color-options button:hover span {
+    transform: scale(1.1);
+  }
+  .atelier-expression:hover {
+    color: var(--mk-ink);
+  }
+  .atelier-prompt-examples button:hover {
+    background: var(--mk-paper-deep);
+    color: var(--mk-ink);
+  }
+  .maker-price-card:hover {
+    transform: translateY(-3px);
+  }
+}
+@media (min-width: 1600px) {
+  .maker-container {
+    width: min(1440px, calc(100% - 144px));
+  }
+  .atelier-stage {
+    height: 560px;
+  }
+  .atelier-stage-character {
+    width: 520px;
+  }
+}
+@media (max-width: 1100px) {
+  .maker-container {
+    width: calc(100% - 64px);
+  }
+  .maker-header-inner {
+    gap: 24px;
+  }
+  .maker-desktop-nav {
+    gap: 24px;
+  }
+  .atelier-workshop {
+    grid-template-columns: minmax(0, 1.3fr) minmax(300px, 1fr);
+    gap: 24px;
+  }
+  .atelier-stage-caption {
+    flex-direction: column;
+    align-items: start;
+    padding: 12px 16px;
+    gap: 8px;
+  }
+  .atelier-stage-tools {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .atelier-stage-character {
+    width: 90%;
+    bottom: 100px;
+  }
+  .atelier-companion {
+    width: 48%;
+    bottom: 120px;
+  }
+  .atelier-entry .maker-prompt-body {
+    padding: 20px;
+  }
+  .atelier-hero-baseline > span {
+    display: none;
+  }
+  .maker-guide-intro,
+  .maker-export-grid,
+  .maker-faq-grid {
+    gap: 40px;
+  }
+  .maker-path:first-child {
+    padding-right: 40px;
+  }
+  .maker-path-preview {
+    opacity: 0.2;
+    width: 55%;
+  }
+  .maker-path:first-child > div:first-child {
+    position: relative;
+    z-index: 1;
+  }
+}
+@media (max-width: 900px) {
+  .maker-desktop-nav {
+    display: none;
+  }
+  .maker-menu-button {
+    display: grid;
+    place-items: center;
+  }
+  .atelier-hero {
+    padding-top: 36px;
+  }
+  .atelier-hero h1 {
+    font-size: clamp(48px, 8.5vw, 76px);
+    max-width: 750px;
+  }
+  .atelier-workshop {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .atelier-stage {
+    height: 450px;
+  }
+  .atelier-stage-character {
+    width: 420px;
+    bottom: 60px;
+  }
+  .atelier-companion {
+    width: 36%;
+    max-width: 280px;
+    bottom: 90px;
+  }
+  .atelier-stage-caption {
+    flex-direction: row;
+    align-items: center;
+  }
+  .atelier-stage-tools {
+    width: auto;
+  }
+  .atelier-entry .maker-builder-presets .character-art {
+    max-width: 115px;
+    margin-inline: auto;
+  }
+  .atelier-entry .maker-prompt-heading {
+    margin-bottom: 14px;
+  }
+  .atelier-entry .maker-builder-presets {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .atelier-hero-baseline {
+    padding: 20px 0;
+  }
+  .maker-section {
+    padding-block: 72px;
+  }
+  .maker-two-paths {
+    gap: 20px;
+  }
+  .maker-path {
+    padding: 28px;
+  }
+  .maker-path:first-child {
+    padding: 28px;
+  }
+  .atelier-ai-example {
+    margin-inline: -28px;
+  }
+  .atelier-ai-example img {
+    height: 280px;
+  }
+  .maker-path h3 {
+    font-size: 26px;
+  }
+  .maker-guide-intro {
+    gap: 32px;
+  }
+  .maker-guide-details {
+    gap: 32px;
+  }
+  .maker-use-section {
+    padding-top: 0;
+  }
+  .maker-gallery {
+    gap: 32px 20px;
+  }
+  .maker-gallery-card:nth-child(2) {
+    padding-top: 40px;
+  }
+  .maker-price-card {
+    padding: 24px;
+  }
+  .maker-price-card-top {
+    flex-direction: column;
+    align-items: start;
+    gap: 8px;
+  }
+  .maker-price-amount strong {
+    font-size: 52px;
+  }
+  .maker-price-credits {
+    font-size: 15px;
+  }
+  .maker-price-card ul {
+    font-size: 11px;
+  }
+  .maker-footer-grid {
+    gap: 40px;
+  }
+}
+@media (max-width: 640px) {
+  .maker-container {
+    width: calc(100% - 40px);
+  }
+  .maker-header-inner {
+    height: 70px;
+    gap: 12px;
+  }
+  .maker-brand {
+    font-size: 22px;
+    letter-spacing: -1px;
+  }
+  .maker-brand img {
+    width: 30px;
+    height: 30px;
+  }
+  .maker-header-actions {
+    gap: 8px;
+    margin-left: auto;
+  }
+  .maker-header-actions > .maker-button,
+  .maker-login {
+    display: none;
+  }
+  .atelier-hero {
+    padding-top: 24px;
+  }
+  .atelier-hero h1 {
+    font-size: clamp(34px, 10vw, 60px);
+    letter-spacing: -0.055em;
+    margin: 14px 0 12px;
+    max-width: 100%;
+  }
+  .atelier-hero h1 > span,
+  .atelier-hero h1 > strong {
+    display: block;
+  }
+  .atelier-hero .maker-eyebrow {
+    font-size: 10px;
+  }
+  .atelier-hero .maker-hero-description {
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  .atelier-workshop {
+    margin-top: 24px;
+    gap: 16px;
+  }
+  .atelier-stage {
+    height: 250px;
+    border-radius: 18px;
+  }
+  .atelier-stage-label {
+    top: 12px;
+    left: 14px;
+    right: 14px;
+    font-size: 8px;
+  }
+  .atelier-stage-label span:last-child {
+    font-size: 8px;
+  }
+  .atelier-stage-character {
+    width: 245px;
+    bottom: 16px;
+  }
+  .atelier-companion {
+    width: 48%;
+    bottom: 48px;
+  }
+  .atelier-companion-0 {
+    left: -6%;
+  }
+  .atelier-companion-1 {
+    right: -6%;
+  }
+  .atelier-stage-caption {
+    padding: 8px 10px;
+    border-radius: 0 0 18px 18px;
+    gap: 4px;
+  }
+  .atelier-stage-caption strong {
+    display: none;
+  }
+  .atelier-stage-caption p {
+    display: none;
+  }
+  .atelier-stage-caption > div:first-child {
+    display: none;
+  }
+  .atelier-stage-tools {
+    width: 100%;
+  }
+  .atelier-color-options button {
+    width: 36px;
+    height: 40px;
+  }
+  .atelier-expression {
+    min-height: 40px;
+    font-size: 10px;
+  }
+  .atelier-entry {
+    border-radius: 18px;
+  }
+  .atelier-entry .maker-prompt-modes {
+    padding: 4px;
+  }
+  .atelier-entry .maker-prompt-modes button {
+    font-size: 10px;
+    min-height: 40px;
+    padding: 8px 4px;
+  }
+  .atelier-entry .maker-prompt-body {
+    padding: 16px;
+  }
+  .atelier-entry .maker-prompt-heading strong {
+    font-size: 18px;
+  }
+  .atelier-entry .maker-prompt-heading > span {
+    display: none;
+  }
+  .atelier-entry .maker-builder-presets .character-art {
+    max-width: 72px;
+    padding: 0;
+  }
+  .atelier-entry .maker-builder-presets button {
+    padding-bottom: 7px;
+  }
+  .atelier-entry .maker-builder-presets button > span {
+    font-size: 9px;
+  }
+  .atelier-entry .maker-prompt-heading {
+    margin-bottom: 12px;
+  }
+  .atelier-entry-hint {
+    display: none;
+  }
+  .atelier-entry-action {
+    margin-top: 14px;
+    min-height: 44px;
+  }
+  .atelier-hero-baseline {
+    padding: 18px 0 20px;
+  }
+  .atelier-hero-baseline .maker-hero-benefits {
+    gap: 6px 16px;
+    flex-wrap: wrap;
+    font-size: 9px;
+  }
+  .maker-section {
+    padding-block: 64px;
+  }
+  .maker-section h2,
+  .maker-pricing-intro :is(h1, h2) {
+    font-size: 36px;
+    letter-spacing: -1.5px;
+  }
+  .maker-section-heading {
+    margin-bottom: 28px;
+  }
+  .maker-section-heading p {
+    font-size: 13px;
+    margin-top: 16px;
+  }
+  .maker-two-paths {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .maker-path,
+  .maker-path:first-child {
+    padding: 28px;
+  }
+  .maker-path h3 {
+    font-size: 28px;
+  }
+  .maker-path p {
+    font-size: 13px;
+  }
+  .maker-path:first-child {
+    padding-right: 32%;
+  }
+  .maker-path-preview {
+    width: 48%;
+    opacity: 1;
+    right: -7%;
+    bottom: 0;
+  }
+  .atelier-ai-example img {
+    height: 280px;
+  }
+  .maker-gallery-section {
+    padding-top: 0;
+  }
+  .maker-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 16px;
+  }
+  .maker-gallery-card,
+  .maker-gallery-card:nth-child(n) {
+    grid-column: span 1;
+    padding-top: 0;
+  }
+  .maker-gallery-card:first-child,
+  .maker-gallery-card:last-child {
+    grid-column: span 2;
+  }
+  .maker-gallery-card:first-child .maker-gallery-picture,
+  .maker-gallery-card:last-child .maker-gallery-picture {
+    aspect-ratio: 1.3;
+  }
+  .maker-gallery-card:first-child .character-art,
+  .maker-gallery-card:last-child .character-art {
+    width: 80%;
+    left: 10%;
+    bottom: -6%;
+  }
+  .maker-gallery-card:nth-child(2) .maker-gallery-picture,
+  .maker-gallery-card:nth-child(4) .maker-gallery-picture {
+    aspect-ratio: 1;
+  }
+  .maker-gallery-picture {
+    border-radius: 14px;
+  }
+  .maker-gallery-meta {
+    padding-top: 12px;
+    gap: 4px;
+  }
+  .maker-gallery-meta h3 {
+    font-size: 16px;
+    letter-spacing: -0.4px;
+  }
+  .maker-gallery-meta p {
+    font-size: 10px;
+    line-height: 1.7;
+  }
+  .maker-gallery-meta > span {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+  }
+  .maker-steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+  .maker-steps li {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: 16px;
+  }
+  .maker-step-visual {
+    height: 76px;
+    border-radius: 10px;
+  }
+  .maker-step-number {
+    display: none;
+  }
+  .maker-step-visual > svg {
+    width: 22px;
+  }
+  .maker-steps li > div:last-child {
+    display: contents;
+  }
+  .maker-steps h3 {
+    align-self: center;
+    font-size: 22px;
+    margin: 0;
+  }
+  .maker-steps p {
+    grid-column: 1/-1;
+    font-size: 13px;
+  }
+  .maker-guide-intro,
+  .maker-export-grid,
+  .maker-faq-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+  .maker-guide-intro p {
+    font-size: 13px;
+    line-height: 1.9;
+  }
+  .maker-guide-intro figure {
+    width: 90%;
+    margin: 0 auto;
+  }
+  .maker-guide-details {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 40px;
+    gap: 28px;
+  }
+  .maker-guide-details article {
+    gap: 12px;
+  }
+  .maker-guide-details h3 {
+    font-size: 20px;
+  }
+  .maker-guide-details p {
+    font-size: 13px;
+  }
+  .maker-use-section {
+    padding-top: 0;
+  }
+  .maker-use-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .maker-use-grid h3 {
+    font-size: 22px;
+  }
+  .maker-use-grid p {
+    font-size: 13px;
+  }
+  .maker-export-grid {
+    gap: 32px;
+  }
+  .maker-export-art {
+    padding: 14px;
+    max-width: 350px;
+    margin-inline: auto;
+  }
+  .maker-export-formats {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+  .maker-export-formats p {
+    font-size: 13px;
+  }
+  .maker-pricing-intro p {
+    font-size: 13px;
+    line-height: 1.9;
+  }
+  .maker-price-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .maker-price-card {
+    padding: 28px;
+  }
+  .maker-price-card-top {
+    flex-direction: row;
+    align-items: center;
+  }
+  .maker-price-card ul {
+    font-size: 12px;
+  }
+  .maker-price-group-note {
+    font-size: 11px;
+    margin: 18px 0 28px;
+  }
+  .maker-price-footnote {
+    font-size: 11px;
+  }
+  .maker-faq-grid {
+    gap: 28px;
+  }
+  .maker-faq summary {
+    font-size: 12px;
+    padding-block: 18px;
+  }
+  .maker-faq p {
+    font-size: 12px;
+  }
+  .maker-cta {
+    padding: 48px 0;
+  }
+  .maker-cta-inner {
+    flex-direction: column;
+    align-items: start;
+    gap: 24px;
+  }
+  .maker-cta h2 {
+    font-size: 38px;
+    letter-spacing: -1.5px;
+  }
+  .maker-cta p {
+    font-size: 13px;
+  }
+  .atelier-footer-signature {
+    padding-top: 32px;
+  }
+  .atelier-footer-signature > p {
+    font-size: 10px;
+  }
+  .atelier-footer-signature > a {
+    padding: 16px 0 28px;
+  }
+  .maker-footer-grid {
+    padding-block: 28px;
+    gap: 28px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .maker-footer-brand {
+    grid-column: 1/-1;
+  }
+  .maker-footer-brand p {
+    max-width: 42ch;
+    font-size: 12px;
+  }
+  .maker-footer-column a {
+    font-size: 10px;
+    min-height: 40px;
+  }
+  .maker-footer-bottom {
+    padding-block: 20px;
+    flex-direction: column;
+    gap: 16px;
+    font-size: 9px;
+  }
+  .maker-create-top {
+    padding-top: 28px;
+  }
+  .maker-create-heading h1 {
+    font-size: 36px;
+    letter-spacing: -1.3px;
+  }
+  .maker-create-heading p {
+    font-size: 12px;
+    line-height: 1.9;
+  }
+  .maker-create-tabs {
+    width: 100%;
+  }
+  .maker-create-tabs a {
+    justify-content: center;
+    min-height: 44px;
+    font-size: 11px;
+  }
+  .maker-ai-form {
+    padding: 20px;
+    border-radius: 16px;
+  }
+  .maker-ai-result {
+    position: static;
+    border-radius: 16px;
+    padding: 12px;
+  }
+  .atelier-form-title {
+    font-size: 26px;
+    margin-bottom: 20px;
+  }
+  .maker-ai-empty h2 {
+    font-size: 24px;
+  }
+  .maker-ai-field textarea {
+    min-height: 160px;
+  }
+  .maker-page .character-preview-column,
+  .maker-page .character-controls-column {
+    border-radius: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atelier-hero-heading,
+  .atelier-stage,
+  .atelier-entry,
+  .maker-mobile-nav {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .maker-button,
+  .maker-button svg,
+  .maker-gallery-picture .character-art,
+  .maker-price-card,
+  .maker-desktop-nav a::after {
+    transition: none;
+  }
+  .maker-button:hover,
+  .maker-gallery-card:hover .character-art,
+  .maker-price-card:hover {
+    transform: none;
+  }
+}
+.maker-ai-field {
+  margin-bottom: 20px;
+}
+.maker-ai-field:has(#character-prompt) {
+  margin-bottom: 12px;
+}
+.atelier-prompt-helper[role='alert'] {
+  color: var(--destructive);
+}
+.maker-ai-empty {
+  text-align: left;
+  align-items: stretch;
+}
+@media (hover: hover) and (pointer: fine) {
+  .maker-ai-field :is(textarea, select):hover {
+    background: var(--mk-paper-deep);
+  }
+}
+/* Rendered pass 2: restore the full silhouette and simplify the mountain caps. */
+.atelier-hero h1 {
+  margin-top: 0;
+}
+.atelier-stage-character {
+  width: min(68%, 450px);
+}
+.atelier-mountain::before,
+.atelier-mountain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--mk-snow);
+}
+.atelier-mountain::before {
+  clip-path: polygon(30% 12%, 40% 40%, 34% 34%, 30% 38%, 26% 32%, 20% 41%);
+}
+.atelier-mountain::after {
+  clip-path: polygon(69% 0, 82% 42%, 72% 31%, 68% 36%, 63% 27%, 57% 40%);
+}
+.atelier-color-options button {
+  width: 44px;
+  height: 44px;
+}
+.atelier-expression {
+  min-height: 44px;
+}
+.maker-price-card {
+  transition: transform var(--dur-short) var(--ease-out);
+}
+@media (min-width: 1600px) {
+  .atelier-stage-character {
+    width: 520px;
+  }
+}
+@media (max-width: 1100px) {
+  .atelier-stage-character {
+    width: 90%;
+  }
+}
+@media (max-width: 900px) {
+  .atelier-stage-character {
+    width: 380px;
+  }
+}
+@media (max-width: 640px) {
+  .atelier-stage-character {
+    width: 210px;
+    bottom: 40px;
+  }
+  .atelier-color-options button {
+    width: 44px;
+    height: 44px;
+  }
+  .atelier-expression {
+    width: 44px;
+    padding: 0;
+    justify-content: center;
+    border-left: 0;
+  }
+  .atelier-expression span,
+  .atelier-expression svg:last-child {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .maker-price-card {
+    transition: none;
+  }
+}
+.atelier-pricing-questions {
+  border-top: 1px solid var(--mk-hair);
+  padding-top: 72px;
+}
+.atelier-pricing-help {
+  margin: 20px 0;
+  max-width: 40ch;
+  font-size: 14px;
+  color: var(--mk-muted);
+  line-height: 1.9;
+}
+.maker-auth-form h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 32px;
+  letter-spacing: -1px;
+}
+.maker-legal-content article > header h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(36px, 4vw, 56px);
+  letter-spacing: -1.5px;
+}
+.atelier-stage-caption {
+  min-height: 84px;
+}
+@media (max-width: 640px) {
+  .atelier-stage-caption {
+    min-height: 60px;
+  }
+  .maker-gallery-meta h3 {
+    font-size: 14px;
+  }
+  .maker-gallery-card:first-child h3,
+  .maker-gallery-card:last-child h3 {
+    font-size: 20px;
+  }
+  .maker-gallery-card:not(:first-child):not(:last-child)
+    .maker-gallery-meta
+    > span {
+    display: none;
+  }
+  .maker-gallery-card:not(:first-child):not(:last-child) .maker-gallery-meta {
+    display: block;
+  }
+  .maker-create-help {
+    white-space: nowrap;
+  }
+}
+@media (max-width: 360px) {
+  .maker-header .maker-brand {
+    font-size: 18px;
+    gap: 6px;
+  }
+  .maker-header .maker-brand img {
+    width: 28px;
+    height: 28px;
+  }
+}
+/* Content pass: balanced reading measures and full character silhouettes. */
+.maker-path:first-child {
+  padding: 40px 40px 0;
+  display: flex;
+  flex-direction: column;
+}
+.maker-path-preview {
+  position: relative;
+  right: auto;
+  bottom: auto;
+  width: 100%;
+  height: auto;
+  min-height: 280px;
+  flex: 1;
+  aspect-ratio: auto;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  margin-top: 24px;
+  opacity: 1;
+}
+.maker-path-preview .character-art {
+  width: 300px;
+  height: 300px;
+}
+.maker-path:nth-child(2) {
+  background: var(--mk-sky);
+}
+.atelier-ai-example img {
+  object-position: center top;
+}
+.maker-guide-details p,
+.maker-steps p {
+  font-size: 14px;
+}
+.maker-use-grid p {
+  font-size: 13px;
+}
+.maker-faq-heading h2 {
+  font-size: clamp(34px, 3.3vw, 48px);
+}
+.maker-text-link,
+.maker-create-help {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.maker-brand {
+  min-height: 44px;
+}
+.atelier-prompt-examples button {
+  min-height: 44px;
+}
+.maker-footer-column a {
+  min-height: 44px;
+}
+@media (max-width: 900px) {
+  .maker-path:first-child {
+    padding: 28px 28px 0;
+  }
+  .maker-path-preview .character-art {
+    width: 250px;
+    height: 250px;
+  }
+  .maker-path-preview {
+    min-height: 250px;
+  }
+}
+@media (max-width: 640px) {
+  .maker-path:first-child {
+    padding: 28px 28px 0;
+  }
+  .maker-path-preview {
+    min-height: 220px;
+  }
+  .maker-path-preview .character-art {
+    width: 220px;
+    height: 220px;
+  }
+  .maker-ai-field :is(textarea, select),
+  .atelier-entry textarea,
+  .maker-auth-form input {
+    font-size: 16px;
+  }
+  .maker-guide-details p,
+  .maker-steps p {
+    font-size: 13px;
+  }
+  .maker-faq-heading h2 {
+    font-size: 36px;
+  }
+}
+.maker-ai-field:has(#character-prompt) {
+  position: relative;
+}
+.atelier-prompt-count {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 10px;
+  color: var(--mk-muted);
+  font-variant-numeric: tabular-nums;
+}
+.maker-ai-result:not(.maker-ai-empty) > img {
+  object-fit: contain;
+  background: var(--mk-white);
+}
+.maker-header-actions [data-slot='dropdown-menu-trigger'] {
+  min-width: 44px;
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+}
+.maker-price-card-top :is(h2, h3) {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+  line-height: 1.2;
+}
+.atelier-entry {
+  margin-top: 0;
+}
+@media (min-width: 720px) and (max-width: 900px) {
+  .atelier-workshop {
+    grid-template-columns: minmax(0, 1.15fr) minmax(300px, 1fr);
+  }
+  .atelier-stage {
+    height: 450px;
+  }
+  .atelier-stage-character {
+    width: 330px;
+    bottom: 120px;
+  }
+  .atelier-cast {
+    display: none;
+  }
+  .atelier-stage-caption {
+    flex-direction: column;
+    align-items: start;
+    min-height: 124px;
+  }
+  .atelier-stage-tools {
+    width: 100%;
+  }
+  .atelier-stage-caption strong {
+    font-size: 18px;
+  }
+  .atelier-hero h1 {
+    font-size: 62px;
+  }
+}
+@media (max-width: 640px) {
+  .atelier-stage-character {
+    bottom: 44px;
+  }
+  .atelier-entry .maker-prompt-modes button {
+    min-height: 44px;
+  }
+}
+.maker-ai-field :is(textarea, select),
+.atelier-entry textarea,
+.maker-auth-form input,
+.maker-button-outline {
+  border-color: var(--mk-control-border);
+}
+.maker-price-switch button {
+  border: 1px solid transparent;
+}
+.maker-price-switch [aria-selected='true'],
+.atelier-entry .maker-prompt-modes .is-active {
+  border-color: var(--mk-control-border);
+}
+@media (forced-colors: active) {
+  .atelier-color-options [aria-pressed='true'] span {
+    outline: 2px solid Highlight;
+  }
+  .maker-button {
+    border: 1px solid ButtonText;
+  }
+}
+.maker-page :is(h1, h2, h3) {
+  overflow-wrap: anywhere;
+}
+.maker-ai-field :is(textarea, select):disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.atelier-expression:active,
+.atelier-color-options button:active {
+  transform: translateY(1px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .atelier-expression:active,
+  .atelier-color-options button:active {
+    transform: none;
+  }
+}
+.atelier-entry .maker-prompt-modes[data-photo='false'] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.atelier-stage[data-interactive='false'] .atelier-stage-tools {
+  display: none;
+}
+.atelier-stage[data-interactive='false']
+  .atelier-stage-caption
+  > div:first-child {
+  display: block;
+}
+.atelier-stage[data-interactive='false'] .atelier-stage-caption strong {
+  display: none;
+}
+.atelier-stage[data-interactive='false'] .atelier-stage-caption p {
+  display: block;
+  max-width: 64ch;
+  line-height: 1.7;
+}

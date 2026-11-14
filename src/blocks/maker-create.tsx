@@ -2,18 +2,25 @@ import { ChevronLeft } from 'lucide-react';
 
 import { tDynamic } from '@/core/i18n/dynamic';
 import { Link } from '@/core/i18n/navigation';
+import type { CharacterResolution } from '@/lib/character-pricing';
 import { AICharacterGenerator } from '@/blocks/ai-character-generator';
 import { CharacterStudio } from '@/blocks/character-studio';
 
 export function MakerCreate({
   mode,
   prompt,
+  photo,
+  resolution,
+  ratio,
 }: {
   mode: 'builder' | 'ai';
   prompt?: string;
+  photo?: boolean;
+  resolution?: CharacterResolution;
+  ratio?: '1:1' | '3:4';
 }) {
   return (
-    <main className="maker-container">
+    <main id="main-content" tabIndex={-1} className="maker-container">
       <div className="maker-create-top">
         <Link className="maker-breadcrumb" href="/">
           <ChevronLeft size={14} />
@@ -40,13 +47,15 @@ export function MakerCreate({
           >
             <Link
               href="/create"
-              aria-current={mode === 'builder' ? 'page' : undefined}
+              aria-current={mode === 'builder' ? 'page' : false}
+              data-selected={mode === 'builder'}
             >
               {tDynamic('maker.nav.builder')}
             </Link>
             <Link
               href="/create?mode=ai"
-              aria-current={mode === 'ai' ? 'page' : undefined}
+              aria-current={mode === 'ai' ? 'page' : false}
+              data-selected={mode === 'ai'}
             >
               {tDynamic('maker.nav.ai')}
             </Link>
@@ -54,7 +63,13 @@ export function MakerCreate({
         </div>
       </div>
       {mode === 'ai' ? (
-        <AICharacterGenerator key={prompt} initialPrompt={prompt} />
+        <AICharacterGenerator
+          key={`${prompt}-${resolution}-${ratio}`}
+          initialPrompt={prompt}
+          initialPhoto={photo}
+          initialResolution={resolution}
+          initialRatio={ratio}
+        />
       ) : (
         <div className="py-8 pb-20">
           <CharacterStudio />

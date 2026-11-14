@@ -53,7 +53,11 @@ function BlogPage() {
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1 px-4 py-16 sm:py-24">
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="flex-1 px-4 py-16 sm:py-24"
+      >
         <div className="mx-auto max-w-5xl">
           <div className="mb-16 text-center">
             <h1 className="font-serif text-4xl font-normal tracking-tight sm:text-5xl">
