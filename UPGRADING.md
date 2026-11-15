@@ -709,3 +709,9 @@ grant_<orderNo>`, so the unique index allows one grant per order. Older
 - The same unsupported mode was corrected in SeeAPI generation/query requests and its read-only credential check. Credentials are not forwarded to redirected destinations. No API key, price, database schema or permission changes are required.
 - IndexNow's result heading now describes submission results without claiming that failed requests were sent. The portable installer carries the fix. `pnpm test:indexnow` includes real workerd transport tests with all outbound requests intercepted locally, including redirect handling and credential protection.
 - Deploy updated code for production Workers to receive this fix.
+
+## 2026-11-15 — Remove no-cost promotional copy
+
+- Removed no-cost language from public and account messages, SEO metadata, creation and pricing FAQs, policies, the AI-unavailable response and brand assets. Copy now describes the available tools and AI-credit workflow. Subscription fallback text says “No active subscription.”
+- Re-exported the share card and brand board, and refreshed the portable brand kit. Existing translation keys remain compatible. Local production/development public descriptions were updated; installations with a separate `VITE_APP_DESCRIPTION` or saved app description should use the revised neutral description.
+- No product price, credit deduction, account requirement or other service behavior changed.

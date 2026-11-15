@@ -28,6 +28,7 @@ import {
 } from '@/lib/character-pricing';
 import { enforceMinIntervalRateLimit } from '@/lib/rate-limit';
 import { respData, respErr } from '@/lib/resp';
+import { m } from '@/paraglide/messages.js';
 
 import { characterInputSchema, validateReferenceImage } from './-input';
 
@@ -190,10 +191,7 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
       const configs = await deps.configs();
       const selection = selectCharacterProvider(configs, Boolean(input.image));
       if (!selection)
-        return respErr(
-          'AI character generation is being set up. Try the free character builder.',
-          { status: 503 }
-        );
+        return respErr(m['maker.ai.unavailable_error'](), { status: 503 });
       let imageData: string | undefined;
       try {
         if (input.image) imageData = validateReferenceImage(input.image);

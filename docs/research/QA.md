@@ -93,3 +93,10 @@ Philosophy 4/5: making a character is the first experience. Hierarchy 5/5: one m
 - All 31 distinct current internal navigation/discovery targets resolved. Sixteen inspected page surfaces and the new-ticket dialog had zero automated axe violations; the homepage comparison-overlay contrast remains a documented manual check. The AI/pricing layouts fit 320, 390, 768 and 1440px widths. Gallery presets, all 43 builder choices, saved-design restoration and actual SVG/transparent PNG downloads were verified.
 - 52 focused tests, TypeScript, formatting and `git diff --check` passed. Both `pnpm build` and `pnpm cf:build` passed on the final source; the local preview was restarted afterward.
 - No schema, credentials, roles, pricing amounts or payment-provider settings were changed. No deployment, new paid generation, purchase, email or support ticket was submitted during this audit. Payment collection and email password recovery remain disabled with clear user-facing explanations.
+
+## Product-copy cleanup — 2026-11-15
+
+- Removed no-cost promotional claims from the English message catalog, SEO titles/descriptions, homepage and pricing FAQs, studio notices, account labels, policies and the API's unavailable response. Questions were rewritten around account requirements, creation methods and AI credits.
+- Updated production/development public descriptions, re-exported the 1200 × 630 share card and the brand board, and refreshed the portable brand ZIP. License text and technical compatibility identifiers were preserved.
+- Existing English-only, product-copy and character checks: 17 passed. TypeScript, normal production build, Workers build, formatting and whitespace checks passed. No pricing, credit, account or database behavior changed.
+- Released the approved version `d7f9431a-7f7e-47ba-a33a-a024542485c2` to southparkmaker.com. In Tabbit, ten public/authentication page views contained no old claims in rendered copy or metadata; both LLM discovery files were clear, and the published share card matched the new export's SHA-256. The site's public configuration description also contained no old claim.
