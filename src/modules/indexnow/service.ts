@@ -147,7 +147,9 @@ export async function submitUrls(
           'User-Agent': `IndexNowClient (+${siteOrigin()})`,
         },
         body,
-        redirect: 'error',
+        // Workers supports only manual/follow. Inspect 3xx without forwarding
+        // the submission to a destination outside the fixed endpoint list.
+        redirect: 'manual',
         signal: AbortSignal.timeout(10_000),
       });
       status = response.status;

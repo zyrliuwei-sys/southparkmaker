@@ -47,7 +47,7 @@ export async function testSeeAPI(
         Accept: 'application/json',
       },
       // Never forward a credential through an endpoint redirect.
-      redirect: 'error',
+      redirect: 'manual',
       signal: AbortSignal.timeout(15_000),
     });
     if (!response.ok) {

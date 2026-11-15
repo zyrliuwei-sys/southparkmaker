@@ -87,7 +87,7 @@ test('Seedream uses the documented request and stable key; the provider key stay
     nsfw_checker: true,
   });
   assert.ok(!requests[0].init.body.includes('test-secret'));
-  assert.equal(requests[0].init.redirect, 'error');
+  assert.equal(requests[0].init.redirect, 'manual');
   const result = await provider.query({ taskId: started.taskId });
   assert.equal(result.taskStatus, 'success');
   assert.equal(

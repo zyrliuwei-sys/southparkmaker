@@ -4,6 +4,19 @@ Read this when a project built from this template pulls newer template code.
 Entries are newest first. Apply **every entry dated after the template version
 the project last pulled**, oldest of those first.
 
+## 2026-11-15 — Connect automatic footer badges
+
+Deploy the dedicated `/api/integrations/footer-badges` endpoint and set the
+server-only `FOOTER_BADGE_AUTOMATION_TOKEN_HASH` to the SHA-256 digest of a
+per-site `bbg_` credential. Connect its plaintext token once through Backlora;
+add this site origin to Backlora's allowed badge destinations. The credential
+can only check capability and add/update badges, never change admin settings.
+The custom homepage footer now renders stored badges in the initial HTML,
+including official text links and inert verification attributes. Concurrent
+API additions use compare-and-swap and retries deduplicate by href. No schema
+migration is required. Run `pnpm test:footer-badges` and
+`pnpm test:footer-badges:d1` before deployment.
+
 ## How to upgrade (every time)
 
 1. **Find the baseline.** The last template commit the project took. Check
@@ -689,3 +702,10 @@ grant_<orderNo>`, so the unique index allows one grant per order. Older
 - Authentication, user-center and recovery pages have explicit English titles, accessible form errors and consistent branding. These changes require no database migration, environment change or role update.
 
 - Generation reservations and refunds refresh both studio and user-center credit caches. Disabled guest-post editor links show a closed state; failed post loads show a recovery state. The canonical studio route and plain-text page directory now reflect the actual public product.
+
+## 2026-11-14 — Cloudflare outbound request compatibility
+
+- IndexNow submissions use `redirect: 'manual'`. Workers rejects `redirect: 'error'` before sending a request, which previously appeared as three network failures even when the key file was reachable. Redirects are not followed; the existing fixed search-engine endpoint list and response validation remain in force.
+- The same unsupported mode was corrected in SeeAPI generation/query requests and its read-only credential check. Credentials are not forwarded to redirected destinations. No API key, price, database schema or permission changes are required.
+- IndexNow's result heading now describes submission results without claiming that failed requests were sent. The portable installer carries the fix. `pnpm test:indexnow` includes real workerd transport tests with all outbound requests intercepted locally, including redirect handling and credential protection.
+- Deploy updated code for production Workers to receive this fix.

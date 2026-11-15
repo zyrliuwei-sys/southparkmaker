@@ -20,7 +20,7 @@
   "admin.indexnow.urls_placeholder": "https://example.com/new-page",
   "admin.indexnow.submit_urls": "Submit these URLs",
   "admin.indexnow.submitted": "Submitted {count} URLs",
-  "admin.indexnow.result_count": "{count} URLs sent",
+  "admin.indexnow.result_count": "Submission results for {count} URLs",
   "admin.indexnow.forbidden": "You do not have permission to view IndexNow.",
   "admin.indexnow.load_error": "Could not load IndexNow settings. Please retry.",
   "admin.indexnow.check_error": "Could not check the key file. Please retry.",

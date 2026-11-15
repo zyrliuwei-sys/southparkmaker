@@ -116,6 +116,7 @@ for (const modern of [false, true]) {
         let count=0;
         globalThis.fetch = async (url,options) => {
           count++;
+          assert.equal(options.redirect,'manual');
           assert.equal(String(url),'https://api.indexnow.org/indexnow');
           const body=JSON.parse(options.body);
           assert.equal(body.host,'installer.example.com');

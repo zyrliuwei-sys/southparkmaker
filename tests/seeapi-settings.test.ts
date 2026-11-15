@@ -91,7 +91,7 @@ test('SeeAPI Test dispatch uses a read-only authenticated request to the officia
       new Headers(init.headers).get('Authorization'),
       `Bearer ${apiKey}`
     );
-    assert.equal(init.redirect, 'error');
+    assert.equal(init.redirect, 'manual');
     assert.ok(init.signal instanceof AbortSignal);
     return Response.json({ credits: 100 });
   });

@@ -42,7 +42,8 @@ export class SeeAPIProvider implements AIProvider {
         'Content-Type': 'application/json',
         ...init.headers,
       },
-      redirect: 'error',
+      // Do not forward credentials on redirects; Workers rejects "error" mode.
+      redirect: 'manual',
       signal: AbortSignal.timeout(20000),
     });
     if (!response.ok) {

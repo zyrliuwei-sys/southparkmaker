@@ -1,11 +1,13 @@
 import { tDynamic } from '@/core/i18n/dynamic';
 import { envConfigs } from '@/config';
+import { FooterBadgeList } from '@/components/footer-badge-list';
 import { MakerFooter } from '@/components/maker-footer';
 
 export function Footer() {
   return (
     <MakerFooter
       brand={envConfigs.app_name}
+      badges={<FooterBadgeList className="py-6" />}
       signature={tDynamic('maker.footer.signature')}
       description={tDynamic('maker.footer.description')}
       columns={[

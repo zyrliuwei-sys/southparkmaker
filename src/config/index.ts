@@ -35,6 +35,10 @@ export const envConfigs: Record<string, string> = {
   auth_secret: procEnv.AUTH_SECRET ?? '',
   auth_cookie_prefix: procEnv.AUTH_COOKIE_PREFIX ?? '',
 
+  // Server-only credential digest for the narrowly scoped badge integration.
+  footer_badge_automation_token_hash:
+    procEnv.FOOTER_BADGE_AUTOMATION_TOKEN_HASH ?? '',
+
   // Payment - Stripe
   stripe_secret_key: procEnv.STRIPE_SECRET_KEY ?? '',
   stripe_publishable_key: procEnv.STRIPE_PUBLISHABLE_KEY ?? '',

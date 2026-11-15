@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 import { apiGet, apiPost } from '@/lib/api-client';
 import { m } from '@/paraglide/messages.js';
 import { useUserPermissions } from '@/hooks/use-user-permissions';
+import { FooterBadgeLink } from '@/components/footer-badge-link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
@@ -179,12 +180,9 @@ function AdminFooterBadgesPage() {
                 >
                   <div className="min-w-0 space-y-2">
                     <div className="flex min-h-12 items-center">
-                      <img
-                        src={badge.src}
-                        alt={badge.alt}
-                        width={badge.width ?? 250}
-                        height={badge.height}
-                        className="h-auto max-h-16 max-w-full"
+                      <FooterBadgeLink
+                        badge={badge}
+                        imageClassName="h-auto max-h-16 max-w-full"
                       />
                     </div>
                     <p className="text-muted-foreground truncate text-xs">

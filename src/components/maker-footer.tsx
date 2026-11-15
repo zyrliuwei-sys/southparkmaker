@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
 import { Link } from '@/core/i18n/navigation';
@@ -9,6 +10,7 @@ export function MakerFooter({
   copyright,
   disclaimer,
   signature,
+  badges,
 }: {
   brand: string;
   description: string;
@@ -16,6 +18,7 @@ export function MakerFooter({
   copyright: string;
   disclaimer: string;
   signature: string;
+  badges?: ReactNode;
 }) {
   return (
     <footer className="maker-footer">
@@ -46,6 +49,9 @@ export function MakerFooter({
           </div>
         ))}
       </div>
+      {badges && (
+        <div className="maker-container overflow-hidden">{badges}</div>
+      )}
       <div className="maker-container maker-footer-bottom">
         <p>{copyright}</p>
         <p>{disclaimer}</p>
