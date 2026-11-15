@@ -28,6 +28,21 @@ export function seeApiEndpoint(base: string | undefined, path: string) {
   url.pathname = `${url.pathname.replace(/\/+$/, '')}/v1/${path}`;
   return url;
 }
+function isReferenceUrl(value: string) {
+  try {
+    const url = new URL(value);
+    return (
+      url.protocol === 'https:' &&
+      !url.username &&
+      !url.password &&
+      !url.hash &&
+      value.length <= 2048
+    );
+  } catch {
+    return false;
+  }
+}
+
 export class SeeAPIProvider implements AIProvider {
   readonly name = 'seeapi';
   constructor(
@@ -107,7 +122,7 @@ export class SeeAPIProvider implements AIProvider {
       (!Array.isArray(references) ||
         references.length !== 1 ||
         typeof references[0] !== 'string' ||
-        !references[0].startsWith('https://'))
+        !isReferenceUrl(references[0]))
     )
       throw new Error('Supply one HTTPS reference photo');
     const endpoint = references ? 'image-to-image' : 'text-to-image';

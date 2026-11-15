@@ -1,20 +1,32 @@
 import { useMemo } from 'react';
 
-import { characterSvg, type CharacterOptions } from '@/lib/character';
+import {
+  characterSceneSvg,
+  characterSvg,
+  type CharacterOptions,
+} from '@/lib/character';
 import { cn } from '@/lib/utils';
 
 export function CharacterPreview({
   options,
+  characters,
   className,
   label,
   interactive = false,
 }: {
   options: CharacterOptions;
+  characters?: CharacterOptions[];
   className?: string;
   label?: string;
   interactive?: boolean;
 }) {
-  const markup = useMemo(() => characterSvg(options), [options]);
+  const markup = useMemo(
+    () =>
+      characters
+        ? characterSceneSvg(characters, options.background)
+        : characterSvg(options),
+    [options, characters]
+  );
   return (
     <div
       className={cn(

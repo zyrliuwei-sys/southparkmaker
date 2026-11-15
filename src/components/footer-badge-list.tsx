@@ -1,4 +1,3 @@
-import type { CSSProperties } from 'react';
 import { getRouteApi } from '@tanstack/react-router';
 import { DEFAULT_FOOTER_BADGES } from '@/features/footer-badges/defaults';
 import type { FooterBadge } from '@/features/footer-badges/types';
@@ -8,64 +7,50 @@ import { cn } from '@/lib/utils';
 import { usePublicConfig } from '@/hooks/use-public-config';
 import { FooterBadgeLink } from '@/components/footer-badge-link';
 
-/** Each marquee half repeats the list until it holds at least this many badges, so short lists still span wide screens. */
-const MIN_BADGES_PER_LOOP = 12;
-const SECONDS_PER_BADGE = 3;
-
-function BadgeRow({
-  badges,
-  hidden,
-}: {
-  badges: FooterBadge[];
-  hidden?: boolean;
-}) {
-  return (
-    <ul
-      className="flex shrink-0 items-center"
-      aria-hidden={hidden || undefined}
-    >
-      {badges.map((badge, index) => (
-        <li
-          key={`${index}:${badge.href}:${badge.src}`}
-          className="shrink-0 pr-4"
-        >
-          <FooterBadgeLink
-            badge={badge}
-            hidden={hidden}
-            className="flex h-12 items-center transition-opacity hover:opacity-80"
-            imageClassName="h-full w-auto max-w-[260px] object-contain"
-          />
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 const rootRoute = getRouteApi('__root__');
 
 export function FooterBadgeList({ className }: { className?: string }) {
   const { data } = usePublicConfig();
   const ssrStored = rootRoute.useLoaderData({ select: (d) => d.footerBadges });
   const stored = data ? data.footer_badges : (ssrStored ?? undefined);
-  const badges =
+  const source =
     stored === undefined
       ? DEFAULT_FOOTER_BADGES
       : parseStoredFooterBadges(stored);
+  return <FooterBadgeLinks badges={source} className={className} />;
+}
 
-  if (badges.length === 0) return null;
-
-  const repeat = Math.ceil(MIN_BADGES_PER_LOOP / badges.length);
-  const loop = Array.from({ length: repeat }, () => badges).flat();
-  const style = {
-    '--badge-marquee-duration': `${loop.length * SECONDS_PER_BADGE}s`,
-  } as CSSProperties;
-
+/** Render each outbound destination once, including in the accessible DOM. */
+export function FooterBadgeLinks({
+  badges: source,
+  className,
+}: {
+  badges: FooterBadge[];
+  className?: string;
+}) {
+  const seen = new Set<string>();
+  const badges = source.filter((badge) => {
+    const url = new URL(badge.href);
+    url.hash = '';
+    const key = `${url.origin}${url.pathname.replace(/\/+$/, '')}${url.search}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  if (!badges.length) return null;
   return (
-    <div className={cn('badge-marquee w-full overflow-hidden', className)}>
-      <div className="badge-marquee-track flex w-max" style={style}>
-        <BadgeRow badges={loop} />
-        <BadgeRow badges={loop} hidden />
-      </div>
+    <div className={cn('w-full', className)}>
+      <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+        {badges.map((badge) => (
+          <li key={badge.href}>
+            <FooterBadgeLink
+              badge={badge}
+              className="flex min-h-11 items-center text-sm transition-opacity hover:opacity-75"
+              imageClassName="max-h-10 w-auto max-w-[220px] object-contain"
+            />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

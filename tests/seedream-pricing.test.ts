@@ -124,3 +124,53 @@ test('terminal task errors differ from transient HTTP errors; raw provider bodie
   );
   await assert.rejects(provider.query({ taskId: '../credits' }));
 });
+
+test('Seedream photo conversion sends one reference to image-to-image with the same stable task key', async (t) => {
+  const image =
+    'https://example.test/api/characters/references/' + 'a'.repeat(64);
+  t.mock.method(globalThis, 'fetch', async (_url: URL, init: RequestInit) => {
+    const body = JSON.parse(String(init.body));
+    assert.equal(body.endpoint, 'image-to-image');
+    assert.deepEqual(body.input.input_images, [image]);
+    assert.equal(body.input.resolution, '1K');
+    assert.equal(
+      new Headers(init.headers).get('Idempotency-Key'),
+      'stable-photo-key'
+    );
+    return Response.json({
+      generation: {
+        id: 'photo_task',
+        model: 'seedream-5-5',
+        endpoint: 'image-to-image',
+        status: 'processing',
+      },
+    });
+  });
+  const provider = new SeeAPIProvider({ apiKey: 'test-secret' });
+  const result = await provider.generate({
+    params: {
+      mediaType: AIMediaType.IMAGE,
+      model: 'seedream-5-5',
+      prompt: 'Reimagine this person',
+      options: {
+        idempotencyKey: 'stable-photo-key',
+        resolution: '1K',
+        image_input: [image],
+      },
+    },
+  });
+  assert.equal(result.taskStatus, 'processing');
+  await assert.rejects(
+    provider.generate({
+      params: {
+        mediaType: AIMediaType.IMAGE,
+        model: 'seedream-5-5',
+        prompt: 'test',
+        options: {
+          idempotencyKey: 'bad-multiple',
+          image_input: [image, image],
+        },
+      },
+    })
+  );
+});

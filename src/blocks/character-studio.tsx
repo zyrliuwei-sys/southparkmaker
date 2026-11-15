@@ -2,11 +2,43 @@ import { useLocation } from '@tanstack/react-router';
 
 import { tDynamic } from '@/core/i18n/dynamic';
 import { EXPRESSIONS, OUTFIT_COLORS } from '@/lib/character';
+import { characterExample } from '@/lib/character-examples';
 import { m } from '@/paraglide/messages.js';
 import { CharacterStudio as Studio } from '@/components/character-studio';
 
 const copyKeys = [
   'studio_label',
+  'ponytail',
+  'bun',
+  'braids',
+  'afro',
+  'mohawk',
+  'sidepart',
+  'bucket',
+  'beret',
+  'headphones',
+  'sunglasses',
+  'scarf',
+  'earrings',
+  'backpack',
+  'sweater',
+  'overalls',
+  'suit',
+  'dress',
+  'raincoat',
+  'standing',
+  'wave',
+  'hands_on_hips',
+  'sitting',
+  'tab_pose',
+  'pose',
+  'cast_label',
+  'cast_note',
+  'character_number',
+  'add_character',
+  'remove_character',
+  'accessories_note',
+
   'preview',
   'preview_alt',
   'randomize',
@@ -70,6 +102,12 @@ const copyKeys = [
 ] as const;
 
 export function CharacterStudio() {
+  const initialCharacters = useLocation({
+    select: (location) => {
+      const search = location.search as Record<string, unknown>;
+      return characterExample(search.example, search.view);
+    },
+  });
   const initialLook = useLocation({
     select: (location) => {
       const values = location.search as Record<string, unknown>;
@@ -105,10 +143,12 @@ export function CharacterStudio() {
         `studio.${field}_name_${index}`
       );
   }
+  copy.character_number = m['studio.character_number']({ number: '{number}' });
   copy.load_saved = m['studio.load_saved']({ number: '{number}' });
   return (
     <Studio
       copy={copy}
+      initialCharacters={initialCharacters}
       initialPreset={initialPreset}
       initialOutfitColor={initialLook.outfitColor}
       initialExpression={initialLook.expression}

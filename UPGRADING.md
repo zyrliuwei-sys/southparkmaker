@@ -4,6 +4,16 @@ Read this when a project built from this template pulls newer template code.
 Entries are newest first. Apply **every entry dated after the template version
 the project last pulled**, oldest of those first.
 
+## 2026-11-15 — Photo conversion and editable scene examples
+
+- Photo mode now supports one JPEG/PNG/WebP up to 3 MiB through Seedream 5.5 image-to-image. The existing server-owned resolution pricing and atomic credit reservation/refund flows apply (15 credits at 1K/1.5K; 26 at 2K).
+- Bind a **private** R2 bucket as `REFERENCE_PHOTOS` in the deployment's Wrangler config. Do not add a public R2 domain. Add a lifecycle rule deleting `references/` objects after one day. Production uses `southparkmaker-references`.
+- The capability route expires after one hour and sends no-store/noindex headers. Terminal task checks remove the original. An interrupted client poll is covered by the bucket lifecycle. Provider retention is separate; see the updated Privacy Policy.
+- No schema migration is needed. Existing `ai_task.options` carries an opaque reference key, never photo bytes. Retries preserve the original image URL and upstream idempotency key.
+- Generated-image downloads use an authenticated, owner-checked `/api/characters/$taskId/download` attachment endpoint. Only stored assets on the selected provider's known CDN are allowed, without following redirects or forwarding credentials. This avoids CDN CORS restrictions; there are no new secrets or migrations.
+- Manual designs support optional `pose`, layered `accessories`, and scene saves containing up to three `characters`. Legacy browser saves remain compatible. Real editor examples and 1024 px PNG/SVG exports live in `public/examples/`.
+- Footer badges now render each normalized outbound destination once with no marquee clones. Existing stored badge settings remain intact.
+
 ## 2026-11-15 — Connect automatic footer badges
 
 Deploy the dedicated `/api/integrations/footer-badges` endpoint and set the

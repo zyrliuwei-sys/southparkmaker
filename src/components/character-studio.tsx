@@ -14,6 +14,7 @@ import {
   BACKGROUNDS,
   CHARACTER_PRESETS,
   CHARACTER_STORAGE_KEY,
+  characterAccessories,
   DEFAULT_CHARACTER,
   downloadCharacter,
   EXPRESSIONS,
@@ -23,6 +24,7 @@ import {
   MAX_SAVED_CHARACTERS,
   OUTFIT_COLORS,
   OUTFITS,
+  POSES,
   randomCharacter,
   readSavedCharacters,
   SKIN_TONES,
@@ -36,26 +38,38 @@ import { Button } from '@/components/ui/button';
 import '@/styles/character-studio.css';
 
 export type CharacterStudioCopy = Record<string, string>;
-type StudioTab = 'hair' | 'outfit' | 'face' | 'background';
-const tabs: StudioTab[] = ['hair', 'outfit', 'face', 'background'];
+type StudioTab = 'hair' | 'outfit' | 'face' | 'pose' | 'background';
+const tabs: StudioTab[] = ['hair', 'outfit', 'face', 'pose', 'background'];
 
 export function CharacterStudio({
   copy,
   initialPreset,
   initialOutfitColor,
   initialExpression,
+  initialCharacters,
 }: {
   copy: CharacterStudioCopy;
   initialPreset?: number;
   initialOutfitColor?: CharacterOptions['outfitColor'];
   initialExpression?: CharacterOptions['expression'];
+  initialCharacters?: CharacterOptions[];
 }) {
-  const [options, setOptions] = useState<CharacterOptions>(() => ({
-    ...(CHARACTER_PRESETS[initialPreset ?? -1]?.options ?? DEFAULT_CHARACTER),
-    ...(initialOutfitColor ? { outfitColor: initialOutfitColor } : {}),
-    ...(initialExpression ? { expression: initialExpression } : {}),
-  }));
-  const [history, setHistory] = useState<CharacterOptions[]>([]);
+  const [characters, setCharacters] = useState<CharacterOptions[]>(
+    () =>
+      initialCharacters ?? [
+        {
+          ...(CHARACTER_PRESETS[initialPreset ?? -1]?.options ??
+            DEFAULT_CHARACTER),
+          ...(initialOutfitColor ? { outfitColor: initialOutfitColor } : {}),
+          ...(initialExpression ? { expression: initialExpression } : {}),
+        },
+      ]
+  );
+  const [active, setActive] = useState(0);
+  const options = characters[active] ?? characters[0];
+  const [history, setHistory] = useState<
+    { characters: CharacterOptions[]; active: number }[]
+  >([]);
   const [tab, setTab] = useState<StudioTab>('hair');
   const [saved, setSaved] = useState<SavedCharacter[]>([]);
   const [exporting, setExporting] = useState(false);
@@ -74,37 +88,79 @@ export function CharacterStudio({
   useEffect(() => {
     // A mode switch drops the preset query, but must retain the current draft.
     if (
+      !initialCharacters &&
       initialPreset === undefined &&
       !initialOutfitColor &&
       !initialExpression
     )
       return;
-    setOptions({
-      ...(CHARACTER_PRESETS[initialPreset ?? -1]?.options ?? DEFAULT_CHARACTER),
-      ...(initialOutfitColor ? { outfitColor: initialOutfitColor } : {}),
-      ...(initialExpression ? { expression: initialExpression } : {}),
-    });
+    setCharacters(
+      initialCharacters ?? [
+        {
+          ...(CHARACTER_PRESETS[initialPreset ?? -1]?.options ??
+            DEFAULT_CHARACTER),
+          ...(initialOutfitColor ? { outfitColor: initialOutfitColor } : {}),
+          ...(initialExpression ? { expression: initialExpression } : {}),
+        },
+      ]
+    );
+    setActive(0);
     setHistory([]);
     setStatus('');
-  }, [initialPreset, initialOutfitColor, initialExpression]);
+  }, [initialPreset, initialOutfitColor, initialExpression, initialCharacters]);
+
+  function commit(next: CharacterOptions[], nextActive = active) {
+    setHistory((previous) => [...previous.slice(-19), { characters, active }]);
+    setCharacters(next);
+    setActive(nextActive);
+    setStatus('');
+  }
 
   function update(next: CharacterOptions) {
-    setHistory((previous) => [...previous.slice(-19), options]);
-    setOptions(next);
-    setStatus('');
+    commit(
+      characters.map((actor, index) =>
+        index === active
+          ? characters.length > 1
+            ? { ...next, background: characters[0].background }
+            : next
+          : actor
+      )
+    );
   }
 
   function change<K extends keyof CharacterOptions>(
     key: K,
     value: CharacterOptions[K]
   ) {
-    update({ ...options, [key]: value });
+    if (key === 'background') {
+      commit(
+        characters.map((actor) => ({
+          ...actor,
+          background: value as CharacterOptions['background'],
+        }))
+      );
+    } else update({ ...options, [key]: value });
+  }
+
+  function toggleAccessory(value: CharacterOptions['accessory']) {
+    const selected = characterAccessories(options);
+    update({
+      ...options,
+      accessory: 'none',
+      accessories:
+        value === 'none'
+          ? []
+          : selected.includes(value)
+            ? selected.filter((item) => item !== value)
+            : [...selected, value],
+    });
   }
 
   function undo() {
     const previous = history.at(-1);
     if (previous) {
-      setOptions(previous);
+      setCharacters(previous.characters);
+      setActive(previous.active);
       setHistory(history.slice(0, -1));
       setStatus('');
     }
@@ -114,7 +170,8 @@ export function CharacterStudio({
     const next: SavedCharacter[] = [
       {
         id: crypto.randomUUID(),
-        options: { ...options },
+        options: { ...characters[0] },
+        ...(characters.length > 1 ? { characters } : {}),
         savedAt: new Date().toISOString(),
       },
       ...saved,
@@ -132,7 +189,7 @@ export function CharacterStudio({
     setExporting(true);
     setStatus('');
     try {
-      await downloadCharacter(options, format);
+      await downloadCharacter(characters[0], format, characters);
       setStatus(copy.download_success);
     } catch {
       setStatus(copy.download_error);
@@ -143,7 +200,7 @@ export function CharacterStudio({
 
   function choices<K extends keyof CharacterOptions>(
     key: K,
-    values: readonly CharacterOptions[K][]
+    values: readonly Extract<CharacterOptions[K], string>[]
   ) {
     return (
       <div
@@ -152,34 +209,55 @@ export function CharacterStudio({
           key === 'background' && 'character-background-options'
         )}
       >
-        {values.map((value) => (
-          <button
-            className="character-choice"
-            key={value}
-            type="button"
-            aria-pressed={options[key] === value}
-            onClick={() => change(key, value)}
-          >
-            <span className="character-choice-preview">
-              <CharacterPreview options={{ ...options, [key]: value }} />
-            </span>
-            <span>{copy[value]}</span>
-            {options[key] === value && (
-              <Check
-                className="character-choice-check"
-                size={13}
-                aria-hidden="true"
-              />
-            )}
-          </button>
-        ))}
+        {values.map((value) => {
+          const selected =
+            key === 'accessory'
+              ? value === 'none'
+                ? characterAccessories(options).length === 0
+                : characterAccessories(options).includes(
+                    value as Exclude<CharacterOptions['accessory'], 'none'>
+                  )
+              : (options[key] ?? (key === 'pose' ? 'standing' : undefined)) ===
+                value;
+          return (
+            <button
+              className="character-choice"
+              key={value}
+              type="button"
+              aria-pressed={selected}
+              onClick={() =>
+                key === 'accessory'
+                  ? toggleAccessory(value as CharacterOptions['accessory'])
+                  : change(key, value)
+              }
+            >
+              <span className="character-choice-preview">
+                <CharacterPreview
+                  options={{
+                    ...options,
+                    [key]: value,
+                    ...(key === 'accessory' ? { accessories: [] } : {}),
+                  }}
+                />
+              </span>
+              <span>{copy[value]}</span>
+              {selected && (
+                <Check
+                  className="character-choice-check"
+                  size={13}
+                  aria-hidden="true"
+                />
+              )}
+            </button>
+          );
+        })}
       </div>
     );
   }
 
   function colors<K extends 'skinTone' | 'hairColor' | 'outfitColor'>(
     key: K,
-    values: readonly CharacterOptions[K][],
+    values: readonly Extract<CharacterOptions[K], string>[],
     title: string
   ) {
     return (
@@ -215,11 +293,64 @@ export function CharacterStudio({
         <div
           className={cn(
             'character-main-preview',
-            options.background === 'transparent' && 'character-checkerboard'
+            characters[0].background === 'transparent' &&
+              'character-checkerboard'
           )}
         >
-          <CharacterPreview options={options} label={copy.preview_alt} />
+          <CharacterPreview
+            options={characters[0]}
+            characters={characters}
+            label={copy.preview_alt}
+          />
         </div>
+        <div
+          className="character-cast"
+          role="group"
+          aria-label={copy.cast_label}
+        >
+          {characters.map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              aria-pressed={active === index}
+              onClick={() => setActive(index)}
+            >
+              {copy.character_number.replace('{number}', String(index + 1))}
+            </button>
+          ))}
+          <button
+            type="button"
+            disabled={characters.length >= 3}
+            onClick={() =>
+              commit(
+                [
+                  ...characters,
+                  {
+                    ...randomCharacter(),
+                    background: characters[0].background,
+                  },
+                ],
+                characters.length
+              )
+            }
+          >
+            {copy.add_character}
+          </button>
+          {characters.length > 1 && (
+            <button
+              type="button"
+              onClick={() =>
+                commit(
+                  characters.filter((_, index) => index !== active),
+                  0
+                )
+              }
+            >
+              {copy.remove_character}
+            </button>
+          )}
+        </div>
+        <p className="character-cast-note">{copy.cast_note}</p>
         <div className="character-quick-actions">
           <Button
             variant="ghost"
@@ -377,9 +508,18 @@ export function CharacterStudio({
               </div>
               <div className="character-control-group">
                 <h3>{copy.accessories}</h3>
+                <p className="character-control-note">
+                  {copy.accessories_note}
+                </p>
                 {choices('accessory', ACCESSORIES)}
               </div>
             </>
+          )}
+          {tab === 'pose' && (
+            <div className="character-control-group">
+              <h3>{copy.pose}</h3>
+              {choices('pose', POSES)}
+            </div>
           )}
           {tab === 'background' && (
             <>
@@ -422,13 +562,18 @@ export function CharacterStudio({
                 <button
                   key={item.id}
                   type="button"
-                  onClick={() => update({ ...item.options })}
+                  onClick={() =>
+                    commit(item.characters ?? [{ ...item.options }], 0)
+                  }
                   aria-label={copy.load_saved.replace(
                     '{number}',
                     String(index + 1)
                   )}
                 >
-                  <CharacterPreview options={item.options} />
+                  <CharacterPreview
+                    options={item.options}
+                    characters={item.characters}
+                  />
                 </button>
               ))}
             </div>

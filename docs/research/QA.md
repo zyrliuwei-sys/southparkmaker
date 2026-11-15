@@ -100,3 +100,37 @@ Philosophy 4/5: making a character is the first experience. Hierarchy 5/5: one m
 - Updated production/development public descriptions, re-exported the 1200 × 630 share card and the brand board, and refreshed the portable brand ZIP. License text and technical compatibility identifiers were preserved.
 - Existing English-only, product-copy and character checks: 17 passed. TypeScript, normal production build, Workers build, formatting and whitespace checks passed. No pricing, credit, account or database behavior changed.
 - Released the approved version `d7f9431a-7f7e-47ba-a33a-a024542485c2` to southparkmaker.com. In Tabbit, ten public/authentication page views contained no old claims in rendered copy or metadata; both LLM discovery files were clear, and the published share card matched the new export's SHA-256. The site's public configuration description also contained no old claim.
+
+## 2026-11-15 — Photo conversion and richer character creation
+
+- Implemented SeeAPI Seedream 5.5 image-to-image using one uploaded JPEG/PNG/WebP (3 MiB limit). The prompt can be empty in photo mode; the server supplies the transformation instruction. Resolution prices remain server-owned: 15 / 15 / 26 credits.
+- Private reference storage uses an opaque 256-bit capability with a one-hour read window, no-store/noindex headers, terminal-task cleanup, and a one-day R2 lifecycle backstop. No reference bytes are saved in task metadata. The Privacy Policy distinguishes our cleanup from the provider's retention.
+- Regression coverage includes ownership and origin checks, mismatched/oversized photo rejection, real atomic credit reservation/refund, concurrent reservation and refund behavior, ambiguous request recovery, stable reference/prompt/idempotency key reuse, and actual workerd request compatibility.
+- Tabbit local checks: three-person cast limit, layered accessories, pose editing, local scene save, PNG and SVG export, and example deep links. A controlled UI-only response verified image-only submission with an empty prompt at 1K; this is not evidence of a real provider generation. Mobile photo mode was checked at 390 CSS px with no horizontal document overflow.
+- Homepage and pricing DOM now contain one `realisticai.io` link and one `WTAI Navigation` link each, with no hidden marquee clones. Saved link settings were preserved.
+- Added three manual-editor before/after cases, each opening the actual options and serving genuine 1024 × 1024 PNG and matching self-contained SVG downloads. Existing photo-style illustrations remain explicitly labeled until replaced by verified product outputs.
+- TypeScript and 35 regression tests passed; an additional exported-asset check covers the published download signatures, dimensions, and matching SVG options. Production and Workers builds are prepared before release. Live photo-provider verification is recorded below.
+
+### Live photo conversion verification — 2026-11-15
+
+User approved production deployment and a single 45-credit QA grant. The grant used the existing administrator session, the dedicated credits operation, an explicit QA description, and stable idempotency key. Starting and final account balances were both zero.
+
+| Case           | Actual task                            | Input / settings                                           | Status  | Credits | Temporary original after completion |
+| -------------- | -------------------------------------- | ---------------------------------------------------------- | ------- | ------- | ----------------------------------- |
+| Purple glasses | `23eb186c-ef84-44db-96b0-399507ffd97c` | One JPEG; no extra description; 1K, 3:4                    | success | 15      | HTTP 404                            |
+| Yellow beanie  | `1798c0ff-e530-414c-a0a1-497db4daaa09` | One JPEG; keep yellow beanie and dark jacket; 1K, 3:4      | success | 15      | HTTP 404                            |
+| Orange jacket  | `393d6d15-6c3b-4a2b-a7d4-45838a04cf76` | One JPEG; keep glasses, long curls and orange top; 1K, 3:4 | success | 15      | HTTP 404                            |
+
+- All three actual outputs are 864 × 1152 PNGs. The public sample downloads contain the original provider bytes. Smaller JPEG previews were made from those outputs for the homepage; previous style illustrations have been replaced.
+- Detected provider CDN CORS restrictions during the first real download. Added an authenticated, owner-checked download endpoint that only fetches the task's stored asset on an allow-listed provider CDN, rejects redirects and SVG, caps response size, and returns a no-store attachment. Real downloads returned HTTP 200 with `image/png`; the generator button was also verified after the balance reached zero.
+- Added ownership, host/URL, redirect, MIME and attachment regression tests. Downloads use no provider credentials or forwarded browser cookies upstream. The client allows up to 60 seconds for an image transfer, with the original-image link available as a fallback.
+- Each live original was checked after success and returned 404 well before its one-hour access window expired. The private R2 bucket's one-day lifecycle rule was independently confirmed enabled.
+- Fixed narrow result-caption wrapping found at 390 CSS px. Added settings disclosure, exact extra prompts and actual PNG links alongside each homepage photo example.
+
+Final release `b500e856-0644-4b3c-a753-5d15b25a919c` verified in Tabbit: homepage shows all three real transformations; each public PNG link returns 200; the yellow-beanie settings link opens photo mode with the exact prompt, 1K resolution and 3:4 ratio. Homepage and pricing each expose one Realistic AI and one WTAI Navigation link. The final authenticated credit balance is zero. The caption fix was checked at 390 CSS px with all controls inside its bounds. All 38 regression tests, TypeScript, and Node/Workers production builds passed.
+
+### Showcase restoration requested by the user — 2026-11-15
+
+Restored the original three comparison JPGs byte for byte from the pre-change revision, together with the original labels, captions, section layout and styling. Removed the added per-case provenance/settings/download controls from this section and restored its style-study wording. The photo-upload generator, billing, private input cleanup, authenticated result downloads, richer manual editor, and footer deduplication remain in place. The three actual QA PNG outputs are retained as archived artifacts, and are no longer presented by the restored showcase as its displayed images.
+
+Restoration release `99161836-6693-432a-a2d6-075dcc50a274` is live. Tabbit confirmed all three original 1122 × 1402 illustrations, original comparison labels, and no added per-case controls or banners. The photo-generation capability remains enabled. Production build and TypeScript checks passed.

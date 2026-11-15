@@ -241,7 +241,7 @@ export function MakerFAQ() {
               </summary>
               <p>
                 {c(
-                  index === 3 && !capabilities.data?.photoEnabled
+                  index === 3 && capabilities.data?.photoEnabled === false
                     ? 'faq.photo_unavailable_answer'
                     : `faq.answer_${index}`
                 )}

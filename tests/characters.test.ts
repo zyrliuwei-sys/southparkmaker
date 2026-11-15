@@ -453,3 +453,154 @@ test('concurrent Seedream reservations cannot overspend, and duplicate refunds r
   await Promise.all([revoke(creditId), revoke(creditId), revoke(creditId)]);
   assert.equal(await getBalance(userId), 26);
 });
+
+const photo = {
+  mimeType: 'image/png' as const,
+  data: 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=',
+};
+const photoKey = 'a'.repeat(64);
+const photoReferences = {
+  available: () => true,
+  key: () => photoKey,
+  store: async () => {},
+  remove: async () => {},
+  url: (key: string) =>
+    `https://photos.example.test/api/characters/references/${key}`,
+};
+
+test('SeeAPI photo mode requires private storage and exposes the selected-resolution prices', async () => {
+  const disabled = await (
+    await handlers({
+      configs: async () => ({ seeapi_api_key: 'test-key' }),
+    }).config()
+  ).json();
+  assert.equal(disabled.data.photoEnabled, false);
+  const enabled = await (
+    await handlers({
+      configs: async () => ({ seeapi_api_key: 'test-key' }),
+      references: photoReferences,
+    }).config()
+  ).json();
+  assert.equal(enabled.data.photoEnabled, true);
+  assert.deepEqual(
+    enabled.data.photoResolutions.map((r: any) => r.costCredits),
+    [15, 15, 26]
+  );
+  assert.equal(enabled.data.photoCostCredits, 26);
+  assert.equal(characterInputSchema.safeParse({ image: photo }).success, true);
+  assert.equal(characterInputSchema.safeParse({ prompt: '' }).success, false);
+});
+
+test('photo transport retries preserve the reference, prompt and idempotency key without uploading or charging twice', async () => {
+  const id = 'e64374bb-9895-41a4-8d26-21c804f64e79';
+  let task: any;
+  let uploads = 0;
+  let charges = 0;
+  const sent: any[] = [];
+  const h = handlers({
+    references: {
+      ...photoReferences,
+      store: async (_key: string, input: unknown) => {
+        uploads++;
+        assert.deepEqual(input, photo);
+      },
+    },
+    configs: async () => ({ seeapi_api_key: 'test-key' }),
+    create: async (value: any) => {
+      charges++;
+      assert.equal(value.costCredits, 15);
+      task = {
+        ...value,
+        id,
+        status: 'pending',
+        options: JSON.stringify(value.options),
+      };
+      return task;
+    },
+    find: async () => task,
+    progress: async (value: any) => {
+      task.status = value.status;
+      if (value.upstreamId) task.taskId = value.upstreamId;
+    },
+    provider: () => ({
+      name: 'seeapi',
+      configs: {},
+      generate: async (value: any) => {
+        sent.push(value.params);
+        if (sent.length === 1) throw new Error('lost receipt');
+        return { taskId: 'photo_upstream_task', taskStatus: 'processing' };
+      },
+    }),
+  });
+  const started = await h.generate(request({ image: photo, resolution: '1K' }));
+  assert.equal(started.status, 202);
+  globalThis.__minIntervalRateLimitStore?.clear();
+  const resumed = await h.read(
+    new Request('http://localhost:3000/api/characters/' + id),
+    id
+  );
+  assert.equal(resumed.status, 200);
+  assert.equal(charges, 1);
+  assert.equal(uploads, 1);
+  assert.deepEqual(sent[0], sent[1]);
+  assert.deepEqual(sent[0].options.image_input, [
+    photoReferences.url(photoKey),
+  ]);
+  assert.equal(sent[0].options.idempotencyKey, id);
+  assert.ok(sent[0].prompt.includes('supplied photo'));
+  assert.ok(!task.options.includes(photo.data));
+});
+
+test('a private photo upload failure refunds the real reservation and never starts a provider task', async () => {
+  const owner = 'photo-storage-failure';
+  await db().insert(schema.user).values({
+    id: owner,
+    name: 'Photo test',
+    email: 'photo-storage@example.test',
+  });
+  await db().insert(schema.credit).values({
+    id: 'photo-credit-grant',
+    userId: owner,
+    transactionNo: 'photo-credit-grant',
+    transactionType: 'grant',
+    transactionScene: 'gift',
+    credits: 15,
+    remainingCredits: 15,
+    status: 'active',
+  });
+  let id = '';
+  let cleaned = 0;
+  const h = handlers({
+    session: async () => ({ user: { id: owner } }),
+    configs: async () => ({ seeapi_api_key: 'test-key' }),
+    references: {
+      ...photoReferences,
+      store: async () => {
+        throw new Error('storage down');
+      },
+      remove: async () => {
+        cleaned++;
+      },
+    },
+    create: async (value: any) => {
+      const task = await createTask(value);
+      id = task.id;
+      return task;
+    },
+    initialize: initializeCharacterTask,
+    find: findCharacterTask,
+    progress: saveCharacterProgress,
+    refund: revoke,
+  });
+  assert.equal(
+    (await h.generate(request({ image: photo, resolution: '1K' }))).status,
+    502
+  );
+  assert.equal(await getBalance(owner), 15);
+  assert.equal((await findCharacterTask(id))?.status, 'failed');
+  assert.equal(cleaned, 1);
+  const task = await findCharacterTask(id);
+  const creditId = JSON.parse(task!.taskInfo!).creditId;
+  await Promise.all([revoke(creditId), revoke(creditId), revoke(creditId)]);
+  assert.equal(await getBalance(owner), 15);
+});

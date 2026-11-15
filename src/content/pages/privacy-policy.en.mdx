@@ -23,7 +23,9 @@ Using the manual builder does not submit your character to an AI generation prov
 
 AI generation is an optional, account-based feature. When you submit a request, your character description and any supported reference photo are sent through our server to the image generation provider used for that request. A reference photo is provided only when you choose to upload one and that feature is available.
 
-Your account's generation record stores information such as the prompt, task status, credit use, and result URL. The reference photo is not stored in that generation record. This does not mean that the generation provider immediately deletes it: the provider's processing, storage, and retention practices also apply. Contact us if you need information about the provider used for your request.
+For photo conversion, our server places the selected photo in private temporary storage. An unguessable link allows the generation provider to read it for up to one hour. We remove our copy when the task finishes and is checked; a one-day bucket lifecycle provides cleanup if that process is interrupted. Choosing a photo alone does not upload it: the upload starts when you generate.
+
+Your account's generation record stores information such as the prompt, task status, credit use, and result URL. The reference photo is not stored in that generation record. This does not mean that the generation provider immediately deletes it: the provider's processing, storage, and retention practices also apply. The current photo provider is SeeAPI. Its [data handling policy](https://www.seeapi.com/docs/data-handling/) states that stored generation inputs and results do not automatically expire. Deletion of our temporary copy does not delete the provider's copy. Contact us for help with a deletion request.
 
 Upload only photos you have permission to use, and avoid including sensitive personal information in prompts or images. Generated images may be hosted by a third party; download a copy if you want to keep a result.
 

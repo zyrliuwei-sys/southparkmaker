@@ -37,7 +37,10 @@ before(async () => {
               return Response.json(await testSeeAPI({ seeapi_api_key: 'isolated-test-credential' }));
             const provider = new SeeAPIProvider({ apiKey: 'isolated-test-credential' });
             try {
-              return Response.json(await provider.query({ taskId: 'worker_task' }));
+              return Response.json(action === '/photo' ? await provider.generate({ params: {
+                mediaType: 'image', model: 'seedream-5-5', prompt: 'A paper-cut portrait',
+                options: { idempotencyKey: 'worker-photo-request', resolution: '1K', image_input: ['https://client.example.com/reference.png'] }
+              }}) : await provider.query({ taskId: 'worker_task' }));
             } catch (error) {
               return Response.json({ status: error.status, definitive: error.definitive });
             }
@@ -190,4 +193,32 @@ test('Workers rejects SeeAPI redirects without forwarding the credential', async
     requests.every((r) => new URL(r.url).hostname === 'api.seeapi.com')
   );
   assert.equal(requests.length, 2);
+});
+
+test('Workers submits a photo transformation with the documented endpoint and stable key', async () => {
+  requests.length = 0;
+  respond = () =>
+    Response.json({
+      generation: {
+        id: 'worker_photo',
+        model: 'seedream-5-5',
+        endpoint: 'image-to-image',
+        status: 'processing',
+      },
+    });
+  const result = await (
+    await runtime.dispatchFetch('https://test/photo')
+  ).json();
+  assert.equal(result.taskId, 'worker_photo');
+  assert.equal(requests.length, 1);
+  assert.equal(
+    requests[0].headers.get('idempotency-key'),
+    'worker-photo-request'
+  );
+  const body = JSON.parse(requests[0].body);
+  assert.equal(body.endpoint, 'image-to-image');
+  assert.deepEqual(body.input.input_images, [
+    'https://client.example.com/reference.png',
+  ]);
+  assert.equal(body.input.resolution, '1K');
 });

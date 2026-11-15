@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { makerSeo } from '@/lib/maker-seo';
+import { CharacterEvidence } from '@/blocks/character-evidence';
 import { Footer } from '@/blocks/footer';
 import { Header } from '@/blocks/header';
 import {
@@ -32,6 +33,7 @@ function HomePage() {
         <PhotoComparisons />
         <MakerCreationPaths />
         <MakerGallery />
+        <CharacterEvidence />
         <MakerHowItWorks />
         <MakerCharacterGuide />
         <MakerUseCases />

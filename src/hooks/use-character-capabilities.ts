@@ -7,6 +7,7 @@ export type CharacterCapabilities = {
   enabled: boolean;
   photoEnabled: boolean;
   photoCostCredits?: number;
+  photoResolutions?: { resolution: CharacterResolution; costCredits: number }[];
   costCredits: number;
   resolutions: { resolution: CharacterResolution; costCredits: number }[];
 };

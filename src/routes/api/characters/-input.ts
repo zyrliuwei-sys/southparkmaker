@@ -14,12 +14,21 @@ const referenceSchema = z.strictObject({
   mimeType: z.enum(['image/jpeg', 'image/png', 'image/webp']),
 });
 
-export const characterInputSchema = z.strictObject({
-  prompt: z.string().trim().min(3).max(1500),
-  aspectRatio: z.enum(['1:1', '3:4']).default('1:1'),
-  resolution: z.enum(['1K', '1.5K', '2K']).default('2K'),
-  image: referenceSchema.optional(),
-});
+export const characterInputSchema = z
+  .strictObject({
+    prompt: z.string().trim().max(1500).default(''),
+    aspectRatio: z.enum(['1:1', '3:4']).default('1:1'),
+    resolution: z.enum(['1K', '1.5K', '2K']).default('2K'),
+    image: referenceSchema.optional(),
+  })
+  .superRefine((input, ctx) => {
+    if (!input.image && input.prompt.length < 3)
+      ctx.addIssue({
+        code: 'custom',
+        path: ['prompt'],
+        message: 'Describe your character.',
+      });
+  });
 
 export function validateReferenceImage(
   image: NonNullable<CharacterInput['image']>

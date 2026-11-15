@@ -238,7 +238,12 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
             'Describe your character in 3 to 1,500 characters and choose a supported photo.',
             { status: 400 }
           );
-        input = parsed.data;
+        input = {
+          ...parsed.data,
+          prompt:
+            parsed.data.prompt ||
+            'Reimagine the person in the reference photo as an original paper-cut cartoon character. Preserve their hairstyle, skin tone, outfit colors and distinctive accessories.',
+        };
       } catch (error) {
         return respErr(
           error instanceof Error

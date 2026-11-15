@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { useSession } from '@/core/auth/client';
 import { tDynamic } from '@/core/i18n/dynamic';
 import { Link } from '@/core/i18n/navigation';
-import { apiGet, apiPost } from '@/lib/api-client';
+import { apiDownloadImage, apiGet, apiPost } from '@/lib/api-client';
 import {
   DEFAULT_CHARACTER_RESOLUTION,
   generationCreditShortfall,
@@ -42,8 +42,10 @@ export function AICharacterGenerator({
 }) {
   const { data: session, isPending: sessionPending } = useSession();
   const queryClient = useQueryClient();
+  const [photoMode, setPhotoMode] = useState(initialPhoto);
   const [image, setImage] = useState<ReferenceImage>();
   const [imagePreview, setImagePreview] = useState('');
+  const [submittedPhoto, setSubmittedPhoto] = useState('');
   const [fileError, setFileError] = useState('');
   const [taskId, setTaskId] = useState('');
   const [resolution, setResolution] =
@@ -54,6 +56,10 @@ export function AICharacterGenerator({
     enabled: !!session?.user,
   });
   const config = useCharacterCapabilities();
+  const download = useMutation({
+    mutationFn: (url: string) =>
+      apiDownloadImage(url, 'southparkmaker-photo-character.png'),
+  });
   const generation = useMutation({
     mutationFn: (value: { prompt: string; aspectRatio: '1:1' | '3:4' }) =>
       apiPost<Generation>('/api/characters/generate', {
@@ -117,10 +123,13 @@ export function AICharacterGenerator({
       } else localStorage.setItem(storageKey, taskId);
     } catch {}
   }, [storageKey, taskId, result?.status, queryClient]);
-  const cost =
-    config.data?.resolutions?.find((item) => item.resolution === resolution)
-      ?.costCredits ?? config.data?.costCredits;
-  const selectedCost = image ? config.data?.photoCostCredits : cost;
+  const resolutionOptions = photoMode
+    ? (config.data?.photoResolutions ?? [])
+    : (config.data?.resolutions ?? []);
+  const selectedCost =
+    resolutionOptions.find((item) => item.resolution === resolution)
+      ?.costCredits ??
+    (photoMode ? config.data?.photoCostCredits : config.data?.costCredits);
   const shortfall = generationCreditShortfall(
     balance.data?.balance,
     selectedCost
@@ -134,12 +143,23 @@ export function AICharacterGenerator({
     },
     validators: {
       onSubmit: z.object({
-        prompt: z.string().trim().min(3, c('prompt_required')).max(1500),
+        prompt: z
+          .string()
+          .trim()
+          .max(1500)
+          .refine(
+            (value) => value.length >= 3 || (photoMode && !!image),
+            c('prompt_required')
+          ),
         aspectRatio: z.enum(['1:1', '3:4']),
       }),
     },
     onSubmit: ({ value }) => {
       setTaskId('');
+      setSubmittedPhoto(
+        image ? `data:${image.mimeType};base64,${image.data}` : ''
+      );
+      download.reset();
       generation.mutate(value);
     },
   });
@@ -154,6 +174,7 @@ export function AICharacterGenerator({
     if (!file) return;
     if (
       !['image/jpeg', 'image/png', 'image/webp'].includes(file.type) ||
+      !file.size ||
       file.size > 3 * 1024 * 1024
     ) {
       setFileError(c('file_error'));
@@ -178,8 +199,36 @@ export function AICharacterGenerator({
       <div className="maker-ai-layout">
         <div className="maker-ai-form">
           <h2 className="atelier-form-title">{c('form_title')}</h2>
+          <div
+            className="maker-input-modes"
+            role="group"
+            aria-label={c('input_mode')}
+          >
+            <button
+              type="button"
+              aria-pressed={!photoMode}
+              disabled={busy}
+              onClick={() => {
+                setPhotoMode(false);
+                setImage(undefined);
+                setImagePreview('');
+              }}
+            >
+              {c('text_mode')}
+            </button>
+            <button
+              type="button"
+              aria-pressed={photoMode}
+              disabled={busy || !config.data?.photoEnabled}
+              onClick={() => setPhotoMode(true)}
+            >
+              {c('photo_mode')}
+            </button>
+          </div>
           {config.data?.enabled && !sessionPending && !session?.user && (
-            <p className="maker-ai-message">{c('sign_in_note')}</p>
+            <p className="maker-ai-message">
+              {c(photoMode ? 'photo_sign_in_note' : 'sign_in_note')}
+            </p>
           )}
           {config.isPending ? (
             <p className="maker-ai-message" role="status">
@@ -210,6 +259,7 @@ export function AICharacterGenerator({
               if (
                 !busy &&
                 !insufficient &&
+                (!photoMode || !!image) &&
                 config.data?.enabled &&
                 session?.user
               )
@@ -221,75 +271,7 @@ export function AICharacterGenerator({
               !config.data.photoEnabled && (
                 <p className="maker-ai-message">{c('photo_unavailable')}</p>
               )}
-            <div className="maker-ai-field">
-              <form.Field name="prompt">
-                {(field) => (
-                  <>
-                    <label htmlFor="character-prompt">
-                      {c('prompt_label')}
-                    </label>
-                    <span className="atelier-prompt-count" aria-hidden="true">
-                      {field.state.value.length} / 1500
-                    </span>
-                    <textarea
-                      id="character-prompt"
-                      name="prompt"
-                      value={field.state.value}
-                      onChange={(event) =>
-                        field.handleChange(event.target.value)
-                      }
-                      onBlur={field.handleBlur}
-                      placeholder={c('placeholder')}
-                      maxLength={1500}
-                      disabled={busy}
-                      aria-invalid={field.state.meta.errors.length > 0}
-                      aria-required="true"
-                      aria-describedby={
-                        field.state.meta.errors.length
-                          ? 'character-prompt-error'
-                          : 'character-prompt-hint'
-                      }
-                    />
-                    {field.state.meta.errors.length > 0 && (
-                      <p
-                        id="character-prompt-error"
-                        className="atelier-prompt-helper"
-                        role="alert"
-                      >
-                        {c('prompt_required')}
-                      </p>
-                    )}
-                    {!field.state.meta.errors.length && (
-                      <p
-                        id="character-prompt-hint"
-                        className="atelier-prompt-helper"
-                      >
-                        {c('prompt_hint')}
-                      </p>
-                    )}
-                  </>
-                )}
-              </form.Field>
-            </div>
-            <div
-              className="atelier-prompt-examples"
-              role="group"
-              aria-label={c('examples_label')}
-            >
-              {[1, 2, 3].map((index) => (
-                <button
-                  key={index}
-                  type="button"
-                  disabled={busy}
-                  onClick={() =>
-                    form.setFieldValue('prompt', c(`example_prompt_${index}`))
-                  }
-                >
-                  {c(`example_${index}`)}
-                </button>
-              ))}
-            </div>
-            {config.data?.photoEnabled && (
+            {photoMode && config.data?.photoEnabled && (
               <div className="maker-ai-field">
                 <label htmlFor="character-photo">{c('photo_label')}</label>
                 <div className="maker-ai-upload">
@@ -326,10 +308,11 @@ export function AICharacterGenerator({
                   />
                   <p>
                     {config.data?.photoEnabled
-                      ? c('photo_hint')
+                      ? c(session?.user ? 'photo_hint' : 'photo_sign_in_hint')
                       : c('photo_unavailable')}
                   </p>
                 </div>
+                <p className="maker-ai-note">{c('photo_privacy_note')}</p>
                 {fileError && (
                   <p className="maker-ai-note" role="alert">
                     {fileError}
@@ -337,7 +320,77 @@ export function AICharacterGenerator({
                 )}
               </div>
             )}
-            {!image && (
+            <div className="maker-ai-field">
+              <form.Field name="prompt">
+                {(field) => (
+                  <>
+                    <label htmlFor="character-prompt">
+                      {c(photoMode ? 'photo_prompt_label' : 'prompt_label')}
+                    </label>
+                    <span className="atelier-prompt-count" aria-hidden="true">
+                      {field.state.value.length} / 1500
+                    </span>
+                    <textarea
+                      id="character-prompt"
+                      name="prompt"
+                      value={field.state.value}
+                      onChange={(event) =>
+                        field.handleChange(event.target.value)
+                      }
+                      onBlur={field.handleBlur}
+                      placeholder={c(
+                        photoMode ? 'photo_prompt_placeholder' : 'placeholder'
+                      )}
+                      maxLength={1500}
+                      disabled={busy}
+                      aria-invalid={field.state.meta.errors.length > 0}
+                      aria-required={!photoMode}
+                      aria-describedby={
+                        field.state.meta.errors.length
+                          ? 'character-prompt-error'
+                          : 'character-prompt-hint'
+                      }
+                    />
+                    {field.state.meta.errors.length > 0 && (
+                      <p
+                        id="character-prompt-error"
+                        className="atelier-prompt-helper"
+                        role="alert"
+                      >
+                        {c('prompt_required')}
+                      </p>
+                    )}
+                    {!field.state.meta.errors.length && (
+                      <p
+                        id="character-prompt-hint"
+                        className="atelier-prompt-helper"
+                      >
+                        {c(photoMode ? 'photo_prompt_hint' : 'prompt_hint')}
+                      </p>
+                    )}
+                  </>
+                )}
+              </form.Field>
+            </div>
+            <div
+              className="atelier-prompt-examples"
+              role="group"
+              aria-label={c('examples_label')}
+            >
+              {[1, 2, 3].map((index) => (
+                <button
+                  key={index}
+                  type="button"
+                  disabled={busy}
+                  onClick={() =>
+                    form.setFieldValue('prompt', c(`example_prompt_${index}`))
+                  }
+                >
+                  {c(`example_${index}`)}
+                </button>
+              ))}
+            </div>
+            {(!photoMode || !!config.data?.photoResolutions?.length) && (
               <div className="maker-ai-field">
                 <form.Field name="aspectRatio">
                   {(field) => (
@@ -363,7 +416,7 @@ export function AICharacterGenerator({
                 </form.Field>
               </div>
             )}
-            {!!config.data?.resolutions?.length && !image && (
+            {!!resolutionOptions.length && (
               <div className="maker-ai-field">
                 <label htmlFor="character-resolution">
                   {c('resolution_label')}
@@ -376,7 +429,7 @@ export function AICharacterGenerator({
                   }
                   disabled={busy}
                 >
-                  {config.data.resolutions.map((item) => (
+                  {resolutionOptions.map((item) => (
                     <option key={item.resolution} value={item.resolution}>
                       {item.resolution} ·{' '}
                       {m['maker.ai.credit_cost']({
@@ -433,7 +486,7 @@ export function AICharacterGenerator({
                 {({ prompt, ratio }) => (
                   <Link
                     className="maker-button maker-button-primary w-full"
-                    href={`/sign-in?callbackUrl=${encodeURIComponent(`/create?mode=ai&prompt=${encodeURIComponent(prompt)}&resolution=${resolution}&ratio=${encodeURIComponent(ratio)}`)}`}
+                    href={`/sign-in?callbackUrl=${encodeURIComponent(`/create?mode=ai${photoMode ? '&photo=1' : ''}&prompt=${encodeURIComponent(prompt)}&resolution=${resolution}&ratio=${encodeURIComponent(ratio)}`)}`}
                   >
                     {c('sign_in')}
                     <ArrowRight size={16} />
@@ -447,6 +500,7 @@ export function AICharacterGenerator({
                 disabled={
                   busy ||
                   insufficient ||
+                  (photoMode && !image) ||
                   !config.data?.enabled ||
                   sessionPending ||
                   (!!session?.user && balance.isPending)
@@ -457,7 +511,9 @@ export function AICharacterGenerator({
                 ) : (
                   <Sparkles size={16} />
                 )}
-                {busy ? c('generating') : c('generate')}
+                {busy
+                  ? c('generating')
+                  : c(photoMode ? 'photo_generate' : 'generate')}
               </button>
             )}
             <p className="maker-ai-note">{c('credit_note')}</p>
@@ -489,14 +545,39 @@ export function AICharacterGenerator({
         </div>
         {result?.images?.length ? (
           <figure className="maker-ai-result">
-            <img
-              src={result.images[0]}
-              alt={c('result_alt')}
-              width="2048"
-              height="2048"
-            />
+            {submittedPhoto ? (
+              <div className="maker-photo-result-pair">
+                <div>
+                  <span>{c('uploaded_photo')}</span>
+                  <img src={submittedPhoto} alt={c('reference_alt')} />
+                </div>
+                <div>
+                  <span>{c('photo_result')}</span>
+                  <img src={result.images[0]} alt={c('result_alt')} />
+                </div>
+              </div>
+            ) : (
+              <img
+                src={result.images[0]}
+                alt={c('result_alt')}
+                width="2048"
+                height="2048"
+              />
+            )}
             <figcaption>
               <span>{c('result_title')}</span>
+              <button
+                type="button"
+                className="maker-button maker-button-primary"
+                disabled={download.isPending}
+                onClick={() =>
+                  download.mutate(
+                    `/api/characters/${encodeURIComponent(result.taskId)}/download`
+                  )
+                }
+              >
+                {c(download.isPending ? 'downloading' : 'download_image')}
+              </button>
               <a
                 className="maker-button maker-button-outline"
                 href={result.images[0]}
@@ -507,22 +588,40 @@ export function AICharacterGenerator({
                 <ArrowRight size={15} />
               </a>
             </figcaption>
+            {download.isError && (
+              <p className="maker-ai-message" role="alert">
+                {c('download_error')}
+              </p>
+            )}
           </figure>
         ) : (
           <div className="maker-ai-result maker-ai-empty" aria-live="polite">
-            <img
-              src="/imgs/generated/seedream-character-example.jpg"
-              alt=""
-              width="1400"
-              height="1400"
-            />
+            {!photoMode && (
+              <img
+                src="/imgs/generated/seedream-character-example.jpg"
+                alt=""
+                width="1400"
+                height="1400"
+              />
+            )}
+            {photoMode && !busy && (
+              <ImagePlus size={50} strokeWidth={1.2} aria-hidden="true" />
+            )}
             <h2>
               {busy && (
                 <LoaderCircle className="mr-2 inline animate-spin" size={20} />
               )}{' '}
-              {busy ? c('creating_title') : c('empty_title')}
+              {busy
+                ? c('creating_title')
+                : c(photoMode ? 'photo_empty_title' : 'empty_title')}
             </h2>
-            <p>{busy ? c('creating_description') : c('empty_description')}</p>
+            <p>
+              {busy
+                ? c('creating_description')
+                : c(
+                    photoMode ? 'photo_empty_description' : 'empty_description'
+                  )}
+            </p>
           </div>
         )}
       </div>

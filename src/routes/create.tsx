@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { EXPRESSIONS, OUTFIT_COLORS } from '@/lib/character';
+import { CHARACTER_EXAMPLES } from '@/lib/character-examples';
 import { CHARACTER_RESOLUTIONS } from '@/lib/character-pricing';
 import { makerSeo } from '@/lib/maker-seo';
 import { Footer } from '@/blocks/footer';
@@ -9,6 +10,10 @@ import { MakerCreate } from '@/blocks/maker-create';
 
 export const Route = createFileRoute('/create')({
   validateSearch: (search: Record<string, unknown>) => ({
+    example: CHARACTER_EXAMPLES.some((item) => item.id === search.example)
+      ? (search.example as string)
+      : undefined,
+    view: search.view === 'before' ? ('before' as const) : undefined,
     mode:
       search.mode === 'ai'
         ? ('ai' as const)

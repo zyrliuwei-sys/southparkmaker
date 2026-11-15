@@ -9,6 +9,7 @@ import '@/styles/photo-comparisons.css';
 
 export function PhotoComparisons() {
   const capabilities = useCharacterCapabilities();
+  const photoAvailable = capabilities.data?.photoEnabled !== false;
   const examples = [
     {
       id: 'purple-glasses',
@@ -99,12 +100,17 @@ export function PhotoComparisons() {
 
         <div className="maker-photo-footer">
           <p>
-            {capabilities.data?.photoEnabled
+            {photoAvailable
               ? m['maker.comparisons.note']()
               : m['maker.comparisons.text_only_note']()}
           </p>
-          <Link href="/create?mode=ai" className="maker-photo-action">
-            {capabilities.data?.photoEnabled
+          <Link
+            href={
+              photoAvailable ? '/create?mode=ai&photo=1' : '/create?mode=ai'
+            }
+            className="maker-photo-action"
+          >
+            {photoAvailable
               ? m['maker.comparisons.action']()
               : m['maker.comparisons.text_only_action']()}
             <ArrowUpRight size={16} aria-hidden="true" />

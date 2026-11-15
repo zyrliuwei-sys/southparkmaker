@@ -98,3 +98,32 @@ export async function apiGetAll<T>(base: string): Promise<T[]> {
     if (res.items.length < pageSize || items.length >= res.total) return items;
   }
 }
+
+/** Download a completed character through its authenticated attachment route. */
+export async function apiDownloadImage(url: string, filename: string) {
+  const source = new URL(url, location.origin);
+  if (source.origin !== location.origin || source.username || source.password)
+    throw new Error('Invalid image URL');
+  const response = await fetch(source, {
+    credentials: 'same-origin',
+    referrerPolicy: 'no-referrer',
+    signal: AbortSignal.timeout(60000),
+  });
+  if (!response.ok) throw new Error('Image download failed');
+  const blob = await response.blob();
+  if (
+    !['image/png', 'image/jpeg', 'image/webp'].includes(
+      blob.type.split(';')[0]
+    ) ||
+    blob.size > 25 * 1024 * 1024
+  )
+    throw new Error('Invalid image download');
+  const objectUrl = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = objectUrl;
+  anchor.download = filename;
+  document.body.append(anchor);
+  anchor.click();
+  anchor.remove();
+  setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+}
