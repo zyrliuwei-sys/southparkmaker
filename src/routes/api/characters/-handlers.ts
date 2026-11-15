@@ -3,6 +3,13 @@ import { ReplicateProvider } from '@/core/ai/replicate';
 import { SeeAPIError, SeeAPIProvider } from '@/core/ai/seeapi';
 import { AIMediaType, type AIProvider } from '@/core/ai/types';
 import { getAuth } from '@/core/auth';
+import {
+  newReferenceKey,
+  REFERENCE_KEY_PATTERN,
+  referenceStorageAvailable,
+  removeCharacterReference,
+  storeCharacterReference,
+} from '@/core/storage/character-reference';
 import { createTask } from '@/modules/ai-tasks/service';
 import {
   buildCharacterPrompt,
@@ -28,6 +35,7 @@ import {
 } from '@/lib/character-pricing';
 import { enforceMinIntervalRateLimit } from '@/lib/rate-limit';
 import { respData, respErr } from '@/lib/resp';
+import { serverSiteOrigin } from '@/lib/site-origin';
 import { m } from '@/paraglide/messages.js';
 
 import { characterInputSchema, validateReferenceImage } from './-input';
@@ -44,6 +52,13 @@ type Dependencies = {
   progress: typeof saveCharacterProgress;
   refund: typeof revoke;
   provider: (selection: CharacterProviderSelection) => AIProvider;
+  references?: {
+    available: () => boolean;
+    key: () => string;
+    store: typeof storeCharacterReference;
+    remove: typeof removeCharacterReference;
+    url: (key: string) => string;
+  };
 };
 
 const dependencies: Dependencies = {
@@ -122,17 +137,61 @@ async function refundFailedTask(task: CharacterTask, deps: Dependencies) {
 }
 
 export function createCharacterHandlers(deps: Dependencies = dependencies) {
+  const references = deps.references ?? {
+    available: () => {
+      try {
+        return (
+          referenceStorageAvailable() &&
+          new URL(serverSiteOrigin()).protocol === 'https:'
+        );
+      } catch {
+        return false;
+      }
+    },
+    key: newReferenceKey,
+    store: storeCharacterReference,
+    remove: removeCharacterReference,
+    url: (key: string) =>
+      `${serverSiteOrigin()}/api/characters/references/${key}`,
+  };
+  function select(configs: Record<string, string>, photo: boolean) {
+    if (photo && configs.seeapi_api_key && !references.available())
+      return selectCharacterProvider({ ...configs, seeapi_api_key: '' }, true);
+    return selectCharacterProvider(configs, photo);
+  }
+  async function finalize(task: CharacterTask) {
+    await refundFailedTask(task, deps);
+    if (isTerminalCharacterStatus(task.status)) {
+      try {
+        const key = JSON.parse(task.options || '{}').referenceKey;
+        if (typeof key === 'string') await references.remove(key);
+      } catch {
+        /* Missing metadata does not block a settled task. */
+      }
+    }
+  }
   return {
     async config() {
       const configs = await deps.configs();
-      const selection = selectCharacterProvider(configs, false);
+      const selection = select(configs, false);
+      const photo = select(configs, true);
       return respData(
         {
-          enabled: Boolean(selectCharacterProvider(configs, false)),
-          photoEnabled: Boolean(selectCharacterProvider(configs, true)),
-          photoCostCredits: selectCharacterProvider(configs, true)
-            ? CHARACTER_CREDIT_COST
+          enabled: Boolean(selection),
+          photoEnabled: Boolean(photo),
+          photoCostCredits: photo
+            ? photo.name === 'seeapi'
+              ? characterCreditCost('2K')
+              : CHARACTER_CREDIT_COST
             : undefined,
+          ...(photo?.name === 'seeapi'
+            ? {
+                photoResolutions: CHARACTER_RESOLUTIONS.map((resolution) => ({
+                  resolution,
+                  costCredits: characterCreditCost(resolution),
+                })),
+              }
+            : {}),
           costCredits:
             selection?.name === 'seeapi'
               ? characterCreditCost('2K')
@@ -189,7 +248,7 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
         );
       }
       const configs = await deps.configs();
-      const selection = selectCharacterProvider(configs, Boolean(input.image));
+      const selection = select(configs, Boolean(input.image));
       if (!selection)
         return respErr(m['maker.ai.unavailable_error'](), { status: 503 });
       let imageData: string | undefined;
@@ -199,6 +258,8 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
         return respErr((error as Error).message, { status: 400 });
       }
 
+      const referenceKey =
+        imageData && selection.name === 'seeapi' ? references.key() : undefined;
       let task: CharacterTask;
       const costCredits =
         selection.name === 'seeapi'
@@ -217,6 +278,7 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
             aspectRatio: input.aspectRatio,
             resolution: input.resolution,
             photo: Boolean(input.image),
+            ...(referenceKey ? { referenceKey } : {}),
           },
         });
       } catch (error) {
@@ -229,8 +291,11 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
           { status: insufficient ? 402 : 503 }
         );
       }
+      let providerStarted = false;
       try {
-        await deps.initialize(task.id, input);
+        await deps.initialize(task.id, input, referenceKey);
+        if (referenceKey && input.image)
+          await references.store(referenceKey, input.image);
         const provider = deps.provider(selection);
         const options =
           selection.name === 'seeapi'
@@ -238,6 +303,9 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
                 idempotencyKey: task.id,
                 aspect_ratio: input.aspectRatio,
                 resolution: input.resolution,
+                ...(referenceKey
+                  ? { image_input: [references.url(referenceKey)] }
+                  : {}),
               }
             : selection.name === 'fal'
               ? {
@@ -260,6 +328,7 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
                   output_format: 'png',
                   go_fast: true,
                 };
+        providerStarted = true;
         const result = await provider.generate({
           params: {
             mediaType: AIMediaType.IMAGE,
@@ -283,7 +352,7 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
         });
         const saved = await deps.find(task.id);
         if (!saved) throw new Error('Task unavailable');
-        await refundFailedTask(saved, deps);
+        await finalize(saved);
         return respData(publicCharacterResult(saved), {
           ...privateResponse,
           status: 202,
@@ -291,6 +360,7 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
       } catch (error) {
         if (
           selection.name === 'seeapi' &&
+          providerStarted &&
           !(error instanceof SeeAPIError && error.definitive)
         ) {
           // An interrupted submit may already have been billed upstream.
@@ -306,7 +376,7 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
         // photo, credentials or internal diagnostics.
         await deps.progress({ taskId: task.id, status: 'failed', images: [] });
         const failed = await deps.find(task.id);
-        if (failed) await refundFailedTask(failed, deps);
+        if (failed) await finalize(failed);
         return respErr(
           'Your character could not be started. Your credits have been returned.',
           { status: 502 }
@@ -335,7 +405,7 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
       if (!isCharacterTask(task, session.user.id))
         return respErr('Character not found.', { status: 404 });
       if (isTerminalCharacterStatus(task.status)) {
-        await refundFailedTask(task, deps);
+        await finalize(task);
         return respData(publicCharacterResult(task), privateResponse);
       }
       // A submit interrupted before an upstream receipt is stored can be
@@ -350,6 +420,23 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
             );
           try {
             const options = JSON.parse(task.options || '{}');
+            if (
+              options.photo &&
+              (typeof options.referenceKey !== 'string' ||
+                !REFERENCE_KEY_PATTERN.test(options.referenceKey))
+            ) {
+              await deps.progress({
+                taskId: task.id,
+                status: 'failed',
+                images: [],
+              });
+              const failed = await deps.find(task.id);
+              if (failed) {
+                await finalize(failed);
+                return respData(publicCharacterResult(failed), privateResponse);
+              }
+              return respErr('Character not found.', { status: 404 });
+            }
             const result = await deps
               .provider({
                 name: 'seeapi',
@@ -361,11 +448,17 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
                 params: {
                   mediaType: AIMediaType.IMAGE,
                   model: task.model,
-                  prompt: buildCharacterPrompt(task.prompt || ''),
+                  prompt: buildCharacterPrompt(
+                    task.prompt || '',
+                    Boolean(options.photo)
+                  ),
                   options: {
                     idempotencyKey: task.id,
                     aspect_ratio: options.aspectRatio || '1:1',
                     resolution: options.resolution || '2K',
+                    ...(options.photo
+                      ? { image_input: [references.url(options.referenceKey)] }
+                      : {}),
                   },
                 },
               });
@@ -394,7 +487,7 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
           }
           const saved = await deps.find(task.id);
           if (!saved) return respErr('Character not found.', { status: 404 });
-          await refundFailedTask(saved, deps);
+          await finalize(saved);
           return respData(publicCharacterResult(saved), privateResponse);
         }
         if (Date.now() - task.createdAt.getTime() > MAX_TASK_AGE_MS) {
@@ -405,7 +498,7 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
           });
           const failed = await deps.find(task.id);
           if (failed) {
-            await refundFailedTask(failed, deps);
+            await finalize(failed);
             task = failed;
           }
         }
@@ -444,7 +537,7 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
         await deps.progress({ taskId: task.id, status, images });
         const saved = await deps.find(task.id);
         if (!saved) return respErr('Character not found.', { status: 404 });
-        await refundFailedTask(saved, deps);
+        await finalize(saved);
         return respData(publicCharacterResult(saved), privateResponse);
       } catch (error) {
         // Fal returns a model failure as 400/422 when fetching a completed
@@ -461,7 +554,7 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
           });
           const failed = await deps.find(task.id);
           if (failed) {
-            await refundFailedTask(failed, deps);
+            await finalize(failed);
             return respData(publicCharacterResult(failed), privateResponse);
           }
         }

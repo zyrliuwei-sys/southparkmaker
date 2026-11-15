@@ -2,11 +2,12 @@ import { and, eq, inArray, isNull } from 'drizzle-orm';
 
 import { db } from '@/core/db';
 import { atomic, AtomicGuardError, guard } from '@/core/db/atomic';
+import { MAX_REFERENCE_BYTES } from '@/core/storage/character-reference';
 import { aiTask } from '@/config/db/schema';
 import type { CharacterResolution } from '@/lib/character-pricing';
 
 export const CHARACTER_CREDIT_COST = 10;
-export const MAX_REFERENCE_BYTES = 3 * 1024 * 1024;
+export { MAX_REFERENCE_BYTES } from '@/core/storage/character-reference';
 export const MAX_CHARACTER_BODY_BYTES =
   4 * Math.ceil(MAX_REFERENCE_BYTES / 3) + 8192;
 export const CHARACTER_SCENE = 'character';
@@ -47,7 +48,7 @@ export function selectCharacterProvider(
   configs: Record<string, string>,
   photo: boolean
 ): CharacterProviderSelection | null {
-  if (!photo && configs.seeapi_api_key?.trim()) {
+  if (configs.seeapi_api_key?.trim()) {
     return {
       name: 'seeapi',
       model: CHARACTER_MODELS.seeapiText,
@@ -157,7 +158,8 @@ export async function findCharacterTask(
 
 export async function initializeCharacterTask(
   taskId: string,
-  input: CharacterInput
+  input: CharacterInput,
+  referenceKey?: string
 ) {
   await db()
     .update(aiTask)
@@ -167,6 +169,7 @@ export async function initializeCharacterTask(
         aspectRatio: input.aspectRatio,
         photo: Boolean(input.image),
         resolution: input.resolution || '2K',
+        ...(referenceKey ? { referenceKey } : {}),
       }),
     })
     .where(

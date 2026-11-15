@@ -56,7 +56,11 @@ export class SeeAPIProvider implements AIProvider {
     }
     return response.json();
   }
-  private result(data: any, expectedId?: string): AITaskResult {
+  private result(
+    data: any,
+    expectedId?: string,
+    endpoint?: string
+  ): AITaskResult {
     const g = data?.generation;
     if (
       !g ||
@@ -64,7 +68,8 @@ export class SeeAPIProvider implements AIProvider {
       !/^[A-Za-z0-9_-]{1,160}$/.test(g.id) ||
       (expectedId && g.id !== expectedId) ||
       g.model !== 'seedream-5-5' ||
-      g.endpoint !== 'text-to-image'
+      !['text-to-image', 'image-to-image'].includes(g.endpoint) ||
+      (endpoint !== undefined && g.endpoint !== endpoint)
     )
       throw new Error('Invalid SeeAPI receipt');
     const statuses: Record<string, AITaskStatus> = {
@@ -96,13 +101,23 @@ export class SeeAPIProvider implements AIProvider {
       !params.options?.idempotencyKey
     )
       throw new Error('Invalid Seedream request');
+    const references = params.options.image_input;
+    if (
+      references !== undefined &&
+      (!Array.isArray(references) ||
+        references.length !== 1 ||
+        typeof references[0] !== 'string' ||
+        !references[0].startsWith('https://'))
+    )
+      throw new Error('Supply one HTTPS reference photo');
+    const endpoint = references ? 'image-to-image' : 'text-to-image';
     return this.result(
       await this.request('generations', {
         method: 'POST',
         headers: { 'Idempotency-Key': params.options.idempotencyKey },
         body: JSON.stringify({
           model: 'seedream-5-5',
-          endpoint: 'text-to-image',
+          endpoint,
           provider: 'seeapi',
           input: {
             prompt: params.prompt,
@@ -111,9 +126,12 @@ export class SeeAPIProvider implements AIProvider {
             output_format: 'png',
             background: 'auto',
             nsfw_checker: true,
+            ...(references ? { input_images: references } : {}),
           },
         }),
-      })
+      }),
+      undefined,
+      endpoint
     );
   }
   async query({ taskId }: { taskId: string }) {
