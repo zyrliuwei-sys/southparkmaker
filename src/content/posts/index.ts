@@ -11,7 +11,12 @@ import { baseLocale } from '@/paraglide/runtime.js';
  * fetched through the server functions in ./server.ts and merged with the
  * local posts via the pure helpers below.
  */
-export const BLOG_POST_SLUGS: readonly string[] = [];
+export const BLOG_POST_SLUGS = [
+  'south-park-teenager-maker',
+  'making-south-park-characters',
+  'south-park-creator-guide',
+  'create-your-own-south-park-character',
+] as const;
 
 export type BlogPostMeta = {
   title: string;
