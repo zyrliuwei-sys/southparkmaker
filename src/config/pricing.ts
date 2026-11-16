@@ -30,6 +30,8 @@ export type PricingProduct = {
    * never reused across currencies.
    */
   cnyPriceInCents?: number;
+  /** Stripe Tax category for the service sold by this catalog product. */
+  stripeTaxCode?: string;
   credits: number;
   creditsValidDays?: number;
   plan?: PricingPlanInfo;
@@ -57,6 +59,7 @@ export const characterProducts: PricingProduct[] = [
     type: PaymentType.ONE_TIME,
     priceInCents: Number(cents),
     currency: 'usd',
+    stripeTaxCode: 'txcd_10105001', // Cloud-based AI tools for personal use.
     credits: Number(cents),
     creditsValidDays: 0,
   })),
@@ -72,6 +75,7 @@ export const characterProducts: PricingProduct[] = [
     type: PaymentType.SUBSCRIPTION,
     priceInCents: Number(cents),
     currency: 'usd',
+    stripeTaxCode: 'txcd_10105001', // Cloud-based AI tools for personal use.
     credits: Number(cents),
     creditsValidDays: 31,
     plan: {

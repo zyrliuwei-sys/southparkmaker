@@ -11,6 +11,7 @@ import '@/styles/character-evidence.css';
 export function CharacterEvidence() {
   return (
     <section
+      id="examples"
       className="maker-section character-evidence"
       aria-labelledby="character-evidence-title"
     >

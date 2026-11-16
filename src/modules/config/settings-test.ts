@@ -22,6 +22,7 @@ import {
 import { PaymentType, type PaymentOrder } from '@/core/payment/types';
 import { R2Provider } from '@/core/storage/r2';
 import { envConfigs } from '@/config';
+import { characterProducts } from '@/config/pricing';
 import { getUniSeq } from '@/lib/hash';
 
 import { testSeeAPI } from './seeapi-test';
@@ -129,6 +130,7 @@ async function testStripe(
   const provider = new StripeProvider({
     secretKey: key,
     publishableKey: configs.stripe_publishable_key || '',
+    managedPayments: configs.stripe_managed_payments === 'true',
     signingSecret:
       configs.stripe_signing_secret ||
       configs.stripe_webhook_secret ||
@@ -139,6 +141,7 @@ async function testStripe(
   const order: PaymentOrder = {
     type: PaymentType.ONE_TIME,
     orderNo: getUniSeq('TEST'),
+    taxCode: characterProducts[0]?.stripeTaxCode,
     price: {
       amount: Number(inputs.amount) || 100,
       currency: (inputs.currency || 'usd').toLowerCase(),

@@ -86,6 +86,7 @@ export interface PaymentOrder {
   productId?: string; // create product first
   requestId?: string; // request id
   price?: PaymentPrice; // required if productId is not provided
+  taxCode?: string; // server-owned product tax classification
   discount?: PaymentDiscount; // discount code
   quantity?: number; // quantity
   customer?: PaymentCustomer;

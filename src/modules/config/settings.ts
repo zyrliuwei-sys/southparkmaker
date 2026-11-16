@@ -624,6 +624,13 @@ export function getSettings(): Setting[] {
       tab: 'payment',
     },
     {
+      name: 'stripe_managed_payments',
+      title: 'Use Stripe Managed Payments',
+      type: 'switch',
+      group: 'stripe',
+      tab: 'payment',
+    },
+    {
       name: 'stripe_publishable_key',
       title: 'Publishable Key',
       type: 'text',

@@ -17,7 +17,7 @@ export function Footer() {
             { href: '/create', label: tDynamic('maker.nav.builder') },
             { href: '/create?mode=ai', label: tDynamic('maker.nav.ai') },
             { href: '/pricing', label: tDynamic('maker.nav.pricing') },
-            { href: '/#gallery', label: tDynamic('maker.nav.gallery') },
+            { href: '/#examples', label: tDynamic('maker.nav.gallery') },
             { href: '/#how-it-works', label: tDynamic('maker.nav.how') },
           ],
         },

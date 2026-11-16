@@ -1407,7 +1407,8 @@ body {
     margin-bottom: 12px;
   }
   .atelier-entry-hint {
-    display: none;
+    margin-block: 14px 0;
+    font-size: 9px;
   }
   .atelier-entry-action {
     margin-top: 14px;

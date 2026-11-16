@@ -11,7 +11,7 @@ export function Header() {
       brand={envConfigs.app_name}
       skipLabel={tDynamic('maker.nav.skip')}
       links={[
-        { href: '/#gallery', label: tDynamic('maker.nav.gallery') },
+        { href: '/#examples', label: tDynamic('maker.nav.gallery') },
         { href: '/#character-guide', label: tDynamic('maker.nav.guide') },
         { href: '/pricing', label: tDynamic('maker.nav.pricing') },
       ]}

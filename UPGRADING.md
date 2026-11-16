@@ -725,3 +725,10 @@ grant_<orderNo>`, so the unique index allows one grant per order. Older
 - Removed no-cost language from public and account messages, SEO metadata, creation and pricing FAQs, policies, the AI-unavailable response and brand assets. Copy now describes the available tools and AI-credit workflow. Subscription fallback text says “No active subscription.”
 - Re-exported the share card and brand board, and refreshed the portable brand kit. Existing translation keys remain compatible. Local production/development public descriptions were updated; installations with a separate `VITE_APP_DESCRIPTION` or saved app description should use the revised neutral description.
 - No product price, credit deduction, account requirement or other service behavior changed.
+
+## 2026-11-16 — Stripe Managed Payments compatibility
+
+- Stripe settings include `stripe_managed_payments`. Enable it for an account enrolled in Managed Payments; it sends `managed_payments.enabled` and lets Stripe control payment methods, invoicing and tax collection. Standard Stripe retains its existing behavior.
+- Character-credit catalog products now carry `stripeTaxCode: 'txcd_10105001'` (cloud-based personal-use AIaaS). Checkout takes this classification from the server catalog. Other product kinds need their own appropriate classification before being sold with Managed Payments.
+- Configure the production webhook with `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `invoice.payment_succeeded`, `invoice.payment_failed`, `customer.subscription.updated`, and `customer.subscription.deleted`. Delayed payments remain unpaid until payment succeeds; failures do not grant credits.
+- Changing a saved publishable key, webhook signing secret, or Managed Payments flag now refreshes the cached Stripe provider. No migration, price change, or API-key rotation is required.

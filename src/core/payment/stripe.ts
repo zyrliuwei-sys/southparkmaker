@@ -33,6 +33,7 @@ export interface StripeConfigs extends PaymentConfigs {
   apiVersion?: string;
   allowedPaymentMethods?: string[];
   allowPromotionCodes?: boolean;
+  managedPayments?: boolean;
 }
 
 /**
@@ -72,6 +73,7 @@ export class StripeProvider implements PaymentProvider {
           unit_amount: order.price.amount, // unit: cents
           product_data: {
             name: order.description || '',
+            ...(order.taxCode ? { tax_code: order.taxCode } : {}),
           },
         };
 
@@ -113,7 +115,9 @@ export class StripeProvider implements PaymentProvider {
       }
 
       // create payment session params
-      const sessionParams: Stripe.Checkout.SessionCreateParams = {
+      const sessionParams: Stripe.Checkout.SessionCreateParams & {
+        managed_payments?: { enabled: boolean };
+      } = {
         mode:
           order.type === PaymentType.SUBSCRIPTION ? 'subscription' : 'payment',
         line_items: [
@@ -123,6 +127,9 @@ export class StripeProvider implements PaymentProvider {
           },
         ],
       };
+
+      if (this.configs.managedPayments)
+        sessionParams.managed_payments = { enabled: true };
 
       // pre-set promotion code
       if (order.discount && order.discount.code) {
@@ -141,7 +148,11 @@ export class StripeProvider implements PaymentProvider {
       // If currency is CNY, enable WeChat Pay and Alipay (only for one-time payments)
       // Note: WeChat Pay and Alipay through Stripe only supports one-time payments, not subscriptions
       const currency = order.price.currency.toLowerCase();
-      if (currency === 'cny' && order.type === PaymentType.ONE_TIME) {
+      if (
+        currency === 'cny' &&
+        order.type === PaymentType.ONE_TIME &&
+        !this.configs.managedPayments
+      ) {
         // Enable WeChat Pay and Alipay for CNY one-time payments
         sessionParams.payment_method_types = [];
         sessionParams.payment_method_options = {};
@@ -169,7 +180,10 @@ export class StripeProvider implements PaymentProvider {
         }
       }
 
-      if (order.type === PaymentType.ONE_TIME) {
+      if (
+        order.type === PaymentType.ONE_TIME &&
+        !this.configs.managedPayments
+      ) {
         sessionParams.invoice_creation = {
           enabled: true,
         };
@@ -266,6 +280,8 @@ export class StripeProvider implements PaymentProvider {
         paymentSession = await this.buildPaymentSessionFromCheckoutSession(
           event.data.object as Stripe.Response<Stripe.Checkout.Session>
         );
+        if (event.type === 'checkout.session.async_payment_failed')
+          paymentSession.paymentStatus = PaymentStatus.FAILED;
       } else if (eventType === PaymentEventType.PAYMENT_SUCCESS) {
         paymentSession = await this.buildPaymentSessionFromInvoice(
           event.data.object as Stripe.Response<Stripe.Invoice>
@@ -455,6 +471,8 @@ export class StripeProvider implements PaymentProvider {
   private mapStripeEventType(eventType: string): PaymentEventType {
     switch (eventType) {
       case 'checkout.session.completed':
+      case 'checkout.session.async_payment_succeeded':
+      case 'checkout.session.async_payment_failed':
         return PaymentEventType.CHECKOUT_SUCCESS;
       case 'invoice.payment_succeeded':
         return PaymentEventType.PAYMENT_SUCCESS;

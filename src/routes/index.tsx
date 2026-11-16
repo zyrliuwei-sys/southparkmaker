@@ -30,10 +30,10 @@ function HomePage() {
       <Header />
       <main id="main-content" tabIndex={-1}>
         <MakerHeroBlock />
+        <CharacterEvidence />
         <PhotoComparisons />
         <MakerCreationPaths />
         <MakerGallery />
-        <CharacterEvidence />
         <MakerHowItWorks />
         <MakerCharacterGuide />
         <MakerUseCases />
