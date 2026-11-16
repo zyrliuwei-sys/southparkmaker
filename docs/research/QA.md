@@ -146,3 +146,10 @@ Restoration release `99161836-6693-432a-a2d6-075dcc50a274` is live. Tabbit confi
 - Production release: `afe87592-3068-4c9d-a17b-0656f41007d5`. Final authenticated configuration reads confirm masked secrets, Managed Payments enabled, and Stripe enabled as the default provider. The deployed payment settings show the new switch.
 
 References: [Managed Payments eligibility](https://docs.stripe.com/payments/managed-payments/eligibility), [Checkout integration requirements](https://docs.stripe.com/payments/managed-payments/update-checkout), and [Stripe testing guidance](https://docs.stripe.com/testing).
+
+## Single-row footer badges — 2026-11-16
+
+- Replaced wrapping with one horizontal row that gently scrolls between its two ends. Existing saved badges, destinations, ordering and link deduplication are preserved; no cloned links or additional JavaScript were added.
+- Tabbit local checks used the production public badge configuration as a temporary browser response fixture, without saving it to the local or production database. All 13 destinations remain in one row at 1440, 768 and 390 CSS pixels, with no document overflow. Animation endpoint measurements confirmed that both ends become visible without an empty gap.
+- Hover pauses scrolling. Keyboard focus stops animation and scrolls the selected link into view. Reduced-motion preferences disable animation and allow manual horizontal scrolling. Desktop and mobile footer previews were visually inspected in an isolated local footer view; full-page layout measurements were taken before isolation.
+- The existing rendering/deduplication regression test, production build, whitespace check and scoped security scan passed. Production publication is awaiting confirmation.

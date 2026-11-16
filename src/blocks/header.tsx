@@ -13,6 +13,7 @@ export function Header() {
       links={[
         { href: '/#examples', label: tDynamic('maker.nav.gallery') },
         { href: '/#character-guide', label: tDynamic('maker.nav.guide') },
+        { href: '/blog', label: tDynamic('maker.nav.guides') },
         { href: '/pricing', label: tDynamic('maker.nav.pricing') },
       ]}
       loginLabel={tDynamic('maker.nav.login')}

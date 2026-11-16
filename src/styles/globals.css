@@ -351,13 +351,15 @@
 @layer utilities {
   @keyframes badge-marquee {
     from {
-      transform: translate3d(-50%, 0, 0);
+      transform: translateX(0);
     }
     to {
-      transform: translate3d(0, 0, 0);
+      transform: translateX(min(0px, calc(100cqw - 100%)));
     }
   }
   .badge-marquee {
+    container-type: inline-size;
+    overflow: hidden;
     mask-image: linear-gradient(
       to right,
       transparent,
@@ -367,11 +369,24 @@
     );
   }
   .badge-marquee-track {
-    animation: badge-marquee var(--badge-marquee-duration, 60s) linear infinite;
+    display: flex;
+    width: max-content;
+    min-width: 100%;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 0.25rem 1.5rem;
+    animation: badge-marquee 40s linear infinite alternate;
   }
-  .badge-marquee:hover .badge-marquee-track,
-  .badge-marquee:focus-within .badge-marquee-track {
+  .badge-marquee:hover .badge-marquee-track {
     animation-play-state: paused;
+  }
+  .badge-marquee:focus-within {
+    overflow-x: auto;
+  }
+  .badge-marquee:focus-within .badge-marquee-track {
+    animation: none;
   }
   @media (prefers-reduced-motion: reduce) {
     .badge-marquee {
@@ -379,9 +394,6 @@
     }
     .badge-marquee-track {
       animation: none !important;
-    }
-    .badge-marquee-track > [aria-hidden='true'] {
-      display: none;
     }
   }
 }

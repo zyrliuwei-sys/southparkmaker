@@ -732,3 +732,7 @@ grant_<orderNo>`, so the unique index allows one grant per order. Older
 - Character-credit catalog products now carry `stripeTaxCode: 'txcd_10105001'` (cloud-based personal-use AIaaS). Checkout takes this classification from the server catalog. Other product kinds need their own appropriate classification before being sold with Managed Payments.
 - Configure the production webhook with `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `invoice.payment_succeeded`, `invoice.payment_failed`, `customer.subscription.updated`, and `customer.subscription.deleted`. Delayed payments remain unpaid until payment succeeds; failures do not grant credits.
 - Changing a saved publishable key, webhook signing secret, or Managed Payments flag now refreshes the cached Stripe provider. No migration, price change, or API-key rotation is required.
+
+## 2026-11-16 — Single-row footer badges
+
+- Footer badges now stay in one horizontal row and gently scroll back and forth when they exceed the available width. Hover pauses the motion; keyboard focus and reduced-motion preferences use a manually scrollable row. Each destination still appears only once in the DOM, with no duplicated outbound links. Saved badge content and URLs are unchanged.

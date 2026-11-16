@@ -20,7 +20,7 @@ export function FooterBadgeList({ className }: { className?: string }) {
   return <FooterBadgeLinks badges={source} className={className} />;
 }
 
-/** Render each outbound destination once, including in the accessible DOM. */
+/** Keep one real link per destination while the single row scrolls. */
 export function FooterBadgeLinks({
   badges: source,
   className,
@@ -39,13 +39,13 @@ export function FooterBadgeLinks({
   });
   if (!badges.length) return null;
   return (
-    <div className={cn('w-full', className)}>
-      <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+    <div className={cn('badge-marquee w-full', className)}>
+      <ul className="badge-marquee-track">
         {badges.map((badge) => (
-          <li key={badge.href}>
+          <li key={badge.href} className="shrink-0">
             <FooterBadgeLink
               badge={badge}
-              className="flex min-h-11 items-center text-sm transition-opacity hover:opacity-75"
+              className="flex min-h-11 items-center text-sm whitespace-nowrap transition-opacity hover:opacity-75"
               imageClassName="max-h-10 w-auto max-w-[220px] object-contain"
             />
           </li>
