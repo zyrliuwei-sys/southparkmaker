@@ -16,6 +16,9 @@ export function PhotoComparisons() {
       title: m['maker.comparisons.purple_title'](),
       description: m['maker.comparisons.purple_description'](),
       beforeAlt: m['maker.comparisons.purple_before_alt'](),
+      beforeSrc: '/imgs/comparisons/purple-glasses-photo-extended.jpg',
+      beforeLabel: m['maker.comparisons.reference_photo'](),
+      beforeFullBleed: true,
       afterAlt: m['maker.comparisons.purple_after_alt'](),
     },
     {
@@ -60,14 +63,19 @@ export function PhotoComparisons() {
             <figure className="maker-photo-example" key={example.id}>
               <PhotoComparison
                 before={{
-                  src: `/imgs/comparisons/${example.id}-photo.jpg`,
+                  src:
+                    example.beforeSrc ??
+                    `/imgs/comparisons/${example.id}-photo.jpg`,
                   alt: example.beforeAlt,
+                  fullBleed: example.beforeFullBleed,
                 }}
                 after={{
                   src: `/imgs/comparisons/${example.id}-cartoon.jpg`,
                   alt: example.afterAlt,
                 }}
-                beforeLabel={m['maker.comparisons.before']()}
+                beforeLabel={
+                  example.beforeLabel ?? m['maker.comparisons.before']()
+                }
                 afterLabel={m['maker.comparisons.after']()}
               />
               <figcaption className="maker-photo-caption">

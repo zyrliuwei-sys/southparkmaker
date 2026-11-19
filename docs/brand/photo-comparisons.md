@@ -10,11 +10,11 @@ Final web assets live in `public/imgs/comparisons/` and are served locally.
 JPEG encoding preserves the generated compositions while keeping page assets
 smaller. The section uses lazy loading and requires no external image host.
 
-| Pair           | Original photo                                                                                                                                                                 | Cartoon asset                |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------- |
-| Purple glasses | Screenshot supplied by the user, saved as `purple-glasses-photo.jpg`. The image includes the original screenshot controls.                                                     | `purple-glasses-cartoon.jpg` |
-| Yellow beanie  | [Dmitrii Eremin on Pexels](https://www.pexels.com/photo/man-in-warm-clothing-15741454/), downloaded 2026-11-14 as `yellow-beanie-photo.jpg`.                                   | `yellow-beanie-cartoon.jpg`  |
-| Orange shirt   | [Alejandro Quiñonez on Pexels](https://www.pexels.com/photo/portrait-of-woman-in-eyeglasses-and-with-curly-hair-17110433/), downloaded 2026-11-14 as `orange-shirt-photo.jpg`. | `orange-shirt-cartoon.jpg`   |
+| Pair           | Original photo                                                                                                                                                                        | Cartoon asset                |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| Purple glasses | `purple-glasses-photo-extended.jpg` is a 4:5 edit of the user-supplied `purple-glasses-photo.jpg`. ImageGen extended the street scene vertically and removed the screenshot controls. | `purple-glasses-cartoon.jpg` |
+| Yellow beanie  | [Dmitrii Eremin on Pexels](https://www.pexels.com/photo/man-in-warm-clothing-15741454/), downloaded 2026-11-14 as `yellow-beanie-photo.jpg`.                                          | `yellow-beanie-cartoon.jpg`  |
+| Orange shirt   | [Alejandro Quiñonez on Pexels](https://www.pexels.com/photo/portrait-of-woman-in-eyeglasses-and-with-curly-hair-17110433/), downloaded 2026-11-14 as `orange-shirt-photo.jpg`.        | `orange-shirt-cartoon.jpg`   |
 
 The two stock photographs are provided under the [Pexels license](https://www.pexels.com/license/).
 They illustrate a visual transformation; the people pictured are not presented

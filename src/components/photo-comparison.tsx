@@ -1,6 +1,7 @@
 type ComparisonImage = {
   src: string;
   alt: string;
+  fullBleed?: boolean;
 };
 
 export function PhotoComparison({
@@ -19,10 +20,11 @@ export function PhotoComparison({
       {[
         { ...before, label: beforeLabel },
         { ...after, label: afterLabel },
-      ].map(({ src, alt, label }) => (
+      ].map(({ src, alt, label, fullBleed }) => (
         <div key={src}>
           <img
             className="maker-photo-comparison-image"
+            data-full-bleed={fullBleed || undefined}
             src={src}
             alt={alt}
             loading="lazy"
