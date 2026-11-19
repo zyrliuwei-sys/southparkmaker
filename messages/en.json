@@ -1682,7 +1682,7 @@
   "maker.create.meta_description": "Create your South Park character with our online creator. Choose hair, outfits, expressions, and backgrounds, then download your avatar as PNG or SVG.",
   "maker.create.guide_link": "Read the character guide",
   "maker.auth.title": "Your next alter ego is waiting.",
-  "maker.auth.description": "Sign in to southparkmaker for optional AI character generation, account credits, and your next original cartoon idea.",
+  "maker.auth.description": "Sign in to southparkmaker to create AI characters. New accounts receive one free generation; original downloads unlock after purchasing a credit pack.",
   "maker.auth.caption": "Start with imagination. Keep the personality.",
   "maker.legal.title": "About your designs and data.",
   "maker.legal.description": "How southparkmaker handles your information, character designs, and use of the creation tools.",
@@ -1845,7 +1845,7 @@
   "settings.credits.source_refund": "Credit returned",
   "settings.credits.source_ai": "AI generation",
   "settings.credits.source_other": "Other",
-  "maker.auth.signup_description": "Create a southparkmaker account for optional AI character generation, account credits, and your next original cartoon idea.",
+  "maker.auth.signup_description": "Create a southparkmaker account for one free AI character generation. Preview your result, then purchase a credit pack to download the original.",
   "maker.auth.help_label": "Account help and policies",
   "maker.auth.free_builder": "Create without an account",
   "common.links.new_tab": "{title} (opens in a new tab)",
@@ -1928,5 +1928,11 @@
   "maker.evidence.trio_after_alt": "Three original characters in the snow with different outfits, hairstyles and poses.",
   "maker.ai.download_image": "Download image",
   "admin.settings.fields.stripe_managed_payments": "Use Stripe Managed Payments",
-  "admin.settings.tips.stripe_managed_payments": "Enable only for a Stripe account enrolled in Managed Payments. Stripe controls payment methods, tax collection, and invoices. Each product needs an eligible tax classification."
+  "admin.settings.tips.stripe_managed_payments": "Enable only for a Stripe account enrolled in Managed Payments. Stripe controls payment methods, tax collection, and invoices. Each product needs an eligible tax classification.",
+  "maker.ai.free_generation_cost": "Free \u00b7 1 welcome generation",
+  "maker.ai.generate_free": "Generate my free preview",
+  "maker.ai.trial_download_note": "New accounts receive one free AI generation after sign-in. Purchase a credit pack to unlock original image downloads. Failed requests restore your free attempt or return the credits used.",
+  "maker.ai.unlock_download": "Unlock download",
+  "maker.ai.preview_download_note": "This is a preview. Buy a credit pack to download the original image.",
+  "maker.ai.access_error": "We could not check your free generation or download access. Please retry."
 }

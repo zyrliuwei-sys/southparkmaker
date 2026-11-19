@@ -76,6 +76,11 @@ function handlers(overrides: Record<string, any> = {}) {
     refund: async () => {
       throw new Error('Unexpected refund');
     },
+    access: async () => ({
+      freeGenerationAvailable: false,
+      downloadUnlocked: true,
+    }),
+    releaseTrial: async () => {},
     provider: () => {
       throw new Error('Unexpected provider request');
     },
@@ -274,7 +279,7 @@ test('latest generation restores the saved image and skips other users, deleted 
   assert.deepEqual((await response.json()).data, {
     taskId: 'saved-result',
     status: 'success',
-    images: [image],
+    images: ['/api/characters/saved-result/preview'],
   });
 });
 

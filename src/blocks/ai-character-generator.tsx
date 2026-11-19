@@ -24,6 +24,7 @@ import {
 } from '@/lib/character-pricing';
 import { invalidateCharacterCreditQueries } from '@/lib/character-query-cache';
 import { m } from '@/paraglide/messages.js';
+import { useCharacterAccess } from '@/hooks/use-character-access';
 import { useCharacterCapabilities } from '@/hooks/use-character-capabilities';
 
 type Generation = {
@@ -73,6 +74,8 @@ export function AICharacterGenerator({
     enabled: !!session?.user,
   });
   const config = useCharacterCapabilities();
+  const access = useCharacterAccess(userId);
+  const freeGeneration = access.data?.freeGenerationAvailable === true;
   const generation = useMutation({
     mutationFn: ({
       userId: _userId,
@@ -143,7 +146,11 @@ export function AICharacterGenerator({
     selectedCost
   );
   const insufficient =
-    !!session?.user && shortfall !== undefined && shortfall > 0;
+    !!session?.user &&
+    !freeGeneration &&
+    !access.isPending &&
+    shortfall !== undefined &&
+    shortfall > 0;
   const showsRatio = !photoMode || !!config.data?.photoResolutions?.length;
   const generationDisabled =
     busy ||
@@ -151,7 +158,11 @@ export function AICharacterGenerator({
     !config.data?.enabled ||
     (photoMode && (!image || !config.data?.photoEnabled)) ||
     sessionPending ||
-    (!!userId && (balance.isPending || task.isPending));
+    (!!userId &&
+      (balance.isPending ||
+        task.isPending ||
+        access.isPending ||
+        access.isError));
   const resultImage =
     result?.status === 'success' ? result.images[0] : undefined;
   const generationError =
@@ -481,10 +492,12 @@ export function AICharacterGenerator({
             <div className="maker-ai-submit">
               <div className="maker-ai-credit-line">
                 <span>
-                  {selectedCost !== undefined &&
-                    m['maker.ai.credit_cost']({
-                      count: String(selectedCost),
-                    })}
+                  {freeGeneration
+                    ? c('free_generation_cost')
+                    : selectedCost !== undefined &&
+                      m['maker.ai.credit_cost']({
+                        count: String(selectedCost),
+                      })}
                 </span>
                 {balance.data && !balance.isError && (
                   <span>
@@ -546,10 +559,29 @@ export function AICharacterGenerator({
                   ) : (
                     <Sparkles size={16} />
                   )}
-                  {c(busy ? 'generating' : 'generate')}
+                  {c(
+                    busy
+                      ? 'generating'
+                      : freeGeneration
+                        ? 'generate_free'
+                        : 'generate'
+                  )}
                 </button>
               )}
             </div>
+            <p className="maker-ai-note">{c('trial_download_note')}</p>
+            {access.isError && (
+              <div className="maker-ai-message" role="alert">
+                <p>{c('access_error')}</p>
+                <button
+                  type="button"
+                  className="maker-text-link"
+                  onClick={() => void access.refetch()}
+                >
+                  {c('retry')}
+                </button>
+              </div>
+            )}
             {task.isError && (
               <div className="maker-ai-message">
                 <p>{c('load_result_error')}</p>
@@ -617,15 +649,28 @@ export function AICharacterGenerator({
           </div>
           {result && resultImage && (
             <div className="maker-ai-image-actions">
-              <a
-                className="maker-button maker-button-outline"
-                href={`/api/characters/${encodeURIComponent(result.taskId)}/download`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Download size={16} aria-hidden="true" />
-                {c('download_image')}
-              </a>
+              {access.data?.downloadUnlocked ? (
+                <a
+                  className="maker-button maker-button-outline"
+                  href={`/api/characters/${encodeURIComponent(result.taskId)}/download`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Download size={16} aria-hidden="true" />
+                  {c('download_image')}
+                </a>
+              ) : (
+                <Link
+                  className="maker-button maker-button-primary"
+                  href="/pricing"
+                >
+                  <Download size={16} aria-hidden="true" />
+                  {c('unlock_download')}
+                </Link>
+              )}
+              {!access.data?.downloadUnlocked && (
+                <p className="maker-ai-note">{c('preview_download_note')}</p>
+              )}
             </div>
           )}
         </section>

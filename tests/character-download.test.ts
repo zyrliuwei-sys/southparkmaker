@@ -29,6 +29,10 @@ function handler(overrides: Record<string, any> = {}) {
   return createCharacterDownload({
     session: async () => ({ user: { id: 'owner' } }),
     find: async () => task,
+    paid: async () => true,
+    preview: async () => {
+      throw new Error('Unexpected preview');
+    },
     fetch: async () =>
       new Response(new Uint8Array([137, 80, 78, 71]), {
         headers: { 'content-type': 'image/png' },

@@ -66,6 +66,7 @@ export function cloudflareConfig(env) {
       AUTH_URL: appUrl.origin,
     },
     r2_buckets: [{ binding: 'REFERENCE_PHOTOS', bucket_name: referenceBucket }],
+    images: { binding: 'IMAGES' },
     d1_databases: [
       {
         binding: 'DB',

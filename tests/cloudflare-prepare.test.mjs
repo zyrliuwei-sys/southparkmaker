@@ -16,6 +16,7 @@ const env = {
 
 test('clean-checkout config preserves D1, private photo storage and the custom domain without embedding secrets', () => {
   const config = cloudflareConfig(env);
+  assert.deepEqual(config.images, { binding: 'IMAGES' });
   assert.equal(config.d1_databases[0].database_id, env.CF_D1_DATABASE_ID);
   assert.deepEqual(config.r2_buckets, [
     { binding: 'REFERENCE_PHOTOS', bucket_name: 'example-worker-references' },

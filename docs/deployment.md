@@ -45,6 +45,18 @@ After this connection is enabled, commit and push code to `main` to deploy it.
 Saving a local file alone does not trigger Cloudflare. Check the build status in
 the Worker's Builds page and the deployed revision in Deployments.
 
+## AI previews and paid downloads
+
+`cf:prepare` binds Cloudflare Images as `IMAGES`. Unpaid users receive a private,
+resized 480-pixel preview; the upstream original URL is never sent to the browser.
+Do not remove the binding or replace the preview with the original as a fallback.
+The download endpoint checks for a positive, settled, non-refunded character
+purchase on every request. Gift credits do not unlock downloads.
+
+Newly registered people receive one `character_access` record. Reservation of
+that trial and creation of its task share one atomic batch. A failed request
+releases only its own reservation. Repeated sign-ins never replenish the trial.
+
 ## Database changes
 
 Code deployments reuse D1 and never reset, seed, or migrate the database.

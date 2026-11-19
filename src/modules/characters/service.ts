@@ -127,7 +127,8 @@ export function publicCharacterResult(task: CharacterTask): CharacterResult {
   let images: string[] = [];
   if (task.status === 'success') {
     try {
-      images = characterImageUrls(JSON.parse(task.taskResult || '{}').images);
+      if (characterImageUrls(JSON.parse(task.taskResult || '{}').images).length)
+        images = [`/api/characters/${encodeURIComponent(task.id)}/preview`];
     } catch {
       /* Invalid results expose no internal data. */
     }

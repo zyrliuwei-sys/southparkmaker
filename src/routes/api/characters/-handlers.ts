@@ -12,6 +12,10 @@ import {
 } from '@/core/storage/character-reference';
 import { createTask } from '@/modules/ai-tasks/service';
 import {
+  getCharacterAccess,
+  releaseCharacterTrial,
+} from '@/modules/character-access/service';
+import {
   buildCharacterPrompt,
   CHARACTER_CREDIT_COST,
   CHARACTER_SCENE,
@@ -54,6 +58,8 @@ type Dependencies = {
   findLatest: typeof findLatestCharacterTask;
   progress: typeof saveCharacterProgress;
   refund: typeof revoke;
+  access: typeof getCharacterAccess;
+  releaseTrial: typeof releaseCharacterTrial;
   provider: (selection: CharacterProviderSelection) => AIProvider;
   references?: {
     available: () => boolean;
@@ -73,6 +79,8 @@ const dependencies: Dependencies = {
   findLatest: findLatestCharacterTask,
   progress: saveCharacterProgress,
   refund: revoke,
+  access: getCharacterAccess,
+  releaseTrial: releaseCharacterTrial,
   provider: (selection) =>
     selection.name === 'seeapi'
       ? new SeeAPIProvider({
@@ -165,6 +173,9 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
   }
   async function finalize(task: CharacterTask) {
     await refundFailedTask(task, deps);
+    if (['failed', 'canceled'].includes(task.status)) {
+      await deps.releaseTrial(task.userId, task.id);
+    }
     if (isTerminalCharacterStatus(task.status)) {
       try {
         const key = JSON.parse(task.options || '{}').referenceKey;
@@ -275,6 +286,7 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
           ? characterCreditCost(input.resolution)
           : CHARACTER_CREDIT_COST;
       try {
+        const access = await deps.access(session.user.id);
         task = await deps.create({
           userId: session.user.id,
           mediaType: 'image',
@@ -282,6 +294,7 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
           model: selection.model,
           prompt: input.prompt,
           costCredits,
+          useCharacterTrial: access.freeGenerationAvailable,
           scene: CHARACTER_SCENE,
           options: {
             aspectRatio: input.aspectRatio,
@@ -292,7 +305,10 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
         });
       } catch (error) {
         const insufficient =
-          error instanceof Error && error.message === 'Insufficient credits';
+          error instanceof Error &&
+          ['Insufficient credits', 'Free preview unavailable'].includes(
+            error.message
+          );
         return respErr(
           insufficient
             ? `You need ${costCredits} credits to generate a character. Choose a credit pack on the pricing page.`

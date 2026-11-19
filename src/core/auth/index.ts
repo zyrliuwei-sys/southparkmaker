@@ -10,6 +10,7 @@ import { ResendProvider } from '@/core/email/resend';
 import { VerifyEmail } from '@/core/email/templates/verify-email';
 import { AUTH_SECRET_PLACEHOLDER, envConfigs } from '@/config';
 import * as schema from '@/config/db/schema';
+import { grantWelcomeCharacterTrial } from '@/modules/character-access/service';
 import { getAllConfigs } from '@/modules/config/service';
 import { grantForNewUser } from '@/modules/credits/service';
 import { linkVisitor } from '@/modules/operations/service';
@@ -350,6 +351,13 @@ export function getAuth(configs?: Record<string, string>) {
             };
           },
           after: async (createdUser: any, ctx: any) => {
+            if (createdUser.type !== 'api') {
+              await grantWelcomeCharacterTrial(createdUser.id).catch(
+                (error) => {
+                  console.error('[auth] welcome character trial failed', error);
+                }
+              );
+            }
             const visitorId = readVisitorCookie(
               new Headers({
                 cookie: `${OPERATIONS_COOKIE}=${getCookieFromCtx(ctx, OPERATIONS_COOKIE) || ''}`,

@@ -425,6 +425,15 @@ export const userRole = table(
 
 // ─── AI ──────────────────────────────────────────────────────────────────────
 
+// One welcome preview per newly registered person; not a spendable credit grant.
+export const characterAccess = table('character_access', {
+  userId: varchar191('user_id')
+    .primaryKey()
+    .references(() => user.id, { onDelete: 'cascade' }),
+  trialTaskId: varchar191('trial_task_id'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
 export const aiTask = table(
   'ai_task',
   {

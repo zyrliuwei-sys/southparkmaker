@@ -494,6 +494,17 @@ export const userRole = table(
 
 // ─── AI ──────────────────────────────────────────────────────────────────────
 
+// One welcome preview per newly registered person; not a spendable credit grant.
+export const characterAccess = table('character_access', {
+  userId: text('user_id')
+    .primaryKey()
+    .references(() => user.id, { onDelete: 'cascade' }),
+  trialTaskId: text('trial_task_id'),
+  createdAt: integer('created_at', { mode: 'timestamp_ms' })
+    .default(sqliteNowMs)
+    .notNull(),
+});
+
 export const aiTask = table(
   'ai_task',
   {

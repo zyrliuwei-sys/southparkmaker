@@ -1,8 +1,8 @@
 import { and, desc, eq, isNull } from 'drizzle-orm';
 
 import { db } from '@/core/db';
-import { atomic, AtomicGuardError } from '@/core/db/atomic';
-import { aiTask } from '@/config/db/schema';
+import { atomic, AtomicGuardError, guard } from '@/core/db/atomic';
+import { aiTask, characterAccess } from '@/config/db/schema';
 import { planConsume, revoke } from '@/modules/credits/service';
 import { getUuid } from '@/lib/hash';
 
@@ -26,9 +26,22 @@ export async function createTask(params: {
   costCredits?: number;
   options?: any;
   scene?: string;
+  useCharacterTrial?: boolean;
 }): Promise<any> {
   const { userId, mediaType, provider, model, prompt, costCredits, options } =
     params;
+  const trial = params.useCharacterTrial === true;
+  if (trial && (params.scene !== 'character' || mediaType !== 'image'))
+    throw new Error('Free preview unavailable');
+  if (trial) {
+    const [entitlement] = await db()
+      .select()
+      .from(characterAccess)
+      .where(eq(characterAccess.userId, userId))
+      .limit(1);
+    if (!entitlement || entitlement.trialTaskId)
+      throw new Error('Free preview unavailable');
+  }
 
   for (let attempt = 0; attempt < 3; attempt++) {
     const taskData: typeof aiTask.$inferInsert = {
@@ -39,15 +52,19 @@ export async function createTask(params: {
       model,
       prompt,
       status: AITaskStatus.PENDING,
-      costCredits: costCredits || 0,
-      options: options ? JSON.stringify(options) : null,
+      costCredits: trial ? 0 : costCredits || 0,
+      options: trial
+        ? JSON.stringify({ ...options, welcomeTrial: true })
+        : options
+          ? JSON.stringify(options)
+          : null,
       scene: params.scene,
     };
 
     // Plan the credit charge first, then write the task and the charge in one
     // atomic step (D1-safe) — never a task without its charge or vice versa.
     const plan =
-      costCredits && costCredits > 0
+      !trial && costCredits && costCredits > 0
         ? await planConsume({
             userId,
             credits: costCredits,
@@ -66,12 +83,33 @@ export async function createTask(params: {
 
     try {
       await atomic((q) => [
+        trial &&
+          q
+            .update(characterAccess)
+            .set({ trialTaskId: taskData.id })
+            .where(
+              and(
+                eq(characterAccess.userId, userId),
+                isNull(characterAccess.trialTaskId)
+              )
+            ),
+        trial &&
+          guard({
+            table: characterAccess,
+            column: 'userId',
+            where: eq(characterAccess.userId, userId),
+            require: eq(characterAccess.trialTaskId, taskData.id),
+            message: 'Free preview unavailable',
+          }),
         q.insert(aiTask).values(taskData),
         ...(plan ? plan.steps(q) : []),
       ]);
     } catch (error) {
       // A concurrent spend drained the grants we planned on: re-plan.
-      if (error instanceof AtomicGuardError) continue;
+      if (error instanceof AtomicGuardError) {
+        if (trial) throw new Error('Free preview unavailable');
+        continue;
+      }
       throw error;
     }
 
