@@ -1,0 +1,369 @@
+.maker-ai-wrap {
+  padding-block: 28px 48px;
+}
+
+.maker-ai-layout {
+  --ai-panel-padding: clamp(16px, 2.1vw, 28px);
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.maker-ai-form,
+.maker-ai-result {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: var(--ai-panel-padding);
+  border: 1px solid var(--mk-hair);
+  border-radius: 24px;
+  background: var(--mk-white);
+}
+
+.maker-ai-layout .atelier-form-title {
+  margin: 0;
+  font: 650 clamp(21px, 2vw, 27px) / 1.2 var(--font-display);
+}
+
+.maker-input-modes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  margin-block: 16px 20px;
+  border: 1px solid var(--mk-hair);
+  border-radius: 12px;
+  background: var(--mk-paper);
+}
+
+.maker-input-modes button {
+  min-height: 44px;
+  padding: 4px 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: var(--mk-muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.maker-input-modes button[aria-pressed='true'] {
+  border-color: var(--mk-control-border);
+  color: var(--mk-ink);
+  background: var(--mk-white);
+}
+
+.maker-input-modes button:disabled,
+.maker-ai-photo-picker:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.maker-ai-form form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.maker-ai-field label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.maker-ai-field :is(textarea, select) {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--mk-control-border);
+  border-radius: 10px;
+  color: var(--mk-ink);
+  background: var(--mk-paper);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.maker-ai-field select {
+  min-height: 44px;
+}
+
+.maker-ai-field textarea {
+  min-height: 136px;
+  resize: vertical;
+}
+
+.maker-ai-prompt[data-photo='true'] textarea {
+  min-height: 84px;
+}
+
+.maker-ai-field textarea::placeholder {
+  color: var(--mk-muted);
+  opacity: 1;
+}
+
+.maker-ai-field [aria-invalid='true'] {
+  border-color: var(--destructive);
+}
+
+.maker-ai-field :is(textarea, select):disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.maker-ai-layout :is(button, a, textarea, select, summary):focus-visible {
+  outline: 2px solid var(--mk-accent);
+  outline-offset: 3px;
+}
+
+.maker-ai-upload {
+  display: flex;
+  align-items: center;
+  padding-inline-end: 4px;
+  border: 1px dashed var(--mk-control-border);
+  border-radius: 12px;
+  background: var(--mk-paper);
+}
+
+.maker-ai-photo-picker {
+  display: flex;
+  min-width: 0;
+  min-height: 72px;
+  flex: 1;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  text-align: start;
+}
+
+.maker-ai-photo-picker > svg {
+  flex-shrink: 0;
+  color: var(--mk-muted);
+}
+
+.maker-ai-upload-copy {
+  display: grid;
+  gap: 2px;
+  font-size: 13px;
+}
+
+.maker-ai-upload-hint,
+.maker-ai-note,
+.atelier-prompt-helper {
+  color: var(--mk-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.maker-ai-note,
+.atelier-prompt-helper {
+  margin-top: 8px;
+}
+
+.atelier-prompt-helper[role='alert'] {
+  color: var(--destructive);
+}
+
+.maker-ai-upload img,
+.maker-ai-reference img {
+  display: block;
+  width: 42px;
+  height: 42px;
+  flex: none;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.maker-ai-remove-photo {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--mk-muted);
+}
+
+.maker-ai-remove-photo:hover:not(:disabled),
+.maker-ai-photo-picker:hover:not(:disabled),
+.maker-ai-options summary:hover {
+  background: var(--mk-paper-deep);
+}
+
+.maker-ai-options {
+  border: 1px solid var(--mk-hair);
+  border-radius: 12px;
+}
+
+.maker-ai-options summary {
+  display: flex;
+  min-height: 44px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 11px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.maker-ai-options summary::-webkit-details-marker {
+  display: none;
+}
+
+.maker-ai-options-value {
+  margin-inline-start: auto;
+  color: var(--mk-muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.maker-ai-options[open] .maker-ai-options-chevron {
+  transform: rotate(180deg);
+}
+
+.maker-ai-options-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 128px), 1fr));
+  gap: 12px;
+  padding: 12px;
+  border-top: 1px solid var(--mk-hair);
+}
+
+.maker-ai-submit {
+  display: grid;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.maker-ai-credit-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  color: var(--mk-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.maker-ai-credit-line > span:first-child {
+  color: var(--mk-ink);
+  font-weight: 750;
+}
+
+.maker-ai-message {
+  margin-block: 8px;
+  padding: 12px;
+  border: 1px solid var(--mk-hair);
+  border-radius: 10px;
+  background: var(--mk-paper);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.maker-ai-message a {
+  margin-inline-start: 4px;
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.maker-ai-result {
+  gap: 16px;
+}
+
+.maker-ai-result-heading {
+  display: flex;
+  min-height: 42px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.maker-ai-reference {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--mk-muted);
+  font-size: 12px;
+}
+
+.maker-ai-stage {
+  position: relative;
+  display: grid;
+  min-height: clamp(250px, 28vw, 380px);
+  flex: 1;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--mk-hair);
+  border-radius: 16px;
+  background: var(--mk-paper-deep);
+}
+
+.maker-ai-stage > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  object-fit: contain;
+}
+
+.maker-ai-example-label {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  padding: 4px 8px;
+  border: 1px solid var(--mk-hair);
+  border-radius: 6px;
+  color: var(--mk-ink);
+  background: var(--mk-white);
+  font-size: 12px;
+}
+
+.maker-ai-stage-status {
+  display: grid;
+  max-width: 32ch;
+  justify-items: center;
+  gap: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.maker-ai-stage-status strong {
+  font: 650 20px / 1.2 var(--font-display);
+}
+
+.maker-ai-stage-status p {
+  color: var(--mk-muted);
+  font-size: 13px;
+}
+
+.maker-ai-image-actions .maker-button {
+  width: 100%;
+}
+
+@media (max-width: 800px) {
+  .maker-ai-wrap {
+    padding-block: 20px 36px;
+  }
+
+  .maker-ai-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .maker-ai-form,
+  .maker-ai-result {
+    border-radius: 18px;
+  }
+
+  .maker-ai-stage {
+    min-height: clamp(228px, 74vw, 370px);
+  }
+}

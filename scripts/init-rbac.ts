@@ -370,6 +370,8 @@ const defaultRoles = [
       'admin.operations.read',
       'admin.operations.write',
       'admin.ai-tasks.*',
+      'admin.images.read',
+      'admin.images.download',
     ],
   },
   {

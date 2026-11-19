@@ -39,6 +39,7 @@ const {
   characterImageUrls,
   saveCharacterProgress,
   findCharacterTask,
+  findLatestCharacterTask,
   initializeCharacterTask,
   CHARACTER_MODELS,
   MAX_CHARACTER_BODY_BYTES,
@@ -70,6 +71,7 @@ function handlers(overrides: Record<string, any> = {}) {
     },
     initialize: async () => {},
     find: async () => undefined,
+    findLatest: async () => undefined,
     progress: async () => {},
     refund: async () => {
       throw new Error('Unexpected refund');
@@ -216,6 +218,88 @@ test('ownership check hides another user’s task without contacting the provide
     ).status,
     404
   );
+});
+
+test('latest generation restores the saved image and skips other users, deleted tasks and other scenes', async () => {
+  const userId = 'latest-character-owner';
+  const otherId = 'latest-character-other';
+  await db()
+    .insert(schema.user)
+    .values([
+      { id: userId, name: 'Owner', email: 'latest-owner@example.test' },
+      { id: otherId, name: 'Other', email: 'latest-other@example.test' },
+    ]);
+  const image = 'https://assets.seeapi.com/tasks/example/image.png';
+  const task = {
+    userId,
+    scene: 'character',
+    mediaType: 'image',
+    provider: 'seeapi',
+    model: CHARACTER_MODELS.seeapiText,
+    status: 'success',
+    prompt: 'Private prompt',
+    taskResult: JSON.stringify({ images: [image] }),
+  };
+  await db()
+    .insert(schema.aiTask)
+    .values([
+      { ...task, id: 'previous-result', createdAt: new Date(1000) },
+      { ...task, id: 'saved-result', createdAt: new Date(2000) },
+      {
+        ...task,
+        id: 'other-result',
+        userId: otherId,
+        createdAt: new Date(3000),
+      },
+      {
+        ...task,
+        id: 'different-scene',
+        scene: 'other',
+        createdAt: new Date(4000),
+      },
+      {
+        ...task,
+        id: 'deleted-result',
+        deletedAt: new Date(6000),
+        createdAt: new Date(5000),
+      },
+    ]);
+  const req = new Request('http://localhost:3000/api/characters/latest');
+  const h = handlers({
+    session: async () => ({ user: { id: userId } }),
+    findLatest: findLatestCharacterTask,
+  });
+  const response = await h.read(req, 'latest');
+  assert.equal(response.headers.get('cache-control'), 'no-store');
+  assert.deepEqual((await response.json()).data, {
+    taskId: 'saved-result',
+    status: 'success',
+    images: [image],
+  });
+});
+
+test('opening another tab during the original submission does not start a duplicate generation', async () => {
+  const h = handlers({
+    findLatest: async () => ({
+      id: 'fresh-task',
+      userId: 'owner',
+      scene: 'character',
+      mediaType: 'image',
+      model: CHARACTER_MODELS.seeapiText,
+      provider: 'seeapi',
+      status: 'pending',
+      createdAt: new Date(),
+      options: JSON.stringify({ photo: true }),
+    }),
+  });
+  const req = new Request('http://localhost:3000/api/characters/latest');
+  const response = await h.read(req, 'latest');
+  assert.equal(response.status, 200);
+  assert.deepEqual((await response.json()).data, {
+    taskId: 'fresh-task',
+    status: 'pending',
+    images: [],
+  });
 });
 
 test('generation cost is server-owned and the reference image is not persisted in task data', async () => {

@@ -43,6 +43,7 @@ interface DataTableProps<T> {
   onSearchChange?: (search: string) => void;
   searchPlaceholder?: string;
   toolbar?: React.ReactNode;
+  toolbarClassName?: string;
   emptyText?: string;
   rowKey: (row: T) => string;
   onRefresh?: () => void | Promise<unknown>;
@@ -61,6 +62,7 @@ export function DataTable<T>({
   onSearchChange,
   searchPlaceholder,
   toolbar,
+  toolbarClassName,
   emptyText,
   rowKey,
   onRefresh,
@@ -112,7 +114,7 @@ export function DataTable<T>({
   return (
     <div className="space-y-4">
       {showHeader && (
-        <div className="flex items-center gap-2">
+        <div className={cn('flex items-center gap-2', toolbarClassName)}>
           {onSearchChange && (
             <div className="relative max-w-sm">
               <Search className="text-muted-foreground absolute top-2.5 left-2.5 size-4" />

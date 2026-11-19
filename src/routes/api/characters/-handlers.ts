@@ -17,6 +17,7 @@ import {
   CHARACTER_SCENE,
   characterImageUrls,
   findCharacterTask,
+  findLatestCharacterTask,
   initializeCharacterTask,
   isCharacterTask,
   isTerminalCharacterStatus,
@@ -34,7 +35,7 @@ import {
   characterCreditCost,
 } from '@/lib/character-pricing';
 import { enforceMinIntervalRateLimit } from '@/lib/rate-limit';
-import { respData, respErr } from '@/lib/resp';
+import { respData, respErr, respJson } from '@/lib/resp';
 import { serverSiteOrigin } from '@/lib/site-origin';
 import { m } from '@/paraglide/messages.js';
 
@@ -42,6 +43,7 @@ import { characterInputSchema, validateReferenceImage } from './-input';
 
 const privateResponse = { headers: { 'cache-control': 'no-store' } };
 const MAX_TASK_AGE_MS = 30 * 60 * 1000;
+const INITIAL_SUBMISSION_GRACE_MS = 30_000;
 
 type Dependencies = {
   session: (request: Request) => Promise<{ user: { id: string } } | null>;
@@ -49,6 +51,7 @@ type Dependencies = {
   create: typeof createTask;
   initialize: typeof initializeCharacterTask;
   find: typeof findCharacterTask;
+  findLatest: typeof findLatestCharacterTask;
   progress: typeof saveCharacterProgress;
   refund: typeof revoke;
   provider: (selection: CharacterProviderSelection) => AIProvider;
@@ -67,6 +70,7 @@ const dependencies: Dependencies = {
   create: createTask,
   initialize: initializeCharacterTask,
   find: findCharacterTask,
+  findLatest: findLatestCharacterTask,
   progress: saveCharacterProgress,
   refund: revoke,
   provider: (selection) =>
@@ -404,18 +408,29 @@ export function createCharacterHandlers(deps: Dependencies = dependencies) {
         extraKey: session.user.id,
       });
       if (userLimited) return userLimited;
-      if (!/^[a-f0-9-]{36}$/i.test(taskId))
+      const latest = taskId === 'latest';
+      if (!latest && !/^[a-f0-9-]{36}$/i.test(taskId))
         return respErr('Character not found.', { status: 404 });
-      let task = await deps.find(taskId);
-      if (!isCharacterTask(task, session.user.id))
+      let task = latest
+        ? await deps.findLatest(session.user.id)
+        : await deps.find(taskId);
+      if (!isCharacterTask(task, session.user.id)) {
+        if (latest) return respJson(0, 'ok', null, privateResponse);
         return respErr('Character not found.', { status: 404 });
+      }
       if (isTerminalCharacterStatus(task.status)) {
         await finalize(task);
         return respData(publicCharacterResult(task), privateResponse);
       }
-      // A submit interrupted before an upstream receipt is stored can be
-      // safely failed later; no further provider request is submitted here.
       if (!task.taskId) {
+        // Another tab can discover a task while the original submit is still
+        // saving the reference photo or waiting for an upstream receipt.
+        if (
+          latest &&
+          Date.now() - task.createdAt.getTime() < INITIAL_SUBMISSION_GRACE_MS
+        )
+          return respData(publicCharacterResult(task), privateResponse);
+
         if (task.provider === 'seeapi') {
           const configs = await deps.configs();
           if (!configs.seeapi_api_key)

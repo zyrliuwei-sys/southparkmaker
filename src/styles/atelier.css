@@ -909,127 +909,6 @@ body {
   align-items: center;
   white-space: nowrap;
 }
-.maker-ai-form {
-  border-radius: 20px;
-  padding: 28px;
-}
-.maker-ai-layout {
-  gap: 28px;
-  align-items: start;
-}
-.maker-ai-field label {
-  font-size: 12px;
-  font-weight: 700;
-}
-.maker-ai-field :is(textarea, select) {
-  border-radius: 10px;
-  font-size: 13px;
-  background: var(--mk-paper);
-  border-width: 1px;
-}
-.maker-ai-field :is(textarea, select):focus-visible {
-  outline: 2px solid var(--mk-accent);
-  outline-offset: 3px;
-}
-.maker-ai-field [aria-invalid='true'] {
-  border-color: var(--destructive);
-}
-.atelier-form-title {
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 600;
-  letter-spacing: -0.8px;
-  margin-bottom: 24px;
-  line-height: 1.2;
-}
-.atelier-prompt-helper {
-  min-height: 36px;
-  color: var(--mk-muted);
-  font-size: 11px;
-  line-height: 1.7;
-  margin-top: 8px;
-}
-.atelier-prompt-examples {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-.atelier-prompt-examples button {
-  font-size: 10px;
-  padding: 0 10px;
-  min-height: 36px;
-  border: 1px solid var(--mk-hair);
-  border-radius: 8px;
-  color: var(--mk-muted);
-  cursor: pointer;
-}
-.atelier-prompt-examples button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-.maker-ai-result {
-  border-radius: 20px;
-  padding: 16px;
-  background: var(--mk-paper-deep);
-  position: sticky;
-  top: 108px;
-}
-.maker-ai-result > img {
-  border-radius: 12px;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1;
-  object-fit: cover;
-}
-.maker-ai-empty {
-  padding: 16px 16px 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  min-height: 0;
-  gap: 0;
-}
-.maker-ai-empty > img {
-  width: 100%;
-  height: auto;
-  max-width: none;
-  border-radius: 12px;
-  margin: 0 0 28px;
-}
-.maker-ai-empty h2 {
-  font-family: var(--font-display);
-  font-size: 26px;
-  letter-spacing: -0.7px;
-  font-weight: 600;
-  line-height: 1.2;
-  padding: 0 16px;
-}
-.maker-ai-empty > p {
-  font-size: 12px;
-  line-height: 1.9;
-  padding: 0 20px;
-  max-width: 52ch;
-  margin-top: 14px;
-}
-.maker-ai-message {
-  font-size: 12px;
-  line-height: 1.8;
-  border-radius: 10px;
-  padding: 16px;
-}
-.maker-ai-credit-line {
-  font-size: 11px;
-  margin: 24px 0 18px;
-}
-.maker-ai-result figcaption {
-  padding: 16px 0 0;
-  font-size: 12px;
-}
-.maker-ai-field textarea::placeholder {
-  color: var(--mk-muted);
-  opacity: 1;
-}
 .maker-page .character-preview-column {
   border-radius: 20px;
   background: var(--mk-paper-deep);
@@ -1089,10 +968,6 @@ body {
     transform: scale(1.1);
   }
   .atelier-expression:hover {
-    color: var(--mk-ink);
-  }
-  .atelier-prompt-examples button:hover {
-    background: var(--mk-paper-deep);
     color: var(--mk-ink);
   }
   .maker-price-card:hover {
@@ -1693,25 +1568,6 @@ body {
     min-height: 44px;
     font-size: 11px;
   }
-  .maker-ai-form {
-    padding: 20px;
-    border-radius: 16px;
-  }
-  .maker-ai-result {
-    position: static;
-    border-radius: 16px;
-    padding: 12px;
-  }
-  .atelier-form-title {
-    font-size: 26px;
-    margin-bottom: 20px;
-  }
-  .maker-ai-empty h2 {
-    font-size: 24px;
-  }
-  .maker-ai-field textarea {
-    min-height: 160px;
-  }
   .maker-page .character-preview-column,
   .maker-page .character-controls-column {
     border-radius: 16px;
@@ -1737,24 +1593,6 @@ body {
   .maker-gallery-card:hover .character-art,
   .maker-price-card:hover {
     transform: none;
-  }
-}
-.maker-ai-field {
-  margin-bottom: 20px;
-}
-.maker-ai-field:has(#character-prompt) {
-  margin-bottom: 12px;
-}
-.atelier-prompt-helper[role='alert'] {
-  color: var(--destructive);
-}
-.maker-ai-empty {
-  text-align: left;
-  align-items: stretch;
-}
-@media (hover: hover) and (pointer: fine) {
-  .maker-ai-field :is(textarea, select):hover {
-    background: var(--mk-paper-deep);
   }
 }
 /* Rendered pass 2: restore the full silhouette and simplify the mountain caps. */
@@ -1933,9 +1771,6 @@ body {
 .maker-brand {
   min-height: 44px;
 }
-.atelier-prompt-examples button {
-  min-height: 44px;
-}
 .maker-footer-column a {
   min-height: 44px;
 }
@@ -1962,7 +1797,6 @@ body {
     width: 220px;
     height: 220px;
   }
-  .maker-ai-field :is(textarea, select),
   .atelier-entry textarea,
   .maker-auth-form input {
     font-size: 16px;
@@ -1974,21 +1808,6 @@ body {
   .maker-faq-heading h2 {
     font-size: 36px;
   }
-}
-.maker-ai-field:has(#character-prompt) {
-  position: relative;
-}
-.atelier-prompt-count {
-  position: absolute;
-  right: 0;
-  top: 0;
-  font-size: 10px;
-  color: var(--mk-muted);
-  font-variant-numeric: tabular-nums;
-}
-.maker-ai-result:not(.maker-ai-empty) > img {
-  object-fit: contain;
-  background: var(--mk-white);
 }
 .maker-header-actions [data-slot='dropdown-menu-trigger'] {
   min-width: 44px;
@@ -2043,7 +1862,6 @@ body {
     min-height: 44px;
   }
 }
-.maker-ai-field :is(textarea, select),
 .atelier-entry textarea,
 .maker-auth-form input,
 .maker-button-outline {
@@ -2066,10 +1884,6 @@ body {
 }
 .maker-page :is(h1, h2, h3) {
   overflow-wrap: anywhere;
-}
-.maker-ai-field :is(textarea, select):disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
 }
 .atelier-expression:active,
 .atelier-color-options button:active {
@@ -2269,63 +2083,4 @@ html {
 .maker-auth-links a:hover {
   color: var(--mk-accent);
   text-decoration: underline;
-}
-
-.maker-input-modes {
-  display: flex;
-  border-bottom: 1px solid var(--mk-hair);
-  margin: 0 0 24px;
-  gap: 6px;
-}
-.maker-input-modes button {
-  padding: 12px 16px;
-  min-height: 44px;
-  border-bottom: 2px solid transparent;
-  font-weight: 700;
-  font-size: 13px;
-  color: var(--mk-muted);
-}
-.maker-input-modes button[aria-pressed='true'] {
-  color: var(--mk-accent);
-  border-bottom-color: var(--mk-accent);
-}
-.maker-input-modes button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-.maker-photo-result-pair {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  padding: 16px;
-  width: 100%;
-}
-.maker-photo-result-pair > div {
-  min-width: 0;
-}
-.maker-photo-result-pair span {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 12px;
-  color: var(--mk-muted);
-}
-.maker-photo-result-pair img {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: contain;
-  border-radius: 16px;
-}
-
-.maker-page .maker-ai-result figcaption {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-.maker-page .maker-ai-result figcaption > span {
-  grid-column: 1 / -1;
-}
-.maker-page .maker-ai-result figcaption .maker-button {
-  min-width: 0;
-  padding-inline: 10px;
-  gap: 6px;
 }

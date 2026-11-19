@@ -4,6 +4,13 @@ Read this when a project built from this template pulls newer template code.
 Entries are newest first. Apply **every entry dated after the template version
 the project last pulled**, oldest of those first.
 
+## 2026-11-19 — Generated image management
+
+- Added `/admin/images` with registered-user search, status filters, paginated thumbnails, full-image preview, generation details and authenticated downloads. Existing character tasks appear automatically; there is no schema migration.
+- New permissions: `admin.images.read` (list and preview) and `admin.images.download` (binary attachment). Super administrators with `*` work immediately. Sync permission rows with `pnpm admin:token sync-permissions`, then explicitly assign the new codes to existing roles that should have access. The default admin seed includes both for new installations.
+- API: `/api/admin/images` uses the shared admin operation boundary (`images_list`). `/api/admin/images/$id/download` checks download permission separately. The existing owner-only download route retains its ownership checks.
+- History uses stored provider result URLs. It does not archive those files, recover expired URLs, collect reference photos, or upload manual browser saves. Existing user timeline task entries remain the source of generation events.
+
 ## 2026-11-15 — Photo conversion and editable scene examples
 
 - Photo mode now supports one JPEG/PNG/WebP up to 3 MiB through Seedream 5.5 image-to-image. The existing server-owned resolution pricing and atomic credit reservation/refund flows apply (15 credits at 1K/1.5K; 26 at 2K).

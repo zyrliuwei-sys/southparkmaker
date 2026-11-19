@@ -1,4 +1,4 @@
-import { and, eq, inArray, isNull } from 'drizzle-orm';
+import { and, desc, eq, inArray, isNull } from 'drizzle-orm';
 
 import { db } from '@/core/db';
 import { atomic, AtomicGuardError, guard } from '@/core/db/atomic';
@@ -152,6 +152,27 @@ export async function findCharacterTask(
     .select()
     .from(aiTask)
     .where(eq(aiTask.id, id))
+    .limit(1);
+  return task;
+}
+
+export async function findLatestCharacterTask(
+  userId: string
+): Promise<CharacterTask | undefined> {
+  const [task] = await db()
+    .select()
+    .from(aiTask)
+    .where(
+      and(
+        eq(aiTask.userId, userId),
+        eq(aiTask.scene, CHARACTER_SCENE),
+        eq(aiTask.mediaType, 'image'),
+        isNull(aiTask.deletedAt),
+        inArray(aiTask.provider, ['fal', 'replicate', 'seeapi']),
+        inArray(aiTask.model, Object.values(CHARACTER_MODELS))
+      )
+    )
+    .orderBy(desc(aiTask.createdAt), desc(aiTask.id))
     .limit(1);
   return task;
 }

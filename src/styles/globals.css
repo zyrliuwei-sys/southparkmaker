@@ -3,6 +3,7 @@
 @import '../../tokens.css';
 @import './maker.css';
 @import './atelier.css';
+@import './ai-studio.css';
 
 @custom-variant dark (&:is(.dark *));
 

@@ -8,6 +8,7 @@ import * as credits from './handlers/credits';
 import * as footer_badges from './handlers/footer-badges';
 import * as guest_posts from './handlers/guest-posts';
 import * as guest_posts_id from './handlers/guest-posts-id';
+import * as images from './handlers/images';
 import * as indexnow from './handlers/indexnow';
 import * as invite_codes from './handlers/invite-codes';
 import * as operations from './handlers/operations';
@@ -34,6 +35,7 @@ export const handlers: Record<
   string,
   (context: AdminHandlerContext) => Promise<Response>
 > = {
+  images_list: images.GET,
   operations_report: operations.GET,
   operations_experiments_list: operations.LIST,
   operations_experiments_create: operations.POST,

@@ -6,6 +6,7 @@ import {
   CreditCard,
   FolderOpen,
   Home,
+  Images,
   LayoutDashboard,
   Radar,
   Settings,
@@ -77,6 +78,15 @@ function AdminLayout() {
       href: '/admin/operations',
       label: m['admin.nav.operations'](),
       icon: ChartNoAxesCombined,
+      group,
+    });
+  }
+
+  if (matchPermission('admin.images.read', permissions?.permissions ?? [])) {
+    navItems.splice(1, 0, {
+      href: '/admin/images',
+      label: m['admin.images.title'](),
+      icon: Images,
       group,
     });
   }

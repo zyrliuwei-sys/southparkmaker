@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+import { generatedImagesQuery } from '@/lib/generated-images';
 import { INDEXNOW_KEY_PATTERN, MAX_INDEXNOW_URLS } from '@/lib/indexnow';
 import { experimentResultSchema, experimentSchema } from '@/lib/operations';
 
@@ -78,6 +79,14 @@ function op(
 }
 
 export const adminOperations: AdminOperation[] = [
+  op(
+    'images_list',
+    'List registered users’ generated character images, with user search, status filters and pagination. Excludes service accounts, deleted tasks and reference photos.',
+    'images.read',
+    'GET',
+    'images',
+    generatedImagesQuery
+  ),
   op(
     'operations_report',
     'First-party operations: today vs yesterday at the same time (UTC+08), distinct first-touch visitor cohorts by source, country, entry path or build; daily revenue per currency, unpaid checkouts and AI health. Excludes staff, service accounts and flagged test browsers.',
@@ -730,7 +739,11 @@ export const adminOperations: AdminOperation[] = [
 ];
 
 export const adminScopes = [
-  ...new Set(adminOperations.map((operation) => operation.permission)),
+  ...new Set([
+    ...adminOperations.map((operation) => operation.permission),
+    // Binary attachment route; not an envelope-based JSON/MCP operation.
+    'admin.images.download',
+  ]),
 ].sort();
 export const envelopeSchema = {
   type: 'object',
