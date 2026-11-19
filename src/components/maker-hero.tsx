@@ -138,7 +138,6 @@ export function MakerHero({
         >
           <div
             className="maker-prompt-modes"
-            data-photo={photoAvailable}
             role="tablist"
             aria-label={copy.panelTitle}
           >

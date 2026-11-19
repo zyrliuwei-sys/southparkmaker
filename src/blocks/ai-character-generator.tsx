@@ -16,7 +16,7 @@ import { z } from 'zod';
 import { useSession } from '@/core/auth/client';
 import { tDynamic } from '@/core/i18n/dynamic';
 import { Link } from '@/core/i18n/navigation';
-import { apiDownloadImage, apiGet, apiPost } from '@/lib/api-client';
+import { apiGet, apiPost } from '@/lib/api-client';
 import {
   DEFAULT_CHARACTER_RESOLUTION,
   generationCreditShortfall,
@@ -73,10 +73,6 @@ export function AICharacterGenerator({
     enabled: !!session?.user,
   });
   const config = useCharacterCapabilities();
-  const download = useMutation({
-    mutationFn: (url: string) =>
-      apiDownloadImage(url, 'southparkmaker-photo-character.png'),
-  });
   const generation = useMutation({
     mutationFn: ({
       userId: _userId,
@@ -184,7 +180,6 @@ export function AICharacterGenerator({
     onSubmit: ({ value }) => {
       if (!userId || busy || task.isPending) return;
       setSubmittedPhoto(undefined);
-      download.reset();
       generation.mutate({ ...value, userId, resolution, image });
     },
   });
@@ -624,31 +619,15 @@ export function AICharacterGenerator({
           </div>
           {result && resultImage && (
             <div className="maker-ai-image-actions">
-              <button
-                type="button"
+              <a
                 className="maker-button maker-button-outline"
-                disabled={download.isPending}
-                onClick={() =>
-                  download.mutate(
-                    `/api/characters/${encodeURIComponent(result.taskId)}/download`
-                  )
-                }
+                href={`/api/characters/${encodeURIComponent(result.taskId)}/download`}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <Download size={16} aria-hidden="true" />
-                {c(download.isPending ? 'downloading' : 'download_image')}
-              </button>
-              {download.isError && (
-                <p className="maker-ai-message" role="alert">
-                  {c('download_error')}{' '}
-                  <a
-                    href={resultImage}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {c('open_image')}
-                  </a>
-                </p>
-              )}
+                {c('download_image')}
+              </a>
             </div>
           )}
         </section>

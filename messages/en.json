@@ -1640,7 +1640,6 @@
   "maker.ai.failed": "Your character could not be generated. Please try again.",
   "maker.ai.result_alt": "Your original AI-generated paper-cut cartoon character",
   "maker.ai.result_title": "Your new alter ego.",
-  "maker.ai.open_image": "Open full image",
   "maker.ai.empty_title": "Your imagination goes here.",
   "maker.ai.empty_description": "This image was made in the AI studio. Your own generated character will appear here after your request completes.",
   "maker.ai.creating_title": "A new character is taking shape.",
@@ -1928,9 +1927,7 @@
   "maker.evidence.trio_description": "Build a three-character scene. Mix a seated suit, a ponytail and dress, and a waving character with headphones.",
   "maker.evidence.trio_before_alt": "A single character in a snowy scene before adding a cast.",
   "maker.evidence.trio_after_alt": "Three original characters in the snow with different outfits, hairstyles and poses.",
-  "maker.ai.download_image": "Download PNG",
-  "maker.ai.downloading": "Downloading…",
-  "maker.ai.download_error": "Download failed. You can save the image from your browser.",
+  "maker.ai.download_image": "Download image",
   "admin.settings.fields.stripe_managed_payments": "Use Stripe Managed Payments",
   "admin.settings.tips.stripe_managed_payments": "Enable only for a Stripe account enrolled in Managed Payments. Stripe controls payment methods, tax collection, and invoices. Each product needs an eligible tax classification."
 }

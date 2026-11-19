@@ -30,30 +30,32 @@ export function MakerCharacterStage({
 }) {
   return (
     <figure className="atelier-stage" data-interactive={!disabled}>
-      <div className="atelier-stage-label">
-        <span>{copy.label}</span>
-        <span>{copy.format}</span>
+      <div className="atelier-stage-scene">
+        <div className="atelier-stage-label">
+          <span>{copy.label}</span>
+          <span>{copy.format}</span>
+        </div>
+        <div className="atelier-stage-landscape" aria-hidden="true">
+          <span className="atelier-mountain atelier-mountain-back" />
+          <span className="atelier-mountain atelier-mountain-front" />
+          <span className="atelier-stage-ground" />
+        </div>
+        <div className="atelier-cast" aria-hidden="true">
+          {companions.map((character, index) => (
+            <CharacterPreview
+              key={index}
+              className={`atelier-companion atelier-companion-${index}`}
+              options={{ ...character, background: 'transparent' }}
+            />
+          ))}
+        </div>
+        <CharacterPreview
+          className="atelier-stage-character"
+          options={{ ...options, background: 'transparent' }}
+          interactive={!disabled}
+          label={`${copy.name}, ${copy.expressionNames[options.expression]}`}
+        />
       </div>
-      <div className="atelier-stage-landscape" aria-hidden="true">
-        <span className="atelier-mountain atelier-mountain-back" />
-        <span className="atelier-mountain atelier-mountain-front" />
-        <span className="atelier-stage-ground" />
-      </div>
-      <div className="atelier-cast" aria-hidden="true">
-        {companions.map((character, index) => (
-          <CharacterPreview
-            key={index}
-            className={`atelier-companion atelier-companion-${index}`}
-            options={{ ...character, background: 'transparent' }}
-          />
-        ))}
-      </div>
-      <CharacterPreview
-        className="atelier-stage-character"
-        options={{ ...options, background: 'transparent' }}
-        interactive={!disabled}
-        label={`${copy.name}, ${copy.expressionNames[options.expression]}`}
-      />
       <figcaption className="atelier-stage-caption">
         <div>
           <strong>{copy.name}</strong>
