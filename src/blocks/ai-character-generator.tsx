@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from '@tanstack/react-form';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ArrowRight, ImagePlus, LoaderCircle, Sparkles, X } from 'lucide-react';
@@ -47,6 +47,7 @@ export function AICharacterGenerator({
   const [imagePreview, setImagePreview] = useState('');
   const [submittedPhoto, setSubmittedPhoto] = useState('');
   const [fileError, setFileError] = useState('');
+  const photoInput = useRef<HTMLInputElement>(null);
   const [taskId, setTaskId] = useState('');
   const [resolution, setResolution] =
     useState<CharacterResolution>(initialResolution);
@@ -275,28 +276,44 @@ export function AICharacterGenerator({
               <div className="maker-ai-field">
                 <label htmlFor="character-photo">{c('photo_label')}</label>
                 <div className="maker-ai-upload">
-                  {imagePreview ? (
-                    <>
+                  <button
+                    type="button"
+                    className="maker-ai-photo-picker"
+                    aria-label={c(
+                      imagePreview ? 'change_photo' : 'choose_photo'
+                    )}
+                    aria-describedby="character-photo-hint"
+                    disabled={
+                      busy || !session?.user || !config.data?.photoEnabled
+                    }
+                    onClick={() => photoInput.current?.click()}
+                  >
+                    {imagePreview ? (
                       <img src={imagePreview} alt={c('reference_alt')} />
-                      <button
-                        type="button"
-                        className="maker-button maker-button-outline"
-                        onClick={() => {
-                          setImage(undefined);
-                          setImagePreview('');
-                        }}
-                        disabled={busy}
-                      >
-                        <X size={14} />
-                        {c('remove_photo')}
-                      </button>
-                    </>
-                  ) : (
-                    <ImagePlus size={28} strokeWidth={1.3} />
-                  )}
+                    ) : (
+                      <ImagePlus
+                        size={28}
+                        strokeWidth={1.3}
+                        aria-hidden="true"
+                      />
+                    )}
+                    <span className="maker-button maker-button-outline">
+                      {c(imagePreview ? 'change_photo' : 'choose_photo')}
+                    </span>
+                    <span
+                      id="character-photo-hint"
+                      className="maker-ai-upload-hint"
+                    >
+                      {config.data?.photoEnabled
+                        ? c(session?.user ? 'photo_hint' : 'photo_sign_in_hint')
+                        : c('photo_unavailable')}
+                    </span>
+                  </button>
                   <input
+                    ref={photoInput}
                     id="character-photo"
                     type="file"
+                    hidden
                     accept="image/jpeg,image/png,image/webp"
                     disabled={
                       busy || !session?.user || !config.data?.photoEnabled
@@ -306,11 +323,20 @@ export function AICharacterGenerator({
                       event.target.value = '';
                     }}
                   />
-                  <p>
-                    {config.data?.photoEnabled
-                      ? c(session?.user ? 'photo_hint' : 'photo_sign_in_hint')
-                      : c('photo_unavailable')}
-                  </p>
+                  {imagePreview && (
+                    <button
+                      type="button"
+                      className="maker-button maker-button-outline maker-ai-remove-photo"
+                      onClick={() => {
+                        setImage(undefined);
+                        setImagePreview('');
+                      }}
+                      disabled={busy}
+                    >
+                      <X size={14} />
+                      {c('remove_photo')}
+                    </button>
+                  )}
                 </div>
                 <p className="maker-ai-note">{c('photo_privacy_note')}</p>
                 {fileError && (

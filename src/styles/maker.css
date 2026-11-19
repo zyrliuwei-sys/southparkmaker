@@ -1001,18 +1001,32 @@
 .maker-ai-upload {
   display: grid;
   place-items: center;
-  padding: 25px;
   border: 1px dashed var(--mk-hair);
   border-radius: 12px;
   text-align: center;
+}
+.maker-ai-photo-picker {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 150px;
+  padding: 25px;
   gap: 10px;
+  border-radius: inherit;
   cursor: pointer;
 }
-.maker-ai-upload input {
-  max-width: 100%;
-  font-size: 11px;
+.maker-ai-photo-picker:focus-visible {
+  outline: 2px solid var(--mk-accent);
+  outline-offset: 3px;
 }
-.maker-ai-upload p {
+.maker-ai-photo-picker:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.maker-ai-remove-photo {
+  margin: 0 25px 25px;
+}
+.maker-ai-upload-hint {
   font-size: 11px;
   color: var(--mk-muted);
   line-height: 1.8;
