@@ -2,7 +2,9 @@
 
 Production uses the `zyrliuwei-sys/southparkmaker` GitHub repository, branch
 `main`, Worker `southparkmaker`, and <https://southparkmaker.com>.
-The existing D1 database and R2 bucket are both named `southparkmaker`.
+The existing D1 database is named `southparkmaker`. Photo uploads use the
+private R2 bucket `southparkmaker-references` through the `REFERENCE_PHOTOS`
+binding.
 
 ## Workers Builds
 
@@ -27,6 +29,9 @@ Keep `VITE_APP_DESCRIPTION`, `VITE_APP_LOGO`, and `VITE_DEFAULT_LOCALE` consiste
 with the production branding settings when configuring build variables.
 
 `cf:prepare` creates the ignored `wrangler.jsonc` from those public settings.
+It binds `REFERENCE_PHOTOS` to `<CF_WORKER_NAME>-references`. Set the optional
+build variable `CF_REFERENCE_PHOTOS_BUCKET` if the existing private bucket uses
+a different name. Keep the lifecycle rule that expires `references/` after one day.
 `cf:deploy` builds the application using Nitro's `cloudflare_module` preset and
 deploys the generated Worker. It supports a clean GitHub checkout without local
 environment files. Build variables and Worker runtime secrets are separate.

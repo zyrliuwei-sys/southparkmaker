@@ -20,6 +20,13 @@ export function cloudflareConfig(env) {
     /^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i
   );
   const workerName = required('CF_WORKER_NAME', /^[a-z0-9][a-z0-9-]{0,62}$/);
+  const referenceBucket =
+    env.CF_REFERENCE_PHOTOS_BUCKET?.trim() || `${workerName}-references`;
+  if (!/^[a-z0-9][a-z0-9-]{1,61}[a-z0-9]$/.test(referenceBucket)) {
+    throw new Error(
+      'Invalid Cloudflare R2 bucket name: CF_REFERENCE_PHOTOS_BUCKET'
+    );
+  }
   const databaseName = required(
     'CF_D1_DATABASE_NAME',
     /^[a-z0-9][a-z0-9_-]{0,62}$/
@@ -58,6 +65,7 @@ export function cloudflareConfig(env) {
       VITE_APP_NAME: appName,
       AUTH_URL: appUrl.origin,
     },
+    r2_buckets: [{ binding: 'REFERENCE_PHOTOS', bucket_name: referenceBucket }],
     d1_databases: [
       {
         binding: 'DB',

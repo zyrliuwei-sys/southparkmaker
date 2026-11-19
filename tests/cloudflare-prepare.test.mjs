@@ -14,15 +14,32 @@ const env = {
   CONFIG_ENCRYPTION_KEY: 'must-not-be-copied',
 };
 
-test('clean-checkout config preserves D1 and custom domain without embedding secrets', () => {
+test('clean-checkout config preserves D1, private photo storage and the custom domain without embedding secrets', () => {
   const config = cloudflareConfig(env);
   assert.equal(config.d1_databases[0].database_id, env.CF_D1_DATABASE_ID);
+  assert.deepEqual(config.r2_buckets, [
+    { binding: 'REFERENCE_PHOTOS', bucket_name: 'example-worker-references' },
+  ]);
   assert.equal(config.vars.DATABASE_PROVIDER, 'd1');
   assert.equal(config.vars.AUTH_URL, env.VITE_APP_URL);
   assert.deepEqual(config.routes, [
     { pattern: 'example.com', custom_domain: true },
   ]);
   assert.ok(!JSON.stringify(config).includes('must-not-be-copied'));
+});
+
+test('Workers Builds accepts an explicit private photo bucket name', () => {
+  const config = cloudflareConfig({
+    ...env,
+    CF_REFERENCE_PHOTOS_BUCKET: 'existing-photo-bucket',
+  });
+  assert.equal(config.r2_buckets[0].bucket_name, 'existing-photo-bucket');
+  assert.throws(() =>
+    cloudflareConfig({
+      ...env,
+      CF_REFERENCE_PHOTOS_BUCKET: 'https://example.com',
+    })
+  );
 });
 
 test('incomplete build configuration fails before writing or deploying', () => {
