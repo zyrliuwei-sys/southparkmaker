@@ -418,12 +418,14 @@ export function characterSceneSvg(
     source.indexOf('>') + 1,
     source.indexOf('<ellipse cx="256" cy="461"')
   );
-  const scale = safe.length === 2 ? 0.78 : 0.6;
+  // Leave room between actors and at the edges for the waving pose.
+  const scale = safe.length === 2 ? 0.68 : 0.49;
   const centers = safe.length === 2 ? [140, 372] : [90, 256, 422];
+  const top = 464 - 468 * scale;
   const actors = safe
     .map((actor, index) => {
       const art = characterSvg({ ...actor, background: 'transparent' });
-      return `<g data-scene-character="${index}" transform="translate(${centers[index] - 256 * scale} ${safe.length === 2 ? 100 : 178}) scale(${scale})">${art.slice(art.indexOf('>') + 1, art.lastIndexOf('</svg>'))}</g>`;
+      return `<g data-scene-character="${index}" transform="translate(${centers[index] - 256 * scale} ${top}) scale(${scale})">${art.slice(art.indexOf('>') + 1, art.lastIndexOf('</svg>'))}</g>`;
     })
     .join('');
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1024" height="1024">${scenery}${actors}</svg>`;

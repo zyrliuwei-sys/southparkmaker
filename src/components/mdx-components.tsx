@@ -89,7 +89,7 @@ export const mdxComponents: MDXComponents = {
   img: ({ className, ...props }: ImgHTMLAttributes<HTMLImageElement>) => (
     <img
       className={cn(
-        'border-border my-6 w-full rounded-2xl border object-cover',
+        'border-border bg-muted my-6 h-auto w-full rounded-2xl border p-2',
         className
       )}
       loading="lazy"

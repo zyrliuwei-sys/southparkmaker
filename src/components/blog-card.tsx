@@ -36,7 +36,7 @@ export function BlogCard({
           width={640}
           height={360}
           loading="lazy"
-          className="aspect-video w-full object-cover object-center"
+          className="bg-muted aspect-video w-full object-contain p-2"
         />
       )}
       <div className="flex flex-1 flex-col gap-3 p-6">
@@ -70,7 +70,7 @@ export function BlogCard({
                   width={20}
                   height={20}
                   loading="lazy"
-                  className="size-5 rounded-full object-cover"
+                  className="size-5 object-contain"
                 />
               )}
               {authorName}

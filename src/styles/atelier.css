@@ -244,10 +244,10 @@ body {
   background: var(--mk-snow);
   transform: rotate(-3deg);
 }
-.atelier-stage-character {
+.atelier-stage-scene .atelier-stage-character {
   position: absolute;
   /* Fit the square artwork to the scene, reserving space for its label. */
-  width: min(70cqw, 100cqh - 56px, 400px);
+  width: min(70%, 100cqh - 56px, 400px);
   left: 50%;
   bottom: 12px;
   transform: translateX(-50%);
@@ -260,9 +260,9 @@ body {
   z-index: 1;
   pointer-events: none;
 }
-.atelier-companion {
+.atelier-cast .atelier-companion {
   position: absolute;
-  width: min(38cqw, 68cqh, 224px);
+  width: min(38%, 68cqh, 224px);
   bottom: 16px;
 }
 .atelier-companion-0 {
@@ -614,16 +614,11 @@ body {
 }
 .maker-gallery-picture .character-art {
   position: absolute;
-  width: 100%;
-  bottom: -2%;
-  left: 0;
-  aspect-ratio: 1;
-  transition: transform var(--dur-long) var(--ease-out);
-}
-.maker-gallery-card:nth-child(2) .character-art,
-.maker-gallery-card:nth-child(4) .character-art {
-  width: 125%;
-  left: -12.5%;
+  inset: var(--space-sm);
+  width: auto;
+  height: auto;
+  aspect-ratio: auto;
+  border-radius: 0;
 }
 .maker-gallery-meta {
   padding: 18px 0 0;
@@ -682,8 +677,7 @@ body {
   transform: rotate(2deg);
 }
 .maker-guide-intro figure img {
-  aspect-ratio: 1;
-  object-fit: cover;
+  height: auto;
 }
 .maker-guide-details {
   margin-top: 72px;
@@ -976,9 +970,6 @@ body {
   .maker-gallery-card:hover {
     transform: none;
   }
-  .maker-gallery-card:hover .character-art {
-    transform: translateY(-7px) rotate(-2deg);
-  }
   .maker-gallery-card:hover .maker-gallery-meta > span {
     background: var(--mk-accent-soft);
     color: var(--mk-accent);
@@ -1269,12 +1260,6 @@ body {
   .maker-gallery-card:last-child .maker-gallery-picture {
     aspect-ratio: 1.3;
   }
-  .maker-gallery-card:first-child .character-art,
-  .maker-gallery-card:last-child .character-art {
-    width: 80%;
-    left: 10%;
-    bottom: -6%;
-  }
   .maker-gallery-card:nth-child(2) .maker-gallery-picture,
   .maker-gallery-card:nth-child(4) .maker-gallery-picture {
     aspect-ratio: 1;
@@ -1502,13 +1487,11 @@ body {
   }
   .maker-button,
   .maker-button svg,
-  .maker-gallery-picture .character-art,
   .maker-price-card,
   .maker-desktop-nav a::after {
     transition: none;
   }
   .maker-button:hover,
-  .maker-gallery-card:hover .character-art,
   .maker-price-card:hover {
     transform: none;
   }
@@ -1613,8 +1596,8 @@ body {
   opacity: 1;
 }
 .maker-path-preview .character-art {
-  width: 300px;
-  height: 300px;
+  width: min(100%, 300px);
+  height: auto;
 }
 .maker-path:nth-child(2) {
   background: var(--mk-sky);
@@ -1646,8 +1629,7 @@ body {
     padding: 28px 28px 0;
   }
   .maker-path-preview .character-art {
-    width: 250px;
-    height: 250px;
+    width: min(100%, 250px);
   }
   .maker-path-preview {
     min-height: 250px;
@@ -1661,8 +1643,7 @@ body {
     min-height: 220px;
   }
   .maker-path-preview .character-art {
-    width: 220px;
-    height: 220px;
+    width: min(100%, 220px);
   }
   .atelier-entry textarea,
   .maker-auth-form input {

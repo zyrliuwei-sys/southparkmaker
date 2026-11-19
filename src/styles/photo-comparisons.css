@@ -35,24 +35,10 @@
   color: var(--mk-muted);
 }
 
-.maker-photo-instructions {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-top: 16px;
-  font-size: 11px;
-  line-height: 1.6;
-  color: var(--mk-ink);
-}
-
-.maker-photo-instructions svg {
-  flex-shrink: 0;
-}
-
 .maker-photo-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  gap: var(--space-lg);
 }
 
 .maker-photo-example {
@@ -61,136 +47,32 @@
 }
 
 .maker-photo-comparison {
-  position: relative;
-  isolation: isolate;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  border-radius: 24px;
-  background: var(--mk-paper-deep);
-  outline: 2px solid transparent;
-  outline-offset: 5px;
-}
-
-.maker-photo-comparison:has(input:focus-visible) {
-  outline-color: var(--mk-accent);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  border: 1px solid var(--mk-hair);
+  border-radius: var(--radius-panel);
+  background: var(--mk-white);
 }
 
 .maker-photo-comparison-image {
-  position: absolute;
-  inset: 0;
+  display: block;
   width: 100%;
-  height: 100%;
-  max-width: none;
-  object-fit: cover;
-  user-select: none;
-  pointer-events: none;
+  aspect-ratio: 4 / 5;
+  padding: var(--space-xs);
+  border-radius: var(--radius-control);
+  background: var(--mk-paper-deep);
+  object-fit: contain;
 }
 
-.maker-photo-comparison-original {
-  clip-path: inset(0 calc(100% - var(--comparison-position)) 0 0);
-}
-
-.maker-photo-comparison-labels {
-  position: absolute;
-  z-index: 1;
-  inset: 16px 16px auto;
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  pointer-events: none;
-}
-
-.maker-photo-comparison-labels span {
-  display: inline-flex;
-  align-items: center;
-  min-height: 28px;
-  padding: 6px 9px;
-  border-radius: 6px;
-  background: var(--mk-paper);
-  color: var(--mk-ink);
-  font-size: 9px;
-  font-weight: 750;
-  letter-spacing: 0.25px;
-  line-height: 1.2;
-}
-
-.maker-photo-comparison-labels span:last-child {
-  background: var(--mk-accent);
-  color: var(--mk-on-accent);
-}
-
-.maker-photo-comparison-divider {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: var(--comparison-position);
-  z-index: 2;
-  width: 2px;
-  transform: translateX(-50%);
-  background: var(--mk-paper);
-  pointer-events: none;
-}
-
-.maker-photo-comparison-divider > span {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  transform: translate(-50%, -50%);
-  border: 1px solid var(--mk-hair);
-  border-radius: 50%;
-  background: var(--mk-paper);
-  color: var(--mk-ink);
-  box-shadow: 0 3px 16px color-mix(in oklab, var(--mk-ink) 18%, transparent);
-}
-
-.maker-photo-comparison-range {
-  position: absolute;
-  z-index: 3;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  appearance: none;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  cursor: ew-resize;
-  touch-action: pan-y;
-}
-
-.maker-photo-comparison-range::-webkit-slider-runnable-track {
-  height: 2px;
-  background: transparent;
-}
-
-.maker-photo-comparison-range::-webkit-slider-thumb {
-  appearance: none;
-  width: 44px;
-  height: 44px;
-  margin-top: -21px;
-  border: 0;
-  background: transparent;
-}
-
-.maker-photo-comparison-range::-moz-range-track {
-  height: 2px;
-  background: transparent;
-}
-
-.maker-photo-comparison-range::-moz-range-thumb {
-  width: 44px;
-  height: 44px;
-  border: 0;
-  background: transparent;
-}
-
-.maker-page .maker-photo-comparison-range:focus-visible {
-  outline: none;
+.maker-photo-comparison-label {
+  display: block;
+  padding: var(--space-sm) var(--space-xs);
+  color: var(--mk-muted);
+  font-size: 10px;
+  font-weight: 700;
+  text-align: center;
 }
 
 .maker-photo-caption {
@@ -261,15 +143,6 @@
     gap: 16px;
   }
 
-  .maker-photo-comparison-labels {
-    inset: 12px 10px auto;
-  }
-
-  .maker-photo-comparison-labels span {
-    padding-inline: 6px;
-    font-size: 8px;
-  }
-
   .maker-photo-caption h3 {
     font-size: 20px;
   }
@@ -279,15 +152,6 @@
   .maker-photo-grid {
     grid-template-columns: 1fr;
     gap: 34px;
-  }
-
-  .maker-photo-comparison-labels {
-    inset: 16px 16px auto;
-  }
-
-  .maker-photo-comparison-labels span {
-    padding-inline: 9px;
-    font-size: 10px;
   }
 
   .maker-photo-footer {

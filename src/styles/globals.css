@@ -7,6 +7,16 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Profile photos retain their full frame in the shared avatar slot. */
+[data-slot='avatar-image'] {
+  border-radius: 0;
+  object-fit: contain;
+  padding: 2px;
+}
+[data-slot='avatar']:has(> [data-slot='avatar-image'])::after {
+  border-radius: var(--radius-sm);
+}
+
 /* The brand pair is self-hosted through the root route. Appearance presets
    can still override these defaults when an administrator enables them. */
 :root {

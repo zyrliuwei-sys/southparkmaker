@@ -50,16 +50,6 @@
   font-weight: 500;
   color: var(--muted-foreground);
 }
-.character-art {
-  overflow: hidden;
-  width: 100%;
-  aspect-ratio: 1;
-}
-.character-art > svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
 .character-main-preview {
   overflow: hidden;
   border-radius: 12px;
@@ -236,8 +226,8 @@
   border-radius: 6px;
 }
 .character-choice-preview .character-art {
-  transform: scale(1.6);
-  transform-origin: 50% 20%;
+  height: 100%;
+  aspect-ratio: auto;
 }
 .character-choice-check {
   position: absolute;
@@ -281,10 +271,6 @@
   width: 100%;
   height: auto;
   aspect-ratio: 1.8;
-}
-.character-background-options .character-choice-preview .character-art {
-  transform: none;
-  margin-top: -15%;
 }
 .character-background-note {
   color: var(--muted-foreground);

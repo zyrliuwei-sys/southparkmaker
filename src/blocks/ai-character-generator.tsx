@@ -582,6 +582,11 @@ export function AICharacterGenerator({
             >
               {c(resultImage ? 'photo_result' : 'preview_title')}
             </h2>
+            {!resultImage && !busy && (
+              <span className="maker-ai-example-label">
+                {c('example_preview')}
+              </span>
+            )}
             {referenceForResult && (
               <div className="maker-ai-reference">
                 <img src={referenceForResult} alt={c('reference_alt')} />
@@ -601,20 +606,13 @@ export function AICharacterGenerator({
                 <p>{c('creating_description')}</p>
               </div>
             ) : (
-              <>
-                <img
-                  src={
-                    resultImage ??
-                    '/imgs/generated/seedream-character-example.jpg'
-                  }
-                  alt={resultImage ? c('result_alt') : ''}
-                />
-                {!resultImage && (
-                  <span className="maker-ai-example-label">
-                    {c('example_preview')}
-                  </span>
-                )}
-              </>
+              <img
+                src={
+                  resultImage ??
+                  '/imgs/generated/seedream-character-example.jpg'
+                }
+                alt={resultImage ? c('result_alt') : ''}
+              />
             )}
           </div>
           {result && resultImage && (

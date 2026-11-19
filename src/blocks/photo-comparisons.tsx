@@ -1,4 +1,4 @@
-import { ArrowUpRight, MoveHorizontal } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 import { Link } from '@/core/i18n/navigation';
 import { m } from '@/paraglide/messages.js';
@@ -17,7 +17,6 @@ export function PhotoComparisons() {
       description: m['maker.comparisons.purple_description'](),
       beforeAlt: m['maker.comparisons.purple_before_alt'](),
       afterAlt: m['maker.comparisons.purple_after_alt'](),
-      objectPosition: '45% center',
     },
     {
       id: 'yellow-beanie',
@@ -25,7 +24,6 @@ export function PhotoComparisons() {
       description: m['maker.comparisons.yellow_description'](),
       beforeAlt: m['maker.comparisons.yellow_before_alt'](),
       afterAlt: m['maker.comparisons.yellow_after_alt'](),
-      objectPosition: 'center',
     },
     {
       id: 'orange-shirt',
@@ -33,7 +31,6 @@ export function PhotoComparisons() {
       description: m['maker.comparisons.orange_description'](),
       beforeAlt: m['maker.comparisons.orange_before_alt'](),
       afterAlt: m['maker.comparisons.orange_after_alt'](),
-      objectPosition: 'center',
     },
   ];
 
@@ -55,13 +52,6 @@ export function PhotoComparisons() {
           </div>
           <div className="maker-photo-intro">
             <p>{m['maker.comparisons.description']()}</p>
-            <p
-              id="photo-comparison-instructions"
-              className="maker-photo-instructions"
-            >
-              <MoveHorizontal size={16} aria-hidden="true" />
-              {m['maker.comparisons.instructions']()}
-            </p>
           </div>
         </div>
 
@@ -72,7 +62,6 @@ export function PhotoComparisons() {
                 before={{
                   src: `/imgs/comparisons/${example.id}-photo.jpg`,
                   alt: example.beforeAlt,
-                  objectPosition: example.objectPosition,
                 }}
                 after={{
                   src: `/imgs/comparisons/${example.id}-cartoon.jpg`,
@@ -80,10 +69,6 @@ export function PhotoComparisons() {
                 }}
                 beforeLabel={m['maker.comparisons.before']()}
                 afterLabel={m['maker.comparisons.after']()}
-                sliderLabel={m['maker.comparisons.slider_label']({
-                  name: example.title,
-                })}
-                instructionsId="photo-comparison-instructions"
               />
               <figcaption className="maker-photo-caption">
                 <span className="maker-photo-number" aria-hidden="true">

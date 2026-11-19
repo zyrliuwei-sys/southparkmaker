@@ -89,7 +89,7 @@ function AttachmentGrid({ urls }: { urls: string[] }) {
           <img
             src={url}
             alt=""
-            className="border-border size-16 rounded-md border object-cover transition-opacity hover:opacity-80"
+            className="border-border bg-muted size-16 rounded-md border object-contain p-1 transition-opacity hover:opacity-80"
           />
         </a>
       ))}

@@ -172,8 +172,7 @@
   width: 42px;
   height: 42px;
   flex: none;
-  border-radius: 8px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .maker-ai-remove-photo {
@@ -316,9 +315,6 @@
 }
 
 .maker-ai-example-label {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
   padding: 4px 8px;
   border: 1px solid var(--mk-hair);
   border-radius: 6px;

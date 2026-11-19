@@ -12,7 +12,7 @@ smaller. The section uses lazy loading and requires no external image host.
 
 | Pair           | Original photo                                                                                                                                                                 | Cartoon asset                |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------- |
-| Purple glasses | Image supplied by the user in this chat; copied to `purple-glasses-photo.jpg`. The portrait frame crops out the screenshot controls using CSS.                                 | `purple-glasses-cartoon.jpg` |
+| Purple glasses | Screenshot supplied by the user, saved as `purple-glasses-photo.jpg`. The image includes the original screenshot controls.                                                     | `purple-glasses-cartoon.jpg` |
 | Yellow beanie  | [Dmitrii Eremin on Pexels](https://www.pexels.com/photo/man-in-warm-clothing-15741454/), downloaded 2026-11-14 as `yellow-beanie-photo.jpg`.                                   | `yellow-beanie-cartoon.jpg`  |
 | Orange shirt   | [Alejandro Quiñonez on Pexels](https://www.pexels.com/photo/portrait-of-woman-in-eyeglasses-and-with-curly-hair-17110433/), downloaded 2026-11-14 as `orange-shirt-photo.jpg`. | `orange-shirt-cartoon.jpg`   |
 
@@ -47,13 +47,10 @@ text, UI, split views, checkerboards or watermarks.
   button-up over a black top, necklace, hand lifted beside the hair and calm
   smile. Simplify the beige stone street backdrop; leave room around the hair.
 
-## Interaction
+## Display
 
-Each comparison uses a native range input over two complete images. Its value
-controls a CSS clipping boundary, keeping both images the same size during a
-drag. Mouse, touch and keyboard controls use the same input; the component
-shows a visible focus outline. `Home` and `End` reveal the complete after/before
-image. Vertical touch scrolling is preserved.
+Each comparison displays two labeled images side by side. Both images fit
+inside equal frames and keep their original aspect ratio.
 
 Product strings and image descriptions live only in `messages/en.json` under
 `maker.comparisons.*`.

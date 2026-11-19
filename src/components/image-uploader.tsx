@@ -466,55 +466,45 @@ export function ImageUploader({
 
       <div
         className={cn(
-          'flex flex-wrap gap-4',
+          'flex flex-wrap items-start gap-4',
           allowMultiple ? 'flex-wrap' : 'flex-nowrap'
         )}
       >
         {items.map((item) => (
           <div
             key={item.id}
-            className="group border-border bg-muted/50 hover:border-border hover:bg-muted relative overflow-hidden rounded-xl border p-1 shadow-sm transition"
+            className="border-border bg-muted/50 hover:bg-muted rounded-xl border p-1 shadow-sm transition"
           >
-            <div className="relative overflow-hidden rounded-lg">
-              <img
-                src={item.preview}
-                alt="Preview"
-                className="h-32 w-32 rounded-lg object-cover"
-              />
-              {item.size && (
-                <span className="bg-background text-muted-foreground absolute bottom-2 left-2 rounded-md px-2 py-1 text-[10px] font-medium">
-                  {formatBytes(item.size)}
-                </span>
-              )}
+            <img
+              src={item.preview}
+              alt="Preview"
+              className="bg-muted size-32 rounded-lg object-contain p-1"
+            />
+            <div className="flex w-32 items-center justify-end gap-1 pt-1">
+              <span className="text-muted-foreground mr-auto min-w-0 truncate pl-1 text-[10px] font-medium">
+                {item.status === 'uploading'
+                  ? 'Uploading...'
+                  : item.status === 'error'
+                    ? 'Failed'
+                    : item.size && formatBytes(item.size)}
+              </span>
               {item.status !== 'uploading' && (
-                <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/35 opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100">
-                  <Button
-                    type="button"
-                    size="icon"
-                    variant="secondary"
-                    className="bg-background/50 text-foreground hover:bg-background/50 h-10 w-10 rounded-full shadow-sm backdrop-blur focus-visible:ring-2 focus-visible:ring-white/70"
-                    onClick={() => openReplacePicker(item.id)}
-                    aria-label="Replace image"
-                  >
-                    <RefreshCw className="h-5 w-5" />
-                  </Button>
-                </div>
-              )}
-              {item.status === 'uploading' && (
-                <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/60 text-xs font-medium text-white">
-                  Uploading...
-                </div>
-              )}
-              {item.status === 'error' && (
-                <div className="absolute inset-0 z-10 flex items-center justify-center bg-red-500/70 text-xs font-medium text-white">
-                  Failed
-                </div>
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="secondary"
+                  className="size-7 shrink-0"
+                  onClick={() => openReplacePicker(item.id)}
+                  aria-label="Replace image"
+                >
+                  <RefreshCw className="size-4" />
+                </Button>
               )}
               <Button
                 type="button"
                 size="icon"
                 variant="destructive"
-                className="absolute top-2 right-2 z-20 h-7 w-7"
+                className="size-7 shrink-0"
                 onClick={() => handleRemove(item.id)}
                 aria-label="Remove image"
               >

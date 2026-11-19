@@ -254,7 +254,7 @@ function BlogPostPage() {
                       alt={post.authorName || ''}
                       width={20}
                       height={20}
-                      className="size-5 rounded-full object-cover"
+                      className="size-5 object-contain"
                     />
                   )}
                   {post.authorName}
@@ -271,7 +271,7 @@ function BlogPostPage() {
             <img
               src={post.image}
               alt={post.title}
-              className="border-border mb-8 w-full rounded-2xl border object-cover"
+              className="border-border bg-muted mb-8 h-auto w-full rounded-2xl border p-2"
             />
           )}
 
