@@ -12,6 +12,8 @@ import { baseLocale } from '@/paraglide/runtime.js';
  * local posts via the pure helpers below.
  */
 export const BLOG_POST_SLUGS = [
+  'south-park-character-designer',
+  'south-park-oc-maker',
   'south-park-teenager-maker',
   'making-south-park-characters',
   'south-park-creator-guide',
